@@ -1,0 +1,5 @@
+[submodule "pure"]
+    path = theme
+    url = https://github.com/PurePelicanTheme/pure
+    branch = master
+
