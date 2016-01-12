@@ -5,6 +5,5 @@
 
 [submodule "pure"]
     path = theme
-    url = https://github.com/PurePelicanTheme/pure.git
+    url = https://github.com/mazulo/pure.git
     branch = master
-
