@@ -3,11 +3,11 @@ branches:
   - pelican
 language: python
 python:
-- "3.4"
+  - "3.4"
 install:
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
 script:
-- make publish
+  - make publish
 notifications:
   email:
     on_success: never
@@ -16,5 +16,5 @@ env:
   global:
     secure: s9/kY1v7m2JT6WwWPhgzxV807nKNGj5rDYjVQQ32rsWYqK9tdLc25FaLUhAto1Bw6C6KVES2PqaUhQ+pU3883ALr/0cvHgqdjNc225VAtNLBX0p2LOiQd4NAteCg8gSvussKqrRNMhilULakF6TPpFcdVjgDUUAsfGcjl1kuTY6oeA3DfPQodM1EpixRi1CpBMrKAwJ2lwWVk6P3rZfdXcFz86dG/Ky4yFo4/ReYhWOTm3Hx4GaRSAaYc9cjVDO6sCizmnipEhc0mvsrGapVcJmEPdWamqUpWaR9K/geYAeV4513GDQqlfLBaGO1UBTpjRkQHwjAXXsiZeX7PWmR/eb5BvuTjyr/SBuO/wcOSZhXi6es2/AmIlBw0er888sQFJ03hHPQ+sRhsn/71ie0ieyQoEM272o8yWpjFaWP+eEdv3UTrQUXM39xoCjESfhjgzDYUicIA+WVp/IbSMnQAtQbbU96BTxRrbaAL/yaNhJ84IyKHnx/lkBgaOkKQBsZPaWqPuXJNk4lfdla1L2Mvn++onNzOYuB5qiMoV9oygFju1IlCywaV9zNO9JNmru4Z6BSLzklVDHvHZSovOD+I+Tz4Rvf7mYbOxtqMb9HL/zSrVkX8627i5qgsEgW6TOESNLK5R7YB4v0eV/+TdXH0WxQBINdZmBOuIZEiqVKv/Y=
 before_install:
-- git submodule update --init --recursive
+  - git submodule update --init --recursive
 after_success: bash deploy.sh
