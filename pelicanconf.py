@@ -38,3 +38,6 @@ DEFAULT_PAGINATION = 10
 
 
 THEME = 'theme'
+
+
+STATIC_PATHS = ['images', 'extras/CNAME']
