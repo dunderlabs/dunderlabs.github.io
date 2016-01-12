@@ -168,7 +168,7 @@ curto, na verdade podemos dizer que ele nunca acaba, porque você sempre
 vai estar estudando sobre alguma coisa relacionada a web. Então dê-se o
 tempo necessário até que você pegue no gancho, e comece e realmente
 sentir as coisas fluindo. Pode ser bem complicado no começo, mas posso
-lhe dizer que com o tempo só tende a melhorar :) Bons estudos!&lt;/p&gt;</summary></entry><entry><title>Classes e Objetos I</title><link href="https://dunderlabs.github.io/classes-e-objetos-i.html" rel="alternate"></link><updated>2015-03-16T11:58:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-03-16:classes-e-objetos-i.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos para a imagem" src="{filename}/images/python-model.png" /&gt;
+lhe dizer que com o tempo só tende a melhorar :) Bons estudos!&lt;/p&gt;</summary></entry><entry><title>Classes e Objetos I</title><link href="https://dunderlabs.github.io/classes-e-objetos-i.html" rel="alternate"></link><updated>2015-03-16T11:58:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-03-16:classes-e-objetos-i.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos para a imagem" src="https://dunderlabs.github.io/images/posts/python-model.png" /&gt;
 Créditos para a imagem: http://blog.invisivel.net/2012/04/10/pythons-object-model-explained/&lt;/p&gt;
 &lt;p&gt;Em Python, tudo é um objeto. Classes fornecem o mecanismo para criar novos tipos de objetos. Neste tutorial, nós vamos deixar um pouco de lado o básico de classes e programação orientada a objetos e focaremos em tópicos que proveem um melhor entendimento deste paradigma de programação em Python. É assumido que nós estamos lidando com um novo estilo de classes. Existem classes Python que herdam da super classe &lt;em&gt;object&lt;/em&gt;.
 Definindo Classes&lt;/p&gt;
@@ -752,8 +752,8 @@ comentários qualquer possível melhoria que eu editarei o post :)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://docs.python.org/3/reference/datamodel.html#"&gt;Python Data Model&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html"&gt;Clique aqui para voltar para a tabela de conteúdo.&lt;/a&gt;&lt;/p&gt;</summary></entry><entry><title>Funções Python II: decorators</title><link href="https://dunderlabs.github.io/funcoes-python-ii-decorators.html" rel="alternate"></link><updated>2015-02-18T12:38:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-02-18:funcoes-python-ii-decorators.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="{filename}/images/DecoratorsVisuallyExplained.png" /&gt;
-Créditos da imagem: https://www.freshbooks.com/developers/blog/logging-actions-with-python-decorators-part-i-decorating-logged-functions&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html"&gt;Clique aqui para voltar para a tabela de conteúdo.&lt;/a&gt;&lt;/p&gt;</summary></entry><entry><title>Funções Python II: decorators</title><link href="https://dunderlabs.github.io/funcoes-python-ii-decorators.html" rel="alternate"></link><updated>2015-02-18T12:38:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-02-18:funcoes-python-ii-decorators.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/DecoratorsVisuallyExplained.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Créditos da imagem: https://www.freshbooks.com/developers/blog/logging-actions-with-python-decorators-part-i-decorating-logged-functions&lt;/p&gt;
 &lt;p&gt;Decoradores de função (&lt;em&gt;Function Decorators&lt;/em&gt;) habilitam a adição de nova
 funcionalidade para a função sem alterar a funcionalidade original dela.
 Antes de ler esse post, é importante que você tenha lido e entendido o a
@@ -1138,8 +1138,8 @@ fornecerá visão prática para o uso de decorators Python.&lt;/p&gt;
 &lt;li&gt;&lt;a href="https://www.python.org/dev/peps/pep-0318/"&gt;PEP 318 - Decorators for Functions and Methods&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/1594484#1594484"&gt;StackOverflow&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html"&gt;Clique aqui para voltar para a tabela de conteúdo.&lt;/a&gt;&lt;/p&gt;</summary></entry><entry><title>Funções Python</title><link href="https://dunderlabs.github.io/funcoes-python.html" rel="alternate"></link><updated>2015-02-11T13:15:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-02-11:funcoes-python.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="{filename}/images/how_functions_work.jpg" /&gt;
-Créditos da imagem: http://teaching.software-carpentry.org/2012/10/30/round-2-1-how-functions-work/&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html"&gt;Clique aqui para voltar para a tabela de conteúdo.&lt;/a&gt;&lt;/p&gt;</summary></entry><entry><title>Funções Python</title><link href="https://dunderlabs.github.io/funcoes-python.html" rel="alternate"></link><updated>2015-02-11T13:15:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-02-11:funcoes-python.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/python_function_syntax.png" /&gt;
+Créditos da imagem: http://www.voidspace.org.uk/python/weblog/arch_Tools.shtml&lt;/p&gt;
 &lt;p&gt;Funções Python nomeadas ou &lt;em&gt;anônimas&lt;/em&gt; são um conjunto de declarações ou
 expressões. Em Python, &lt;strong&gt;&lt;em&gt;funções são objetos de primeira classe&lt;/em&gt;&lt;/strong&gt;.
 Isso significa que não há restrição no uso de funções. Funções python
@@ -1792,7 +1792,7 @@ funcionalidade amplamente usada que está explicada no próximo tutorial.&lt;/p&
 &lt;p&gt;&lt;a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html"&gt;Clique aqui para voltar para a tabela de conteúdo.&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;N.T: Pessoal, tive uma certa dificuldade ao traduzir este capítulo da
 série. Então gostaria de contar com o feedback de vocês nos comentários
-para saber se conseguiram entender o que foi proposto :D&lt;/p&gt;</summary></entry><entry><title>Introdução ao Python Generators</title><link href="https://dunderlabs.github.io/introducao-ao-python-generators.html" rel="alternate"></link><updated>2015-02-04T12:16:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-02-04:introducao-ao-python-generators.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="{filename}/images/relationships-generator-iterator-edit.png" /&gt;
+para saber se conseguiram entender o que foi proposto :D&lt;/p&gt;</summary></entry><entry><title>Introdução ao Python Generators</title><link href="https://dunderlabs.github.io/introducao-ao-python-generators.html" rel="alternate"></link><updated>2015-02-04T12:16:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-02-04:introducao-ao-python-generators.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/relationships-generator-iterator.png" /&gt;
 Créditos da imagem: http://nvie.com/posts/iterators-vs-generators/&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Geradores&lt;/em&gt; (&lt;em&gt;generators&lt;/em&gt;) é um conceito muito fascinante em Python;
 &lt;em&gt;geradores&lt;/em&gt; tem uma ampla gama de aplicações, que vai desde simples
@@ -2170,8 +2170,8 @@ bem como alguns usos avançados de geradores.&lt;/p&gt;
 &lt;li&gt;&lt;a href="https://docs.python.org/2/tutorial/classes.html#generator-expressions"&gt;Python Tutorials - Generator Expressions&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://docs.python.org/2/tutorial/classes.html#iterators"&gt;Python Tutorials - Iterators&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html"&gt;Clique aqui para voltar para a tabela de conteúdo.&lt;/a&gt;&lt;/p&gt;</summary></entry><entry><title>Python Comprehensions</title><link href="https://dunderlabs.github.io/python-comprehensions.html" rel="alternate"></link><updated>2015-01-30T02:25:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-01-30:python-comprehensions.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="{filename}/images/list1.jpg" /&gt;
-Créditos da imagem: https://datasciencelab.wordpress.com/2014/01/08/list-comprehension-in-python/&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html"&gt;Clique aqui para voltar para a tabela de conteúdo.&lt;/a&gt;&lt;/p&gt;</summary></entry><entry><title>Python Comprehensions</title><link href="https://dunderlabs.github.io/python-comprehensions.html" rel="alternate"></link><updated>2015-01-30T02:25:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-01-30:python-comprehensions.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/list1.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;Créditos da imagem: https://datasciencelab.wordpress.com/2014/01/08/list-comprehension-in-python/&lt;/p&gt;
 &lt;p&gt;Python comprehensions são construções sintáticas que permitem que
 sequências sejam construídas a partir de outras sequências de forma
 clara e concisa. Existem três tipo de Python comprehensions:&lt;/p&gt;
