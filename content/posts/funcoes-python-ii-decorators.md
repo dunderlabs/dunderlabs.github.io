@@ -5,7 +5,8 @@ slug: funcoes-python-ii-decorators
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
-![Créditos da imagem]({filename}/images/DecoratorsVisuallyExplained.png)
+![Créditos da imagem]({filename}/images/posts/DecoratorsVisuallyExplained.png)
+
 Créditos da imagem: https://www.freshbooks.com/developers/blog/logging-actions-with-python-decorators-part-i-decorating-logged-functions
 
 Decoradores de função (*Function Decorators*) habilitam a adição de nova

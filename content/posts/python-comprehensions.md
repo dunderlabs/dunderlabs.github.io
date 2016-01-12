@@ -5,7 +5,8 @@ slug: python-comprehensions
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
-![Créditos da imagem]({filename}/images/list1.jpg)
+![Créditos da imagem]({filename}/images/posts/list1.jpg)
+
 Créditos da imagem: https://datasciencelab.wordpress.com/2014/01/08/list-comprehension-in-python/
 
 Python comprehensions são construções sintáticas que permitem que

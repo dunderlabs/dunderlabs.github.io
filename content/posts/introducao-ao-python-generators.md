@@ -5,7 +5,7 @@ slug: introducao-ao-python-generators
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
-![Créditos da imagem]({filename}/images/relationships-generator-iterator-edit.png)
+![Créditos da imagem]({filename}/images/posts/relationships-generator-iterator.png)
 Créditos da imagem: http://nvie.com/posts/iterators-vs-generators/
 
 *Geradores* (*generators*) é um conceito muito fascinante em Python;

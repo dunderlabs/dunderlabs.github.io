@@ -5,8 +5,8 @@ slug: funcoes-python
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
-![Créditos da imagem]({filename}/images/how_functions_work.jpg)
-Créditos da imagem: http://teaching.software-carpentry.org/2012/10/30/round-2-1-how-functions-work/
+![Créditos da imagem]({filename}/images/posts/python_function_syntax.png)
+Créditos da imagem: http://www.voidspace.org.uk/python/weblog/arch_Tools.shtml
 
 Funções Python nomeadas ou *anônimas* são um conjunto de declarações ou
 expressões. Em Python, ***funções são objetos de primeira classe***.

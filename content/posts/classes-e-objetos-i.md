@@ -5,7 +5,7 @@ slug: classes-e-objetos-i
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
-![Créditos para a imagem]({filename}/images/python-model.png)
+![Créditos para a imagem]({filename}/images/posts/python-model.png)
 Créditos para a imagem: http://blog.invisivel.net/2012/04/10/pythons-object-model-explained/
 
 Em Python, tudo é um objeto. Classes fornecem o mecanismo para criar novos tipos de objetos. Neste tutorial, nós vamos deixar um pouco de lado o básico de classes e programação orientada a objetos e focaremos em tópicos que proveem um melhor entendimento deste paradigma de programação em Python. É assumido que nós estamos lidando com um novo estilo de classes. Existem classes Python que herdam da super classe *object*.

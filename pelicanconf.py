@@ -36,6 +36,10 @@ SOCIAL = (
 
 DEFAULT_PAGINATION = 10
 
+MENUITEMS = (
+    ('Pythonista Intermediário', 'pages/pythonista-intermediario'),
+)
+
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
 
