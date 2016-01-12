@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/web.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2015-03-17T14:13:00-03:00</updated><entry><title>O caminho do desenvolvedor web Python</title><link href="https://dunderlabs.github.io/o-caminho-do-desenvolvedor-web-python.html" rel="alternate"></link><updated>2015-03-17T14:13:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-03-17:o-caminho-do-desenvolvedor-web-python.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/dev_way2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Créditos da imagem: http://brianmcdonnell.github.io/pycon_ie_2013/#/&lt;/p&gt;
+&lt;p&gt;Do começo do ano passado para cá, acabei ficando bem ativo no
+grupo Python Brasil do Facebook, sempre compartilhando coisas legais que
+eu encontrava pela internet, e/ou respondendo perguntas que eu poderia
+ajudar. Nesse meio tempo, uma das perguntas mais recorrentes que eu
+tenho visto tem sido esta: &lt;strong&gt;O que eu devo fazer/estudar para
+desenvolver para web com Python?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Numa das últimas vezes que eu vi uma dessas, eu acabei comentando (com
+textão hahaha) a minha opinião acerca deste assunto, sobre qual seria
+uma boa via para seguir. Mas pelo fato de, como falei anteriormente,
+esta pergunta ser recorrente ~~e porque o comentário ficou enorme,~~ e o
+Facebook ter um fluxo alto de threads fazendo com que perguntas fiquem
+lá atrás rapidamente, eu resolvi transformar em um post.&lt;/p&gt;
+&lt;p&gt;Aqui eu colocarei minha opinião, claro. E como tal é passível de
+críticas. Logicamente que você pode não concordar com alguma parte, ou
+por completo, ou quem sabe achar tudo bacana e querer testar. Mas, os
+comentários estão ali pra isso :p deixe sua opinião sobre como foi pra
+você caminhar por este percurso, ou o que achou das dicas ;)&lt;/p&gt;
+&lt;p&gt;Sem mais delongas, vamos lá!&lt;/p&gt;
+&lt;p&gt;Em algumas muitas vezes, esta pergunta sobre ser um desenvolvedor web
+Python sempre vem acompanhada com alguma outra, como web e jogos, ou web
+e desktop. Sobre isso, eu tenho o seguinte a falar:&lt;/p&gt;
+&lt;p&gt;Primeiramente, eu lhe dou a dica de ver suas prioridades e objetivos.
+Por exemplo, qual seu objetivo para aprender games com Python? Diversão?
+Realmente se especializar e tentar fazer dele algo rentável e trabalhar
+realmente neste ramo? Cada uma dessas áreas, jogos, web, destops e etc
+requerem uma GRANDE quantidade de tempo, esforço e dedicação. Mas nada
+lhe impede de estudá-las em simultâneo, porém, lhe dou a seguinte dica:
+veja qual sua prioridade. Quer trabalhar e ganhar dinheiro com web? Pois
+foque a maior parte do tempo em estudar isso, e uma pequena parcela do
+tempo estudando jogos, para diversão. E assim vice-versa.&lt;/p&gt;
+&lt;p&gt;Mas, levando em consideração o intuito de ser desenvolvedor web Python,
+vamos falar agora sobre isso.&lt;/p&gt;
+&lt;p&gt;Antes de tudo, tenha certeza de realmente conhecer Python, e não só
+saber as coisas superficiais: "while, for, funções, objetos e etc". Mas
+sim saber como cada uma dessas coisas funcionam. O que é uma função?
+Como ela funciona? E objetos? O que acontece em um for? O que são
+realmente classes? E metaclass?&lt;br /&gt;
+Para isso, você pode contar com uma série de livros que podem lhe
+ajudar. Entre eles tem o &lt;a href="http://www.diveintopython3.net/"&gt;Dive into Python
+3&lt;/a&gt;, (disponíve online), onde você vai
+aprender muita coisa bacana sobre Python. Conheço muitos bons devs
+Python que começaram lendo esse livro. Temos também o &lt;a href="http://shop.oreilly.com/product/0636920027072.do"&gt;Python 3
+Cookbook&lt;/a&gt; (compra
+online), onde você vai poder aprofundar tudo que aprendeu no livro
+anterior. Aqui no blog também temos materiais sobre Python, incluindo
+uma série que estamos traduzindo que falam sobre o funcionamento de
+algumas coisas da linguagem. &lt;a href="http://indacode.com/pythonista-intermediario/"&gt;Dá uma conferida lá
+também&lt;/a&gt;. Além desses,
+existem diversos outros livros e materiais que você pode usar, como o
+curso &lt;a href="http://pycursos.com/python-para-zumbis/"&gt;Python para Zombies&lt;/a&gt;,
+ministrado pelo professor Fernando Massanori (eu fiz esse curso, e achei
+super bacana!). Existem ótimos blogs que contam com ótimos materiais,
+como o &lt;a href="http://pythonclub.com.br/"&gt;Python Club&lt;/a&gt; e o &lt;a href="http://programeempython.blog.br/"&gt;Programe em
+Python&lt;/a&gt;, dentre vários outros (sério,
+são muitos).&lt;/p&gt;
+&lt;p&gt;Claro que você não precisa ser um Guido Van Hossum, o modaFuckingFoda em
+Python. Mas ter real conhecimento sobre a linguagem vai lhe ajudar
+muito. Esse é o diferencial de um bom programador para um cara que só
+programa. Beleza, mas para que vai servir isso?&lt;/p&gt;
+&lt;p&gt;Mas sempre vem a(s) pergunta(s): Mas pra que estudar Python antes? Eu
+não posso já começar a estudar o framework e aprender durante esse
+estudo? Sim, pode. porém tendo esse conhecimento prévio da linguagem,
+vai ficar muito mais fácil entender o funcionamento dos frameworks web.
+Falo isso por experiência própria. Se parar pra pensar, os frameworks
+com os quais você vai trabalhar são feitos em que linguagem? Python.
+Então, como você vai poder usar todo o potencial do framework se não
+souber bem a linguagem em que ele foi feita? É como querer construir um
+carro sem conhecer as ferramentas necessárias para tal. Pode até
+funcionar, mas o nível de código macarrônico/gambiarra pode ser muito
+grande.&lt;/p&gt;
+&lt;p&gt;Finalizando essa parte do Python, eu aconselho que você estude também
+sobre conceitos web. O que é HTTP? E HTTPS? o que é uma request? E
+response? O que é um server e client? Como eles interagem? Saber dessas
+coisas é mais do que essencial, porque afinal você vai estar lidando com
+web, né?&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Créditos da imagem" src="{filename}/images/dev_way3.jpg" /&gt;
+Créditos da imagem: http://pt.slideshare.net/ricobl/python-e-django-na-globocom&lt;/p&gt;
+&lt;p&gt;Bom, agora chega a hora de escolher qual framework. E essa é a parte
+complicada da história, causa de infinitas flamewars na comunidade.
+Existem diversos frameworks web Python, mas alguns acabam se destacando
+entre os outros. Entre eles podemos citar: Django, Web2Py, Flask e
+Bottle. Cada um tendo suas particularidades, prós e contras. Vamos falar
+um pouco sobre alguns.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://flask.pocoo.org/docs/0.10/"&gt;Flask&lt;/a&gt;: é um leve framework web
+    criado pelo austríaco &lt;a href="https://github.com/mitsuhiko" title="Perfil GitHub"&gt;Armin
+    Ronacher&lt;/a&gt;, baseado no
+    kit WSGI e Jinja2 na engine de templates. Flask é bem simples de
+    iniciar, uma vez que em um único arquivo você pode criar um "Hello
+    World" (que em outros frameworks poderiam levar mais código). Não
+    mostrarei exemplos de código aqui, mas você pode ver estes 2
+    tutoriais que mostram exemplos práticos de criação de webapps com
+    Flask
+    (&lt;a href="https://stormpath.com/blog/build-a-flask-app-in-30-minutes/"&gt;aqui&lt;/a&gt;
+    e
+    &lt;a href="https://realpython.com/blog/python/python-web-applications-with-flask-part-i/"&gt;aqui&lt;/a&gt;,
+    e neste &lt;a href="http://mitsuhiko.pocoo.org/flask-pycon-2011.pdf"&gt;link&lt;/a&gt; você
+    pode ler um slide do criador sobre o porque de ter criado Flask).&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com"&gt;Django&lt;/a&gt;: nasceu no outono de 2003,
+    quando 2 programadores (Adrian Holovaty e Simon Willison) web do
+    jornal Lawrence Journal-World começaram a usar Python para construir
+    aplicações web. Ele foi lançado publicamente em 2005. Em junho de
+    2008 foi formada a DSF (Django Software Foundation), que seria
+    responsável por manter o Django dali em diante. Ele é amplamente
+    usado no desenvolvimento web, e muito conhecido por suas "baterias
+    inclusas", que são funcionalidades comuns no desenvolvimento web (
+    authentication, URL routing, a sistema de template, um ORM e etc).
+    Possui uma ótima documentação e comunidade, tanto quanto materiais
+    de aprendizado. Dentre eles destaco o curso do Allisson de Azevedo,
+    &lt;a href="https://www.youtube.com/playlist?list=PLfkVgm8720kzm6fmTekjtKyFcppyD4Ubd"&gt;Django para iniciantes&lt;/a&gt;,
+    e o livro online &lt;a href="www.tangowithdjango.com/book17/"&gt;Tango with Django&lt;/a&gt;, bem como a própria
+    documentação do framework.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.web2py.com/init/default/documentation"&gt;Web2Py&lt;/a&gt;: criado
+    por uma comunidade de profissionais e professores do curso de
+    Ciência da Computação na DePaul University, em Chicago, tendo como
+    desenvolvedor lider Massimo DiPierro. Web2py foi originalmente
+    projetado como uma ferramenta de ensino, com ênfase no fácil uso
+    e desenvolvimento. Seu design foi inspirado no Ruby on Rails (e no
+    Django), que é focado no rápido desenvolvimento e permite o design
+    MVC (model-view-controller). Ele é menos verboso e sua sintaxe muito
+    clara, o que torna a construção de webapps muito fácil; e também vem
+    com algumas baterias inclusas, para algumas funcionalidades.
+    &lt;a href="https://www.youtube.com/watch?v=6h73Tkco4pY"&gt;Aqui&lt;/a&gt; você vai
+    encontrar um vídeo do Bruno Rocha falando sobre o desenvolvimento
+    com web2py. E
+    &lt;a href="http://pycursos.com/desenvolvimento-agil-para-web-com-web2py/"&gt;aqui&lt;/a&gt;
+    você vai encontrar um curso (pago) pela PyCursos, da incrível
+    Júlia Rizza. Super recomendo!&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Agora eu irei focar em um deles, que no caso será o que eu estou
+atualmente estudando.&lt;/p&gt;
+&lt;p&gt;O 1ª framework que usei e tive contato foi o Django. Para aprender
+Django, como falei antes e mostrei 1/3 da ponta do iceberg nos links,
+nós temos &lt;strong&gt;MUITOS&lt;/strong&gt; materiais sobre Django. Diversos livros e vídeo
+aulas podem ser encontrados. No youtube você vai encontrar MUITAS aulas
+sobre Django. Em pt-br tem alguns hangouts dos episódios do Mutirão
+Python que falam sobre desenvolvimento web com Django; e você encontrará
+muitos bons cursos em inglês (como
+&lt;a href="https://www.youtube.com/playlist?list=PLEsfXFp6DpzT5veidCTZ1mQriBX0Mu2LF"&gt;este&lt;/a&gt; e
+&lt;a href="https://www.youtube.com/playlist?list=PLEsfXFp6DpzRgedo9IzmcpXYoSeDg29Tx"&gt;este&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Sobre livros eu recomendo:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pro Django (inglês). Estou lendo ele atualmente, e é realmente muito
+    bom! Ele inicia explicando conceitos do funcionamento da
+    linguagem Python. Conceitos esses que são usados dentro
+    do framework. Após assistir as aulas do Allisson, você poderia
+    partir para esse livro aqui. E ao finalizar este, poderia passar
+    para este outro chamado;&lt;/li&gt;
+&lt;li&gt;Lightweight Django (inglês), que cobre a versão mais nova, 1.7.
+    Porém esse é um pouco mais avançado.&lt;/li&gt;
+&lt;li&gt;&lt;a href="www.tangowithdjango.com/book17/"&gt;Tango with Django&lt;/a&gt; (inglês bem
+    simples): um livro online onde você estuda Django construindo
+    uma aplicação.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Em acompanhamento aos estudos, crie um projeto e vá implementando de
+acordo com o conhecimento que vai adquirindo. Pode ser qualquer coisa,
+um sistema de cadastro de usuários, agenda de contatos, QUALQUER coisa.
+Mas o importante é praticar todo santo dia. Ao finalizar essa timeline,
+creio que você já estará em ótimas condições de conhecimento sobre web.
+E a partir daí, já vai saber lidar com futuros desafios que encontrar
+pela frente.&lt;/p&gt;
+&lt;p&gt;Bom, após tudo isso cabe a você agora testar cada dica e ver com qual
+framework você se identificou mais. Lembre-se que esse caminho não é
+curto, na verdade podemos dizer que ele nunca acaba, porque você sempre
+vai estar estudando sobre alguma coisa relacionada a web. Então dê-se o
+tempo necessário até que você pegue no gancho, e comece e realmente
+sentir as coisas fluindo. Pode ser bem complicado no começo, mas posso
+lhe dizer que com o tempo só tende a melhorar :) Bons estudos!&lt;/p&gt;</summary><category term="python"></category><category term="web"></category><category term="web development"></category></entry></feed>
