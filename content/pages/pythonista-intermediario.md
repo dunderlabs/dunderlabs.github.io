@@ -6,7 +6,8 @@ about_author: My name is Patrick and I'm a web developer who fell in love with P
 slug: pythonista-intermediario
 status: published
 
-![Créditos da imagem]({filename}/images/python-intermediate.jpg)
+![Créditos da imagem]({filename}/images/pages/python-intermediate.jpg)
+
 Créditos da imagem: http://cgninjas.ru/workshop/python-intermediate
 
 Aqui vamos dar início a primeira série de posts do blog
