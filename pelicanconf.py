@@ -42,3 +42,11 @@ STATIC_PATHS = ['images', 'extra/CNAME']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
 
 THEME = 'theme'
+
+
+# Theme configs
+
+COVER_IMG_URL = 'images/wallpaper.jpg'
+PROFILE_IMAGE_URL = ''
+TAGLINE = ''
+DISQUS_SITENAME = 'dunderlabs'
