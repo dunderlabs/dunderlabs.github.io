@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# pelican
+output/
+*.pid
+
+# Cache files
+cache/*
+
+# Virtualenv
+env/
