@@ -1,3 +1,8 @@
+[submodule "pelican-plugins"]
+    path = pelican-plugins
+    url = https://github.com/getpelican/pelican-plugins.git
+    branch = master
+
 [submodule "pure"]
     path = theme
     url = https://github.com/PurePelicanTheme/pure.git

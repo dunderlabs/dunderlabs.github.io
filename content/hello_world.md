@@ -3,7 +3,8 @@ date: 2016-1-11 07:33
 tags: news
 slug: hello_world
 author: Patrick Mazulo
-email: pmazuo@gmail.com
+email: pmazulo@gmail.com
+about_author: My name is Patrick and I'm a web developer who fell in love with Python
 summary: Meu primeiro post com Pelican
 
 # Hello World!
