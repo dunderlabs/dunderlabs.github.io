@@ -9,3 +9,6 @@ summary: Meu primeiro post com Pelican
 # Hello World!
 
 Esse é meu primeiro post usando Pelican!
+
+Teste de parágrafo.
+
