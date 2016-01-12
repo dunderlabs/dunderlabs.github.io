@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Dunderlabs'
 SITENAME = '__labs__'
-SITEURL = ''
+SITEURL = 'http://dunderlabs.github.io'
 
 DISPLAY_PAGES_ON_MENU = True
 

@@ -1,11 +1,14 @@
 title: O caminho do desenvolvedor web Python
 date: 2015-03-17 14:13
 author: Patrick Mazulo
+category: web
+tags: python, web, web development
 slug: o-caminho-do-desenvolvedor-web-python
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
-![Créditos da imagem]({filename}/images/dev_way2.png)
+![Créditos da imagem]({filename}/images/posts/dev_way2.png)
+
 Créditos da imagem: http://brianmcdonnell.github.io/pycon_ie_2013/#/
 
 Do começo do ano passado para cá, acabei ficando bem ativo no
