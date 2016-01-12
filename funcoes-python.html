@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="__labs__, ">
+
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+
+        <title>Funções Python // __labs__ // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Published</h5>
+                <p>Wed 11 February 2015</p>
+                <a href="/">&larr;Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Funções Python</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p><img alt="Créditos da imagem" src="{filename}/images/how_functions_work.jpg" />
+Créditos da imagem: http://teaching.software-carpentry.org/2012/10/30/round-2-1-how-functions-work/</p>
+<p>Funções Python nomeadas ou <em>anônimas</em> são um conjunto de declarações ou
+expressões. Em Python, <strong><em>funções são objetos de primeira classe</em></strong>.
+Isso significa que não há restrição no uso de funções. Funções python
+podem ser usadas assim como qualquer outro valor python, tal como
+strings e números. Funções Python tem atributos que podem ser
+introspectados ao usar a função <span style="color: #000088;"><a href="https://docs.python.org/2/library/functions.html#dir">dir</a></span>
+do Python, como mostrado abaixo:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; square
+&lt;<span class="k">function</span> square at 0x031AA230&gt;
+&gt;&gt;&gt; dir<span class="o">(</span>square<span class="o">)</span>
+<span class="o">[</span><span class="s1">&#39;__call__&#39;</span>, <span class="s1">&#39;__class__&#39;</span>, <span class="s1">&#39;__closure__&#39;</span>, <span class="s1">&#39;__code__&#39;</span>, <span class="s1">&#39;__defaults__&#39;</span>, <span class="s1">&#39;__delattr__&#39;</span>, <span class="s1">&#39;__dict__&#39;</span>, <span class="s1">&#39;__doc__&#39;</span>, <span class="s1">&#39;__format__&#39;</span>, <span class="s1">&#39;__get__&#39;</span>, <span class="s1">&#39;__getattribute__&#39;</span>, <span class="s1">&#39;__globals__&#39;</span>, <span class="s1">&#39;__hash__&#39;</span>, <span class="s1">&#39;__init__&#39;</span>, <span class="s1">&#39;__module__&#39;</span>, <span class="s1">&#39;__name__&#39;</span>, <span class="s1">&#39;__new__&#39;</span>, <span class="s1">&#39;__reduce__&#39;</span>, <span class="s1">&#39;__reduce_ex__&#39;</span>, <span class="s1">&#39;__repr__&#39;</span>, <span class="s1">&#39;__setattr__&#39;</span>, <span class="s1">&#39;__sizeof__&#39;</span>, <span class="s1">&#39;__str__&#39;</span>, <span class="s1">&#39;__subclasshook__&#39;</span>, <span class="s1">&#39;func_closure&#39;</span>, <span class="s1">&#39;func_code&#39;</span>, <span class="s1">&#39;func_defaults&#39;</span>, <span class="s1">&#39;func_dict&#39;</span>, <span class="s1">&#39;func_doc&#39;</span>, <span class="s1">&#39;func_globals&#39;</span>, <span class="s1">&#39;func_name&#39;</span><span class="o">]</span>
+&gt;&gt;&gt;
+</pre></div>
+
+
+<p>Alguns atributos importantes das funções incluem:</p>
+<ul>
+<li>__<span style="color: #000000;">doc</span>__ retorna a string da
+    documentação da função.</li>
+</ul>
+<div class="highlight"><pre>def square<span class="o">(</span>x<span class="o">)</span>:
+    <span class="s2">&quot;&quot;&quot;return square of given number&quot;&quot;&quot;</span>
+    <span class="k">return</span> x**2
+
+&gt;&gt;&gt; square.__doc__
+<span class="s1">&#39;return square of given number&#39;</span>
+</pre></div>
+
+
+<ul>
+<li>__<span style="color: #000000;">name</span>__ retorna o nome da
+    função</li>
+</ul>
+<p>```` {.theme:shell-default .toolbar:1 .toolbar-overlay:false .striped:false .nums:false .lang:sh .decode:true}
+def square(x):
+    """return square of given number"""
+    return x**2</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>square.func_name
+'square'</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<div class="highlight"><pre>-   \_\_<span class="nt">&lt;span</span> <span class="na">style=</span><span class="s">&quot;color: #000000;&quot;</span><span class="nt">&gt;</span>module<span class="nt">&lt;/span&gt;</span>\_\_ retorna o nome
+    do módulo que a função está definida.
+
+````python
+def square(x):
+    &quot;&quot;&quot;return square of given number&quot;&quot;&quot;
+    return x**2
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; square.__module__
+<span class="s1">&#39;__main__&#39;</span>
+</pre></div>
+
+
+<ul>
+<li><span style="color: #000000;">func_defaults</span> retorna uma
+    tupla com os valores padrões dos argumentos.</li>
+<li><span style="color: #000000;">func_globals</span> retorna uma
+    referência para um dicionário que contém as variáveis globais
+    da função.</li>
+</ul>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;return square of given number&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; square.func_globals
+<span class="o">{</span><span class="s1">&#39;__builtins__&#39;</span>: &lt;module <span class="s1">&#39;__builtin__&#39;</span> <span class="o">(</span>built-in<span class="o">)</span>&gt;, <span class="s1">&#39;__name__&#39;</span>: <span class="s1">&#39;__main__&#39;</span>, <span class="s1">&#39;square&#39;</span>: &lt;<span class="k">function</span> square at 0x10f099c08&gt;, <span class="s1">&#39;__doc__&#39;</span>: None, <span class="s1">&#39;__package__&#39;</span>: None<span class="o">}</span>
+</pre></div>
+
+
+<ul>
+<li><span style="color: #000000;">func_dict</span> retorna o dicionário
+    que define o namespace local para os atributos desta função</li>
+</ul>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;return square of given number&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="sb">````</span><span class="n">python</span>
+
+<span class="sb">````</span><span class="n">shell</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">square</span><span class="o">.</span><span class="n">func_dict</span>
+<span class="p">{}</span>
+</pre></div>
+
+
+<ul>
+<li><span style="color: #000000;">func_closure</span> retorna tupla de
+    células que contém ligações para variáveis livres das funções.
+    Closure serão discutidos mais tarde.</li>
+</ul>
+<p>Funções podem ser repassadas como argumentos para outras funções. Essas
+funções que recebem outras funções como argumento são comumente chamadas
+como funções <strong><em>de alta ordem</em></strong> (ou <strong><em>ordem superior</em></strong>) e elas formam
+uma parte muito importante na <strong><em>programação funcional</em></strong>. Um exemplo
+muito bom dessas funções de alta ordem é a função <a href="https://docs.python.org/2/library/functions.html#map"><span
+style="color: #000000;">map</span></a>
+que recebe uma função e um <span
+style="color: #000000;">iterável</span>, e aplica a função para cada
+item no <span style="color: #000000;">iterável</span>, retornando uma
+nova lista. No exemplo abaixo, nós ilustramos isso ao passar a função
+<span style="color: #000000;">square</span> definida anteriormente e um
+<span style="color: #000000;">iterável</span> de números para a função
+<span style="color: #000000;">map</span>.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; map<span class="o">(</span>square, range<span class="o">(</span>10<span class="o">))</span>
+<span class="o">[</span>0, 1, 4, 9, 16, 25, 36, 49, 64, 81<span class="o">]</span>
+</pre></div>
+
+
+<p>Funções podem ser definidas dentro do bloco de código de outras funções,
+e podem ser retornadas a partir da chamada de outras funções.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
+    <span class="n">outer_var</span> <span class="o">=</span> <span class="s">&quot;outer variable&quot;</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">outer_var</span>
+    <span class="k">return</span> <span class="n">inner</span>
+</pre></div>
+
+
+<p>No exemplo acima, nós declaramos uma função, <span
+style="color: #000000;">inner</span>, dentro de uma outra função, <span
+style="color: #000000;">outer</span>, e retornamos a função <span
+style="color: #000000;">inner</span> quando a função <span
+style="color: #000000;">outer</span> é executada.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
+    <span class="n">outer_var</span> <span class="o">=</span> <span class="s">&quot;outer variable&quot;</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">outer_var</span>
+    <span class="k">return</span> <span class="n">inner</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">func</span> <span class="o">=</span> outer<span class="o">()</span>
+&gt;&gt;&gt; func
+&lt;<span class="k">function</span> inner at 0x031AA270&gt;
+&gt;&gt;&gt;
+</pre></div>
+
+
+<p>No exemplo acima, a função outer retorna uma função quando é chamada, e
+esta é atribuída para a variável func. Essa variável pode ser chamada
+assim como a função retornada:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; func<span class="o">()</span>
+<span class="s1">&#39;outer variable&#39;</span>
+</pre></div>
+
+
+<h2>Definições de Função</h2>
+<p>A palavra reservada <span style="color: #000088;">def</span> é usada
+para criar funções definidas pelo usuário. Definições de funções são
+instruções executadas.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+
+
+<p>Na função <span style="color: #000000;">square</span> acima, quando o
+módulo contendo a função é carregado no interpretador python, ou se está
+definida dentro do <strong>REPL</strong> python, então a instrução da definição da
+função que está em <span style="color: #000088;">def</span> <span
+style="color: #000000;">square</span>(x) é executada. Isso tem algumas
+implicações para argumentos padrões que tem estruturas de dados mutáveis
+como valores; isso será coberto mais a frente neste tutorial. A execução
+de uma definição de função liga o nome da função no atual namespace
+local (<em>pense em namespaces como nomes para mapeamento de valores que
+podem também ser aninhados. namespaces e escopo serão cobertos em mais
+detalhes em um outro tutorial</em>) para um objeto de função que é um
+wrapper em torno do código executável para a função. Esse objeto função
+contém uma referência para o atual namespace global que é o namespace
+global que é usado quando a função é chamada. A definição da função não
+executa o corpo da função; este é executado apenas quando a função é
+chamada.</p>
+<h2>Argumentos da Chamada de Função</h2>
+<p>Além dos argumentos normais, funções python suportam número variável de
+argumentos. Esses números variáveis de argumentos vêm em três tipos que
+estão descritos abaixo:</p>
+<ul>
+<li>
+<p><strong>Valor padrão do argumento</strong>: Isso permite um usuário definir
+    alguns valores padrões para os argumentos da função. Nesse caso, tal
+    função pode ser chamada com menos argumentos. Python usa o valor
+    padrão fornecido para argumentos que não são fornecidos durante a
+    chamada da função. Este exemplo abaixo é ilustrativo:</p>
+<div class="highlight"><pre>def show_args(arg, def_arg=1, def_arg2=2):
+    return &quot;arg={}, def_arg={}, def_arg2={}&quot;.format(arg, def_arg, def_arg2)
+</pre></div>
+
+
+<p>A função acima foi definida com um único argumento posicional
+normal, <span style="color: #000000;">arg</span> e dois argumentos
+padrões, <span style="color: #000000;">def_arg</span> e <span
+style="color: #000000;">def_arg2</span>. A função acima pode ser
+chamada em qualquer das seguintes maneiras abaixo:</p>
+<ul>
+<li>
+<p>Fornecendo apenas o valor do argumento posicional não
+    predefinido; nesse caso os outros argumentos recebem os valores
+    padrões fornecidos:</p>
+<div class="highlight"><pre>def show_args(arg, def_arg=1, def_arg2=2):
+    return &quot;arg={}, def_arg={}, def_arg2={}&quot;.format(arg, def_arg, def_arg2)
+</pre></div>
+
+
+<ul>
+<li>shell<div class="highlight"><pre>&gt;&gt;&gt; show_args(&quot;tranquility&quot;)
+    &#39;arg=tranquility, def_arg=1, def_arg2=2&#39;
+</pre></div>
+
+
+</li>
+</ul>
+</li>
+<li>
+<p>Fornecendo valores para sobrescrever algum argumento padrão além
+    do argumento posicional que não foi predefinido.</p>
+<div class="highlight"><pre>def show_args(arg, def_arg=1, def_arg2=2):
+    return &quot;arg={}, def_arg={}, def_arg2={}&quot;.format(arg, def_arg, def_arg2)
+</pre></div>
+
+
+<ul>
+<li>shell<div class="highlight"><pre>&gt;&gt;&gt; show_args(&quot;tranquility&quot;, &quot;to Houston&quot;)
+    &#39;arg=tranquility, def_arg=to Houston, def_arg2=2&#39;
+</pre></div>
+
+
+</li>
+</ul>
+</li>
+<li>
+<p>Fornecendo valores para todos os argumentos, sobrescrevendo
+    todos os argumentos com valores padrões.</p>
+<div class="highlight"><pre>def show_args(arg, def_arg=1, def_arg2=2):
+    return &quot;arg={}, def_arg={}, def_arg2={}&quot;.format(arg, def_arg, def_arg2)
+</pre></div>
+
+
+<ul>
+<li>shell<div class="highlight"><pre>&gt;&gt;&gt; show_args(&quot;tranquility&quot;, &quot;to Houston&quot;, &quot;the eagle has landed&quot;)
+    &#39;arg=tranquility, def_arg=to Houston, def_arg2=the eagle has landed&#39;
+</pre></div>
+
+
+</li>
+</ul>
+</li>
+<li>
+<p>É também muito importante ser cuidadoso quando usar estruturas
+    de dados mutáveis como argumentos padrões. Definições de função
+    são executadas uma vez que essas estruturas de dados mutáveis,
+    que são valores de referência, são criados na hora da definição.
+    Isto significa que a mesma estrutura mutável de dado é usada
+    para todas as funções chamadas, como mostrado abaixo:</p>
+<div class="highlight"><pre>def show_args_using_mutable_defaults(arg, def_arg=[]):
+    def_arg.append(&quot;Hello World&quot;)
+    return &quot;arg={}, def_arg={}&quot;.format(arg, def_arg)
+</pre></div>
+
+
+<ul>
+<li>shell<div class="highlight"><pre>&gt;&gt;&gt; show_args_using_mutable_defaults(&quot;test&quot;)
+    &quot;arg=test, def_arg=[&#39;Hello World&#39;]&quot; 
+&gt;&gt;&gt; show_args_using_mutable_defaults(&quot;test 2&quot;)
+    &quot;arg=test 2, def_arg=[&#39;Hello World&#39;, &#39;Hello World&#39;]&quot;
+</pre></div>
+
+
+</li>
+</ul>
+<p><p>
+Em cada chamada de função, <span style="color: #660066;">Hello
+World</span> é adicionado a lista <span
+style="color: #000000;">def_arg</span>, e depois de duas
+chamadas de função, o argumento padrão tem 2 strings
+hello world. É importante tomar nota disso quando usar
+argumentos mutáveis padrão como valores padrão. A razão para
+isso ficará claro quando nós discutirmos o Python Data Model.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Argumento Chave</strong>: funções podem ser chamadas usando argumentos
+    chave da forma <span style="color: #000000;">kwarg</span><span
+    style="color: #666600;">=</span><span
+    style="color: #000000;">valor.</span>Um kwarg refere ao nome do
+    argumento usado na definição da função. Pegue a função definida
+    abaixo com argumentos padrão e posicionado</p>
+<div class="highlight"><pre>def show_args(arg, def_arg=1):
+    return &quot;arg={}, def_arg={}&quot;.format(arg, def_arg)
+</pre></div>
+
+
+<p>Para ilustrar uma chamada de função com argumentos chave, a seguinte
+função pode ser chamada em qualquer das seguintes maneiras:</p>
+<div class="highlight"><pre>show_args(arg=&quot;test&quot;, def_arg=3)
+
+show_args(&quot;test&quot;)
+
+show_args(arg=&quot;test&quot;)
+
+show_args(&quot;test&quot;, 3)
+</pre></div>
+
+
+<p>Em uma chamada de função, argumentos chave não devem vir antes  de
+argumentos não chaves, assim, a seguinte maneira irá falhar:</p>
+<div class="highlight"><pre>show_args(def_arg=4)
+</pre></div>
+
+
+<p>Uma função não pode fornecer valores duplicados para um argumento,
+então a seguinte declaração é ilegal:</p>
+<div class="highlight"><pre>show_args(&quot;test&quot;, arg=&quot;testing&quot;)
+</pre></div>
+
+
+<p>No exemplo acima, o argumento arg é um argumento posicional, então o
+valor test é atribuído a ele. Tentar atribuir na chave arg novamente
+é uma tentativa de múltiplas atribuições, e isso é ilegal.</p>
+<p>Todos os argumentos chaves passados devem corresponder a um dos
+argumentos aceitos pela função, e a ordem das chaves incluindo
+argumentos não opcionais não é importante, então o seguinte código
+no qual a ordem dos argumentos está trocada é legal:</p>
+<div class="highlight"><pre>show_args(def_arg=&quot;testing&quot;, arg=&quot;test&quot;)
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>Lista aleatória de argumentos</strong>: Python também suporta definir
+    funções que recebem uma série aleatória de argumentos que são
+    passados para a função em uma tupla. Um exemplo disso no tutorial
+    python é dado abaixo:</p>
+<div class="highlight"><pre>def write_multiple_items(file, separator, *args): 
+    file.write(separator.join(args))
+</pre></div>
+
+
+<p>O número aleatório de argumentos devem vir depois dos argumentos
+normais; nesse caso, depois dos argumentos <span
+style="color: #000000;">file</span> e <span
+style="color: #000000;">separator</span>. A seguir temos um exemplo
+de chamada de função para a função definida acima:</p>
+<div class="highlight"><pre>f = open(&quot;test.txt&quot;, &quot;wb&quot;)
+write_multiple_items(f, &quot; &quot;, &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;)
+</pre></div>
+
+
+<p><p>
+Os argumentos <span style="color: #000000;">one two three four
+five</span> são todos agrupados juntos em uma tupla que podem ser
+acessados através do argumento <span
+style="color: #000000;">args</span>.</p>
+</li>
+</ul>
+<h3>Desempacotando Argumentos de Função</h3>
+<p>Algumas vezes, nós podemos ter argumentos para uma chamada de função
+tanto em uma tupla, uma lista ou um dicionário. Esses argumentos pode
+ser desempacotados nas funções pelas chamadas de função usando os
+operadores <span style="color: #000000;">*</span> ou <span
+style="color: #000000;">**</span>. Considere a seguinte função que
+recebe 2 argumentos posicionais e mostra os valores</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def print_args<span class="o">(</span>a, b<span class="o">)</span>:
+        print a
+        print b
+</pre></div>
+
+
+<p>Se nós tivermos os valores que nós queremos fornecer para a função em
+uma lista, então nos poderíamos desempacotar esses valores diretamente
+na função, como mostrado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">args</span> <span class="o">=</span> <span class="o">[</span>1, 2<span class="o">]</span>
+&gt;&gt;&gt; print_args<span class="o">(</span>*args<span class="o">)</span>
+1
+2
+</pre></div>
+
+
+<p>Da mesma forma, quando nós temos palavras-chaves, nós podemos usar <span
+style="color: #000000;">dicts</span> para armazenar, mapeando <span
+style="color: #000000;">kwarg para valor</span> e o operador <span
+style="color: #000000;">**</span> para desempacotar os argumentos
+chaves para as funções, como mostrado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def parrot<span class="o">(</span>voltage, <span class="nv">state</span><span class="o">=</span>’a stiff’, <span class="nv">action</span><span class="o">=</span>’voom’<span class="o">)</span>:
+        print <span class="s2">&quot;-- This parrot wouldn’t&quot;</span>, action,
+        print <span class="s2">&quot;if you put&quot;</span>, voltage, <span class="s2">&quot;volts through it.&quot;</span>,
+        print <span class="s2">&quot;E’s&quot;</span>, state, <span class="s2">&quot;!&quot;</span>
+
+&gt;&gt;&gt; <span class="nv">d</span> <span class="o">=</span> <span class="o">{</span><span class="s2">&quot;voltage&quot;</span>: <span class="s2">&quot;four million&quot;</span>, <span class="s2">&quot;state&quot;</span>: <span class="s2">&quot;bleedin’ demised&quot;</span>, <span class="s2">&quot;action&quot;</span>: <span class="s2">&quot;VOOM&quot;</span><span class="o">}</span>
+&gt;&gt;&gt; parrot<span class="o">(</span>**d<span class="o">)</span>
+&gt;&gt;&gt; This parrot wouldn’t VOOM <span class="k">if</span> you put four million volts through it. E’s bleedin’ demised
+</pre></div>
+
+
+<h3></h3>
+<h3>Definindo funções com <span style="color: #666600;">*</span> e <span style="color: #666600;">**</span></h3>
+<p>Algumas vezes, ao definir uma função, nós podemos não saber de antemão o
+número de argumentos a esperar. Isso leva a definição de funções com a
+seguinte assinatura:</p>
+<div class="highlight"><pre><span class="n">show_args</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+
+
+<p>O argumento <span style="color: #000000;">*args</span> representa uma
+sequência de tamanho desconhecido de argumentos posicionais, enquanto
+<span style="color: #000000;">**kwargs</span> representa um dicionário
+de mapeamento nome-valor que pode conter qualquer quantidade de
+nome-valor mapeada. O <span style="color: #000000;">*args</span> deve
+vir antes do <span style="color: #000000;">**kwargs</span> na
+definição da função. O seguinte código ilustra isso:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def show_args<span class="o">(</span>arg, *args, **kwargs<span class="o">)</span>:
+        print arg
+        <span class="k">for</span> item in args:
+            print args
+        <span class="k">for</span> key, value in kwargs:
+            print key, value
+
+&gt;&gt;&gt; <span class="nv">args</span> <span class="o">=</span> <span class="o">[</span>1, 2, 3, 4<span class="o">]</span>
+&gt;&gt;&gt; <span class="nv">kwargs</span> <span class="o">=</span> dict<span class="o">(</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;testing&#39;</span>, <span class="nv">age</span><span class="o">=</span>24, <span class="nv">year</span><span class="o">=</span>2014<span class="o">)</span>
+&gt;&gt;&gt; show_args<span class="o">(</span><span class="s2">&quot;hey&quot;</span>, *args, **kwargs<span class="o">)</span>
+hey
+1
+2
+3
+4
+age 24
+name testing
+year 2014
+</pre></div>
+
+
+<p>O argumento normal deve ser fornecido para a função, mas o <span
+style="color: #000000;">*args</span> e <span
+style="color: #000000;">**kwargs</span> são opcionais, como
+demonstrado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; show_args<span class="o">(</span><span class="s2">&quot;hey&quot;</span>, *args, **kwargs<span class="o">)</span>
+hey
+</pre></div>
+
+
+<p>Na chamada da função o argumento normal é fornecido normalmente enquanto
+os argumentos opcionais são desempacotados na chamada.</p>
+<h2>Funções Anônimas</h2>
+<p>Python também tem suporte para <strong><em>funções anônimas</em></strong>. Essas função são
+criadas usando a palavra chave <span
+style="color: #000088;">lambda.</span>Expressões lambda em python são da
+seguinte forma:</p>
+<div class="highlight"><pre><span class="n">lambda_expr</span> <span class="p">::</span><span class="o">=</span>  <span class="s">&quot;lambda&quot;</span> <span class="p">[</span><span class="n">parameter_list</span><span class="p">]:</span> <span class="n">expression</span>
+</pre></div>
+
+
+<p>Expressões lambda retornam objetos de função depois da avaliação e tem
+os mesmo atributos das funções nomeadas. Expressões lamda são
+normalmente apenas usadas para funções muito simples em python, como
+demonstrado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">square</span> <span class="o">=</span> lambda x: x**2
+&gt;&gt;&gt; <span class="k">for</span> i in range<span class="o">(</span>10<span class="o">)</span>:
+    square<span class="o">(</span>i<span class="o">)</span>
+0
+1
+4
+9
+16
+25
+36
+49
+64
+81
+&gt;&gt;&gt;
+</pre></div>
+
+
+<p>A expressão lambda acima é equivalente a seguinte função nomeada:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def square<span class="o">(</span>x<span class="o">)</span>:
+    <span class="k">return</span> x**2
+</pre></div>
+
+
+<h3></h3>
+<h2>Funções aninhadas e Closures</h2>
+<p>Definições de funções dentro de uma função cria funções aninhadas, assim
+como mostrado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def outer<span class="o">()</span>:
+        <span class="nv">outer_var</span> <span class="o">=</span> <span class="s2">&quot;outer variable&quot;</span>
+        def inner<span class="o">()</span>:
+            <span class="k">return</span> outer_var
+        <span class="k">return</span> inner
+&gt;&gt;&gt;
+</pre></div>
+
+
+<p>Nesse tipo de definição de função, a função <span
+style="color: #000000;">inner</span> está apenas no escopo dentro da
+função <span style="color: #000000;">outer</span>, por isso é na maioria
+das vezes mais útil quando a função inner está sendo retornada
+(movendo-a para o escopo da outer) ou quando está sendo passada em uma
+outra função. Em funções aninhadas, tais como no exemplo acima, uma nova
+instância da função aninhada é criada em cada chamada da função outer.
+Isso porque durante a execução da função outer, a definição da nova
+função inner é executada, mas o corpo não é executado.</p>
+<p>Uma função aninhada tem acesso ao ambiente em que foi criada. Isso é um
+resultado direto da semântica da definição de função python. Um
+resultado é que a variável definida na função outer pode ser
+referenciada na função inner mesmo depois da função outer já ter
+finalizado sua execução.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
+    <span class="n">outer_var</span> <span class="o">=</span> <span class="s">&quot;outer variable&quot;</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">outer_var</span>
+    <span class="k">return</span> <span class="n">inner</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">x</span> <span class="o">=</span> outer<span class="o">()</span>
+&gt;&gt;&gt; x
+&lt;<span class="k">function</span> inner at 0x0273BCF0&gt;
+&gt;&gt;&gt; x<span class="o">()</span>
+<span class="s1">&#39;outer variable&#39;</span>
+</pre></div>
+
+
+<p>Quando funções aninhadas referenciam variáveis de funções externas nós
+dizemos que a função aninhada está fechada (closure) sobre a variável
+referenciada. Nós podemos usar um dos atributos especiais de objetos
+função, <span style="color: #000000;">__closure__</span> para
+acessar as variáveis fechadas, como demonstrado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">cl</span> <span class="o">=</span> x.__closure__
+&gt;&gt;&gt; cl
+<span class="o">(</span>&lt;cell at 0x029E4470: str object at 0x02A0FD90&gt;,<span class="o">)</span>
+
+&gt;&gt;&gt; cl<span class="o">[</span>0<span class="o">]</span>.cell_contents
+<span class="s1">&#39;outer variable&#39;</span>
+</pre></div>
+
+
+<p>Closures em python tem um comportamento peculiar. No python 2.x e
+abaixo, variáveis que apontam para tipos imutáveis tais como string e
+números não podem ser recuperados dentro de um closure. O exemplo abaixo
+ilustra isso:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">counter</span><span class="p">():</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">c</span><span class="p">():</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">count</span>
+    <span class="k">return</span> <span class="n">c</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">c</span> <span class="o">=</span> counter<span class="o">()</span>
+&gt;&gt;&gt; c<span class="o">()</span>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;&lt;stdin&gt;&quot;</span>, line 1, in &lt;module&gt;
+  File <span class="s2">&quot;&lt;stdin&gt;&quot;</span>, line 4, in c
+UnboundLocalError: <span class="nb">local </span>variable <span class="s1">&#39;count&#39;</span> referenced before assignment
+</pre></div>
+
+
+<p>Uma solução bastante instável para isso é fazer uso de um tipo mutável
+para capturar o closure, como mostrado abaixo:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">counter</span><span class="p">():</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">c</span><span class="p">():</span>
+        <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">c</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">c</span> <span class="o">=</span> counter<span class="o">()</span>
+&gt;&gt;&gt; c<span class="o">()</span>
+1
+&gt;&gt;&gt; c<span class="o">()</span>
+2
+&gt;&gt;&gt; c<span class="o">()</span>
+3
+</pre></div>
+
+
+<p>Python 3 introduziu a palavra chave <span
+style="color: #000088;">nonlocal</span> que pode ser usada para resolver
+esse problema de escopo de closure, como mostrado abaixo. No tutorial
+sobre <strong>namespaces</strong>, nós descrevemos essas peculiaridades em mais
+detalhes.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">counter</span><span class="p">():</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">c</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">count</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">count</span>
+     <span class="k">return</span> <span class="n">c</span>
+</pre></div>
+
+
+<p>Closures podem ser usados para manter estados (<strong>não é para isso que
+classes servem</strong>) e para algum simples casos, fornecendo uma solução
+mais sucinta e legível que classes. Nós usamos um exemplo de registro
+(logging) copiado do
+<a href="http://tech.pro/tutorial/1512/python-decorators">tech_pro</a> para
+ilustrar isso. Imagine uma API de registro extremamente trivial usando
+classes baseadas em orientação a objetos que pode fazer logon em
+diferentes níveis:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Log</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">,</span> <span class="n">message</span><span class="p">))</span>
+
+<span class="n">log_info</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span><span class="s">&quot;info&quot;</span><span class="p">)</span>
+<span class="n">log_warning</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span><span class="s">&quot;warning&quot;</span><span class="p">)</span>
+<span class="n">log_error</span> <span class="o">=</span> <span class="n">Log</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Essa mesma funcionalidade pode ser implementada com closures, como
+demonstrado abaixo:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">make_log</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">message</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">_</span>
+
+<span class="n">log_info</span> <span class="o">=</span> <span class="n">make_log</span><span class="p">(</span><span class="s">&quot;info&quot;</span><span class="p">)</span>
+<span class="n">log_warning</span> <span class="o">=</span> <span class="n">make_log</span><span class="p">(</span><span class="s">&quot;warning&quot;</span><span class="p">)</span>
+<span class="n">log_error</span> <span class="o">=</span> <span class="n">make_log</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>A versão baseada em closure pode ser visto como a maneira mais sucinta e
+legível, apesar de que ambas versões implementam a mesma funcionalidade.
+Closures também desempenham um papel importante em uma grande função
+Python: <strong>funções decoradoras</strong> <em>(function decorators)</em>. Essa é uma
+funcionalidade amplamente usada que está explicada no próximo tutorial.</p>
+<h3>Leitura Complementar</h3>
+<ul>
+<li><a href="http://tech.pro/tutorial/1512/python-decorators">Closures em Python</a></li>
+<li><a href="https://docs.python.org/2/tutorial/controlflow.html#defining-functions">Definindo funções</a></li>
+</ul>
+<p><a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html">Clique aqui para voltar para a tabela de conteúdo.</a></p>
+<p>N.T: Pessoal, tive uma certa dificuldade ao traduzir este capítulo da
+série. Então gostaria de contar com o feedback de vocês nos comentários
+para saber se conseguiram entender o que foi proposto :D</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Go Top</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

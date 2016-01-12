@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="__labs__, ">
+
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+
+        <title>Classes e Objetos I // __labs__ // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Published</h5>
+                <p>Mon 16 March 2015</p>
+                <a href="/">&larr;Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Classes e Objetos I</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p><img alt="Créditos para a imagem" src="{filename}/images/python-model.png" />
+Créditos para a imagem: http://blog.invisivel.net/2012/04/10/pythons-object-model-explained/</p>
+<p>Em Python, tudo é um objeto. Classes fornecem o mecanismo para criar novos tipos de objetos. Neste tutorial, nós vamos deixar um pouco de lado o básico de classes e programação orientada a objetos e focaremos em tópicos que proveem um melhor entendimento deste paradigma de programação em Python. É assumido que nós estamos lidando com um novo estilo de classes. Existem classes Python que herdam da super classe <em>object</em>.
+Definindo Classes</p>
+<hr />
+<p>A declaração <span style="color: #000088;">class</span> é usada para definir novas classes. Esta declaração define um conjunto de atributos, variáveis e métodos, que estão associados e compartilhados por uma coleção de instâncias de tal classe. Uma simples definição de classe é dada abaixo:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">num_of_accounts</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> 
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">del_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">deposit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">-</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">inquiry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
+</pre></div>
+
+
+<p>Definições de classe introduzem os seguintes novos objetos:</p>
+<ol>
+<li>Objeto de classe</li>
+<li>Objeto de Instância</li>
+<li>Objeto de método</li>
+</ol>
+<h2>Objetos de Classe</h2>
+<p>Quando uma definição de classe é encontrada durante a execução de um programa, um novo namespace é criado, e este serve como o namespace em que todas as variáveis de classe e definições de métodos se ligam. Note que este namespace não cria um novo escopo local que pode ser usado por métodos de classe, daí a necessidade por nomes completos ao acessar variáveis em métodos. A classe <span style="color: #660066;">Account</span> da seção anterior ilustra isto; métodos que tentam acessar a variável <span style="color: #000000;">num_of_accounts</span> devem usar o nome completo, <span style="color: #660066;">Account</span>.<span style="color: #000000;">num_of_accounts</span>, senão resulta em um erro como mostrado abaixo, quando o nome completo não é usado no método __init__:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">num_of_accounts</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> 
+        <span class="n">num_of_accounts</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">del_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">deposit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">-</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">inquiry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">acct</span> <span class="o">=</span> Account<span class="o">(</span><span class="s1">&#39;obi&#39;</span>, 10<span class="o">)</span>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;python&quot;</span>, line 1, in &lt;module&gt;
+  File <span class="s2">&quot;python&quot;</span>, line 9, in __init__
+UnboundLocalError: <span class="nb">local </span>variable <span class="s1">&#39;num_of_accounts&#39;</span> referenced before assignment
+</pre></div>
+
+
+<p>No fim da execução de uma definição de classe, um objeto de classe é criado. O escopo que estava em vigor imediatamente antes que a definição de classe fosse criada é reintegrada, e o objeto classe é ligado aqui ao nome de classe dado no cabeçalho da definição de classe.</p>
+<p>Agora vejamos uma curiosidade aqui. Alguém pode perguntar: <strong><em>se a classe criada é um objeto, então qual é a classe da classe objeto?</em></strong>. De acordo com a filosofia de Python em que <em>tudo é um objeto</em>, o objeto de classe, de fato, tem uma classe da qual é criada, e no novo tipo de classes de Python, esta é a classe <span style="color: #000000;">type</span>.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nb">type</span><span class="o">(</span>Account<span class="o">)</span>
+&lt;class <span class="s1">&#39;type&#39;</span>&gt;
+</pre></div>
+
+
+<p>Então, só pra confundir você um pouco mais, o tipo de um type (o tipo de Account), é type. A classe type é uma <strong><em>metaclass</em></strong>, uma classe criada para criar outras classes. Discutiremos sobre elas em um próximo tutorial.</p>
+<p><img alt="Créditos para a imagem" src="{filename}/images/types_map.png" />
+Créditos para a imagem: http://blog.invisivel.net/2012/04/10/pythons-object-model-explained/</p>
+<p>Objetos de classe suportam referência de atributo e instanciação.
+Atributos são referenciados usando a sintaxe padrão de objetos, um ponto
+seguido pelo nome do atributo: obj.name. Nomes de atributos válidos são
+todos os nomes de variáveis e métodos presentes no namespace da classe,
+quando o objeto de classe foi criado. Por exemplo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; Account.num_of_accounts
+&gt;&gt;&gt; 0
+&gt;&gt;&gt; Account.deposit
+&gt;&gt;&gt; &lt;unbound method Account.deposit&gt;
+</pre></div>
+
+
+<p>Instanciação de classe usa notação de função. Instanciação envolve
+chamar o objeto de classe como uma função normal, sem parâmetros, como
+mostrado abaixo para a classe Account:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; Account<span class="o">()</span>
+</pre></div>
+
+
+<p>Depois da instanciação de um objeto de classe, um objeto de instância é
+retornado, e o <span style="color: #000000;">__init__</span> que foi
+definido na classe, é chamado com a instância como o primeiro argumento.
+Isto executa qualquer inicialização definida pelo programador, como
+inicializar os valores das variáveis de instância. No caso da classe
+Account, o nome da conta e o balanço são setados, e o número de objetos
+de instâncias é incrementado por mais 1.</p>
+<h2>Objetos de Instância</h2>
+<p>Se imaginarmos os objetos de classe como cortadores de biscoitos, então
+os objetos de instância são os biscoitos que são os resultados de
+instanciar objetos de classe. Atributos, dados e métodos: referência são
+as únicas operações que são válidas em objetos de instância.</p>
+<h2>Método de objetos</h2>
+<p>Métodos de objeto são similares a objetos de função. Se <span
+style="color: #000000;">x</span> é uma instância da classe <span
+style="color: #660066;">Account</span>, <span
+style="color: #000000;">x.deposit</span> é um exemplo de um método de
+objeto. Métodos têm um argumento extra incluído em sua definição, o
+argumento <span style="color: #000088;">self</span>. Este argumento
+<span style="color: #000088;">self</span> se refere a uma instância da
+classe. <em>Porque nós temos que passar uma instância como argumento para
+um método?</em> Isso é melhor ilustrado por uma chamada de método:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">x</span> <span class="o">=</span> Account<span class="o">()</span>
+&gt;&gt;&gt; x.inquiry<span class="o">()</span>
+10
+</pre></div>
+
+
+<p>O que exatamente acontece quando um método de instância é chamado? Você
+pode ter notado que x.inquiry() acima é chamado sem um argumento, embora
+a definição do método <span style="color: #000000;">inquiry()</span>
+requeira o argumento <span style="color: #000088;">self</span>. O que
+aconteceu com este argumento?</p>
+<p>O que tornam os métodos tão especiais é que o objeto no qual um método
+está sendo chamado é passado como primeiro argumento da função. Em nosso
+exemplo, a chamada para <span style="color: #000000;">x.inquiry()</span>
+é exatamente equivalente a <span
+style="color: #660066;">Account</span>.<span
+style="color: #000000;">f(x)</span>. Geralmente, chamar um método com
+uma lista de <em>n</em> argumentos é equivalente a chamar a função
+correspondente com uma lista de argumentos que é criada ao inserir o
+objeto do método antes do primeiro argumento.</p>
+<p>O tutorial do Python diz:</p>
+<blockquote>
+<p>Quando um atributo de instância é referenciado de que não é um
+atributo de dados, sua classe é pesquisada. Se o nome indica um
+atributo de classe válido que seja um objeto de função, um método de
+objeto é criado ao embalar (ponteiros) o objeto de instância e o
+objeto de função, ficando juntos em um objeto abstrato: este é o
+método de objeto. Quando o método de objeto é chamado com uma lista de
+argumentos, uma nova lista de argumento é construída a partir do
+objeto de instância e da list de argumentos, e o objeto de função é
+chamado com esta nova lista de argumentos.</p>
+</blockquote>
+<p>O acima citado se aplica para todos os método de objetos de instância,
+incluindo o método <span style="color: #000000;">__init__</span>. O
+argumento self não é, na verdade, uma palavra chave, e qualquer nome de
+argumento pode ser usado como demonstrado na definição abaixo para a
+classe Account:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">num_of_accounts</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">):</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> 
+        <span class="n">obj</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> 
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">del_account</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">deposit</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">balance</span> <span class="o">+</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">balance</span> <span class="o">-</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">inquiry</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">balance</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; Account.num_of_accounts
+&gt;&gt;&gt; 0
+&gt;&gt;&gt; <span class="nv">x</span> <span class="o">=</span> Account<span class="o">(</span><span class="s1">&#39;obi&#39;</span>, 0<span class="o">)</span>
+&gt;&gt;&gt; x.deposit<span class="o">(</span>10<span class="o">)</span>
+&gt;&gt;&gt; Account.inquiry<span class="o">(</span>x<span class="o">)</span>
+&gt;&gt;&gt; 10
+</pre></div>
+
+
+<h2>Métodos de classe e estáticos</h2>
+<p>Todos os métodos definidos em uma classe por padrão operam em
+instancias. No entanto, podemos definir métodos de classe ou estáticos
+ao decorar tais métodos com os decoradores correspondentes <span
+style="color: #006666;">@staticmethods</span> ou <span
+style="color: #006666;">@classmethods</span>.</p>
+<h3>Métodos Estáticos</h3>
+<p>Métodos estáticos são métodos funções normais que existem no namespace
+de uma classe. Referenciar um método estático de uma classe mostra que
+em vez de um método type não ligado, uma <em>função</em> type é retornada como
+mostrado abaixo:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">num_of_accounts</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> 
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">del_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">deposit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">-</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">inquiry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;Name={}, balance={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span> 
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s">&quot;Current Account&quot;</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; Account.deposit
+&lt;unbound method Account.deposit&gt;
+&gt;&gt;&gt; Account.type
+&lt;<span class="k">function</span> <span class="nb">type </span>at 0x106893668&gt;
+</pre></div>
+
+
+<p>Para definir um método estático, o decorador <span
+style="color: #006666;">@staticmethod</span> é usado, e tal método não
+requer o argumento <span style="color: #000088;">self</span>. Métodos
+estáticos fornecem um mecanismo para melhor organização, como o código
+relacionado a uma classe são colocados nessa classe e podem ser
+sobrescritos em uma sub-classe como necessário.</p>
+<h3>Métodos de classe</h3>
+<p>Métodos de classe, como o nome implica, operam nas classes em si em vez
+de instâncias. Métodos de classe são criados usando o decorador <span
+style="color: #006666;">@classmethod</span> com a classe passada como o
+primeiro argumento para o método em vez da instância.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">num_of_accounts</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> 
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">del_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">deposit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">-</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">inquiry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;Name={}, balance={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span> 
+
+    <span class="nd">@classmethod</span> 
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">params_json</span><span class="p">):</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">params_json</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;balance&quot;</span><span class="p">))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s">&quot;Current Account&quot;</span>
+</pre></div>
+
+
+<p>Um exemplo motivador do uso de métodos de classe é como uma <em>fábrica</em>
+para criação de objeto. Imagine que dados para a classe <span
+style="color: #660066;">Account</span> venham em diferentes formatos,
+tais como tuplas, JSON, strings e etc. Nós não podemos definir múltiplos
+métodos <span style="color: #000000;">__init__</span>, sendo que uma
+classe Python pode ter apenas um método <span
+style="color: #000000;">__init__</span>, desse modo métodos de
+classe vêm a calhar nessas situações. Na classe <span
+style="color: #660066;">Account</span> definida acima no exemplo, nós
+queremos inicializar uma conta a partir de um objeto JSON, então nós
+definimos um método de classe, <span
+style="color: #000000;">from_json</span> que recebe um objeto JSON e
+manipula a extração de parâmetros e criação do objeto Account usando os
+parâmetros extraídos. Um outro exemplo de um método de classe em ação é
+o <span style="color: #000000;">dict.fromkeys</span>, método que é usado
+para criar objetos dict de uma sequência de chaves e valores fornecidas.</p>
+<h4>Métodos especiais Python</h4>
+<p>Algumas vezes podemos querer customizar classes que definimos. Isto pode
+ser alterar a maneira que objetos de classe são criados e inicializados,
+ou fornecer comportamento polimórfico para certas operações.
+Comportamento polimórfico habilita as classes que criamos a definir sua
+própria implementação para certas operações Python, tais como a operação
++. Python fornece métodos <em>especiais</em> que habilitam isso. Esses métodos
+estão normalmente na forma <span
+style="color: #000000;">__*__</span> onde <span
+style="color: #000000;">*</span> se refere ao nome do método. Exemplo
+de tais métodos são <span style="color: #000000;">__init__</span> e
+<span style="color: #000000;">__new__</span> para customizar criação
+e inicialização de objeto, <span
+style="color: #000000;">__getitem__</span>, <span
+style="color: #000000;">__get__</span>, <span
+style="color: #000000;">__add__</span> e <span
+style="color: #000000;">__sub__</span> para emular tipos padrões do
+Python, <span style="color: #000000;">__getattribute__</span>, <span
+style="color: #000000;">__getattr__</span> e etc. para customizar
+acesso de atributos. Esses são apenas alguns dos métodos especiais.
+Discutiremos alguns métodos especiais abaixo para prover um
+entendimento, mas a <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names">documentação
+Python</a>
+fornece uma lista compreensiva desses métodos.</p>
+<h3>Métodos Especiais para Criação de Objetos</h3>
+<p>Novas instâncias de classes são criadas em um processo de 2 passos:
+usando o método <span style="color: #000000;">__new__</span> para
+criar uma nova instância e o método <span
+style="color: #000000;">__init__</span> para inicializar o novo
+objeto criado. Programadores já estão familiarizados com a definição do
+método <span style="color: #000000;">__init__</span>; o método <span
+style="color: #000000;">__new__</span> é raramente definido pelo
+programador pra cada classe, mas é possível que algum queira customizar
+a criação de instâncias de classe.</p>
+<h3>Métodos Especiais para Acesso de Atributos</h3>
+<p>Nós podemos customizar o acesso de atributos para instâncias de classe
+ao implementar os seguintes métodos listados:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">num_of_accounts</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> 
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">del_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Account</span><span class="o">.</span><span class="n">num_of_accounts</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;Hey I dont see any attribute called {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">deposit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">-</span> <span class="n">amt</span> 
+
+    <span class="k">def</span> <span class="nf">inquiry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;Name={}, balance={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span> 
+
+    <span class="nd">@classmethod</span> 
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">params_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">params_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">),</span> <span class="n">params_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;balance&quot;</span><span class="p">))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s">&quot;Current Account&quot;</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">Account</span><span class="p">(</span><span class="s">&#39;obi&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p><span style="color: #000000;">__getattr__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">name</span>): Este método é apenas chamado
+    quando um atributo, <em>name</em>, que está referenciado não é nem um
+    atributo de instância ou nem é encontrado na árvore da classe para
+    o objeto. Este método deve retornar algum valor para o atributo, ou
+    lança uma exceção <span
+    style="color: #660066;">AttributeError</span>. Por exemplo, se <em>x</em> é
+    uma instância da classe <em>Account</em> definida acima, tentar acessar um
+    atributo que não existe resultará em uma chamada para este método.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; acct = Account(&quot;obi&quot;, 10)
+&gt;&gt;&gt; acct.number
+Hey I dont see any attribute called number
+</pre></div>
+
+
+<p><p>
+Note que se o código <span
+style="color: #000000;">__getattr__</span> referencia atributos
+de instância, e esses atributos não existem, um loop infinito pode
+ocorrer porque o método <span
+style="color: #000000;">__getattr__</span> é chamado
+sucessivamente sem um fim</p>
+</li>
+<li>
+<p><span style="color: #000000;">__setattr__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">name</span>, <span
+    style="color: #000000;">value</span>): Este método é chamado sempre
+    que uma atribuição de atributos é tentada. <span
+    style="color: #000000;">__setattr__</span> deve inserir o valor
+    sendo atribuído no dicionário do atributo de instância em vez de
+    usar self.name=value, que resulta em uma chamada recursiva e,
+    consequentemente, para um loop infinito.</p>
+</li>
+<li><span style="color: #000000;">__delattr__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">name</span>): Este é chamado sempre que del
+    obj é chamado.</li>
+<li><span style="color: #000000;">__getattribute__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">name</span>): Este método é sempre chamado
+    para implementar acessos de atributos para instâncias de classe.</li>
+</ol>
+<h2>Métodos Especiais para Emulação de Tipos</h2>
+<p>Python define certa sintaxe especial para usar com certos tipos; por
+exemplo, os elementos em listas e tuplas podem ser acessados usando a
+notação de índice <span style="color: #000000;">[]</span>, valores
+numéricos podem ser somados com o operador <span
+style="color: #000000;">+</span>, e assim por diante. Podemos criar
+nossas próprias classes que fazem uso desta sintaxe especial ao
+implementar certos métodos especiais que o interpretador Python chama
+sempre que ele encontra tais sintaxes. Ilustramos isso com um exemplo
+muito simples abaixo, que emula o básico de uma lista Python:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CustomList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c"># the class is just a wrapper around another list to </span>
+        <span class="c"># illustrate special methods</span>
+        <span class="k">if</span> <span class="n">container</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="n">container</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># called when a user calls len(CustomList instance)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="c"># called when a user uses square brackets for indexing </span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c"># called when a user performs an index assignment</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c"># called when the user uses the &#39;in&#39; keyword</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">container</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otherList</span><span class="p">):</span>
+        <span class="c"># provides support for the use of the + operator </span>
+        <span class="k">return</span> <span class="n">CustomList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">container</span> <span class="o">+</span> <span class="n">otherList</span><span class="o">.</span><span class="n">container</span><span class="p">)</span>
+</pre></div>
+
+
+<p>No exemplo acima, o CustomList é um wrapper fino em torno de uma lista
+real. Nós implementamos alguns métodos customizados para fins de
+ilustração:</p>
+<ol>
+<li>
+<p><span style="color: #000000;">__len__</span>(<span
+    style="color: #000088;">self</span>): Este é chamado quando a
+    função len() é chamada em uma instância de CustomList, como mostrado
+    abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; myList = CustomList() 
+&gt;&gt;&gt; myList.append(1)    
+&gt;&gt;&gt; myList.append(2)
+&gt;&gt;&gt; myList.append(3)
+&gt;&gt;&gt; myList.append(4)
+&gt;&gt;&gt; len(myList)
+4
+</pre></div>
+
+
+</li>
+<li>
+<p><span style="color: #000000;">__getitem__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">value</span>): fornece suporte para o uso de
+    colchetes para indexação em uma instância da classe CustomList:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; myList = CustomList()
+&gt;&gt;&gt; myList.append(1)    
+&gt;&gt;&gt; myList.append(2)
+&gt;&gt;&gt; myList.append(3)
+&gt;&gt;&gt; myList.append(4)
+&gt;&gt;&gt; myList[3]
+4
+</pre></div>
+
+
+</li>
+<li>
+<p><span style="color: #000000;">__setitem__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">key</span>, <span
+    style="color: #000000;">value</span>): Chamado para implementar a
+    atribuição de valor para self[key] em uma instância da classe
+    CustomList:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; myList = CustomList()
+&gt;&gt;&gt; myList.append(1)    
+&gt;&gt;&gt; myList.append(2)
+&gt;&gt;&gt; myList.append(3)
+&gt;&gt;&gt; myList.append(4)
+&gt;&gt;&gt; myList[3] = 100
+4
+&gt;&gt;&gt; myList[3]
+100
+</pre></div>
+
+
+</li>
+<li>
+<p><span style="color: #000000;">__contains__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">key</span>): Chamado para implementar
+    operadores de teste de membros. Deve retornar <em>true</em> se item está em
+    self, e <em>false</em> se não estiver:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; myList = CustomList()
+&gt;&gt;&gt; myList.append(1)    
+&gt;&gt;&gt; myList.append(2)
+&gt;&gt;&gt; myList.append(3)
+&gt;&gt;&gt; myList.append(4)
+&gt;&gt;&gt; 4 in myList
+True
+</pre></div>
+
+
+</li>
+<li>
+<p><span style="color: #000000;">__repr__</span>(<span
+    style="color: #000088;">self</span>): Chamado para computar a
+    representação do objeto para <em>self</em> quando print é chamado com o
+    objeto como argumento:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; myList = CustomList()
+&gt;&gt;&gt; myList.append(1)    
+&gt;&gt;&gt; myList.append(2)
+&gt;&gt;&gt; myList.append(3)
+&gt;&gt;&gt; myList.append(4)
+&gt;&gt;&gt; print(myList)
+[1, 2, 3, 4]
+</pre></div>
+
+
+</li>
+<li>
+<p><span style="color: #000000;">__add__</span>(<span
+    style="color: #000088;">self</span>, <span
+    style="color: #000000;">otherList</span>): Chamado para computar a
+    adição de duas instâncias de CustomList quando o operador + é usado
+    para somar duas instâncias juntas:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; myList = CustomList()
+&gt;&gt;&gt; otherList = CustomList()
+&gt;&gt;&gt; otherList.append(100)
+&gt;&gt;&gt; myList.append(1)    
+&gt;&gt;&gt; myList.append(2)
+&gt;&gt;&gt; myList.append(3)
+&gt;&gt;&gt; myList.append(4)
+&gt;&gt;&gt; myList + otherList + otherList
+[1, 2, 3, 4, 100, 100]
+</pre></div>
+
+
+</li>
+</ol>
+<p>Acima temos um exemplo de como podemos customizar comportamento de
+classe ao definir certos métodos especiais de classe. Para uma listagem
+de todos os métodos, veja a <a href="https://docs.python.org/3/reference/datamodel.html#basic-customization">documentação
+Python</a>.
+No tutorial seguinte, nós colocaremos em prática o que discutimos aqui
+sobre métodos especiais e explicaremos <strong>descriptors</strong>, uma
+funcionalidade muito importante, que tem uso generalizado em programação
+orientada a objetos em Python.</p>
+<p>NT.: Pessoal, tive uma certa dificuldade ao traduzir este artigo, pela
+forma meio complicada que o autor o escreveu. Então desde já me desculpo
+se alguma parte ficou meio -no sense-, e peço que coloquem nos
+comentários qualquer possível melhoria que eu editarei o post :)</p>
+<h2>Leitura Complementar</h2>
+<ul>
+<li><a href="https://docs.python.org/3/reference/datamodel.html#">Python Data Model</a></li>
+</ul>
+<p><a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html">Clique aqui para voltar para a tabela de conteúdo.</a></p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Go Top</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

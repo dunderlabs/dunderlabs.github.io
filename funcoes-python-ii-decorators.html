@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="__labs__, ">
+
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+
+        <title>Funções Python II: decorators // __labs__ // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Published</h5>
+                <p>Wed 18 February 2015</p>
+                <a href="/">&larr;Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Funções Python II: decorators</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p><img alt="Créditos da imagem" src="{filename}/images/DecoratorsVisuallyExplained.png" />
+Créditos da imagem: https://www.freshbooks.com/developers/blog/logging-actions-with-python-decorators-part-i-decorating-logged-functions</p>
+<p>Decoradores de função (<em>Function Decorators</em>) habilitam a adição de nova
+funcionalidade para a função sem alterar a funcionalidade original dela.
+Antes de ler esse post, é importante que você tenha lido e entendido o a
+<a href="http://indacode.com/funcoes-python/" title="Funções Python">primeira parte</a>
+sobre funções python. O pensamento principal que devemos tirar a partir
+desse tutorial, é que funções Python são objetos de primeira classe; um
+resultado disso é que:</p>
+<ol>
+<li>Funções Python podem ser passadas como argumentos para outras
+    funções</li>
+<li>Funções Python podem ser retornadas de outras chamadas de funções.</li>
+<li>Funções Python podem ser definidas dentro de outras funções
+    resultando em closures.</li>
+</ol>
+<p>As propriedades de funções Python listadas acima fornecem a função
+necessária para explicar decoradores de função (que a partir daqui,
+passaremos a nos referir no original, <em>function decorators</em>).
+Simplificando, <em>function decorators</em> são <strong>containers (<em>wrappers</em>) que
+deixam você executar código antes</strong> <strong>das funções que elas decoraram sem
+modificar a função em si</strong>. A estrutura desse tutorial segue uma
+excelente resposta encontrada no <a href="http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/1594484#1594484">stack
+overflow</a> explicando
+sobre <em>python decorators</em>.</p>
+<h2>Function Decorators</h2>
+<p><em>Function decorators</em> não são exclusivos ao Python, então para
+explica-los, ignoremos a sintaxe de <em>function decorator </em>em Python por
+enquanto, e ao invés disso vamos focar na essência de <em>function
+decorators</em>. Para entender o que decorators fazem, nós implementamos uma
+função bem simples que é decorada (<em>decorated</em>, termo em inglês) com uma
+outra função simples que registra as chamadas para as funções decoradas.
+A <em>decoração da função</em> é conseguida através da composição de funções,
+como mostrado abaixo (seguem as explicações nos comentários):</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="c"># o decorator esperar uma outra função como argumento</span>
+
+<span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="p">):</span>
+
+    <span class="c"># um container (wrapper) é definido na hora</span>
+    <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">():</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Calling function: {} at {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+
+        <span class="c"># execute a função original</span>
+        <span class="n">func_to_decorate</span><span class="p">()</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finished calling : {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+    <span class="c"># retorne a função wrapper definida no momento. O corpo da</span>
+    <span class="c"># função wrapper não foi executado ainda, mas um closure</span>
+    <span class="c"># na função func_to_decorate foi criado    </span>
+    <span class="k">return</span> <span class="n">func_wrapper</span>
+
+<span class="k">def</span> <span class="nf">print_full_name</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;My name is John Doe&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt;decorated_func <span class="o">=</span> logger<span class="o">(</span>print_full_name<span class="o">)</span>
+&gt;&gt;&gt;decorated_func
+<span class="c"># o valor retornado, decorated_func, é uma referência para a func_wrapper</span>
+&lt;<span class="k">function</span> func_wrapper at 0x101ed2578&gt;
+&gt;&gt;&gt;decorated_func<span class="o">()</span>
+<span class="c"># decorated_func chamada</span>
+Calling <span class="k">function</span>: print_full_name at 2015-01-24 13:48:05.261413
+<span class="c"># a funcionalidade original é preservada</span>
+My name is John Doe
+Finished calling : print_full_name
+</pre></div>
+
+
+<p>No simples exemplo definido acima, o decorator adiciona uma nova
+funcionalidade, mostrando alguma informação antes e depois da chamada
+original da função, para a função original sem altera-la. O decorator
+<span style="color: #000000;">logger</span> recebe uma função para ser
+decorada, <span style="color: #000000;">print_full_name</span> e
+retorna uma função, <span style="color: #000000;">func_wrapper</span>
+que chama a função decorada, <span
+style="color: #000000;">print_full_name</span>, quando é executada. A
+função retornada, <span style="color: #000000;">func_wrapper</span>
+está fechada sobre a referência da função decorada (<em>closure</em>), <span
+style="color: #000000;">print_full_name</span> e portanto pode invocar
+a função decorada quando está executando. No exemplo acima, chamando
+<span style="color: #000000;">decorated_func</span> resulta em <span
+style="color: #000000;">print_full_name</span> sendo executada além de
+algum outro código implementando uma nova funcionalidade. Essa
+habilidade de adicionar nova funcionalidade para uma função sem
+modificar a função original é a essência de <em>function decorators</em>. Uma
+vez que esse conceito é entendido, o conceito de <em>decorators</em> está
+entendido.</p>
+<h2>Python decorators</h2>
+<p>Agora que nós felizmente entendemos a essência de <em>function decorators</em>,
+nós podemos seguir em frente para desconstruir construções Python que
+permitem-nos definir decorators mais facilmente. A seção anterior
+descreve a essência de decorators, mas ter que usar decorators através
+de composições de funções como descrito é muito custoso. Python introduz
+o símbolo <span style="color: #666600;">@</span> para decoração de
+funções. Decorar uma função usando a sintaxe de decorator Python é
+conseguida como mostrada abaixo:</p>
+<div class="highlight"><pre><span class="nd">@decorator</span>
+<span class="k">def</span> <span class="nf">a_stand_alone_function</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<p>Chamando <span style="color: #000000;">stand_alone_function</span>
+agora é o equivalente a chamar a função <span
+style="color: #000000;">decorated_func</span> da seção anterior, mas
+não precisamos mais definir a função intermediária <span
+style="color: #000000;">decorated_func</span>.</p>
+<p>Note que decorators podem ser aplicados não apenas em funções Python,
+mas também em classes Python e métodos de classe, mas discutiremos sobre
+decorators de classes e métodos em um próximo tutorial.</p>
+<p>É importante entender o que o símbolo <span
+style="color: #666600;">@</span> faz em respeito aos decorators em
+Python. A linha <span style="color: #006666;">@decorator</span> não
+define um decorator, em vez disso pode-se pensar dele como um açúcar
+sintático (<em>syntatic sugar</em>) para <strong>decorar uma função</strong>. Eu gosto de
+definir <strong>decorar uma função</strong> como o processo de aplicar um decorator
+existente a uma função. O <strong><em>decorator</em></strong> é a função real, <span
+style="color: #000000;">decorator</span> que adiciona a nova
+funcionalidade para a função original. De acordo com a PEP 318, o
+seguinte trecho de decorator</p>
+<div class="highlight"><pre><span class="nd">@dec2</span>
+<span class="nd">@dec1</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<p>é equivalente a:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">func</span> <span class="o">=</span> <span class="n">dec2</span><span class="p">(</span><span class="n">dec1</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>
+</pre></div>
+
+
+<p>sem o argumento intermediário <span style="color: #000000;">func</span>.
+No exemplo acima, <span style="color: #006666;">@dec1</span> e <span
+style="color: #006666;">@dec2</span> são os invocadores dos decorators.
+Agora pare, pense cuidadosamente e garanta que você entendeu isso. <span
+style="color: #000000;">dec1</span> e <span
+style="color: #000000;">dec2</span> são referências de objeto de função,
+e esses são os decorators reais. Esses valores podem ainda ser
+substituídos por qualquer <strong><em>chamada de função ou um valor que quando
+avaliado retorna uma função que recebe uma outra função.</em></strong> <em>O que é de
+suma importância é que o nome de referência</em> seguindo o símbolo <span
+style="color: #666600;">@</span> é uma referência para um objeto função
+(para esse tutorial, nós assumimos que esta referência deve ser um
+objeto função, mas na realidade ela deve ser um objeto <strong>chamável</strong>
+(<strong>callable)</strong>) que recebe uma função como argumento. Entender esse fato
+profundo ajudará em entender decorators Python e tópicos sobre
+decorators mais envolventes, tais como decorators que recebem
+argumentos.</p>
+<h2>Argumentos de funções para funções decoradas</h2>
+<p>Argumentos podem ser passados para funções que estão sendo decoradas ao
+simplesmente passar essa função dentro da função que envolve ela, <strong>isto
+é a função interna retornada quando o decorator é invocado</strong>, a função
+decorada. Nós ilustramos isso com um exemplo abaixo:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="c"># decorator espera uma outra função como argumento</span>
+<span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="p">):</span>
+
+    <span class="c"># Uma função wrapper é definida na hora</span>
+    <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Calling function: {} at {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+
+        <span class="c"># executa a função original</span>
+        <span class="n">func_to_decorate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finished calling : {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+
+    <span class="c"># retorne a função wrapper definida no momento. O corpo da</span>
+    <span class="c"># função wrapper não foi executado ainda, mas um closure</span>
+    <span class="c"># na função func_to_decorate foi criado </span>
+    <span class="k">return</span> <span class="n">func_wrapper</span>
+
+<span class="nd">@logger</span>
+<span class="k">def</span> <span class="nf">print_full_name</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;My name is {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>print_full_name<span class="o">(</span><span class="s2">&quot;John&quot;</span>, <span class="s2">&quot;Doe&quot;</span><span class="o">)</span>
+
+Calling <span class="k">function</span>: print_full_name at 2015-01-24 14:36:36.691557
+My name is John Doe
+Finished calling : print_full_name
+</pre></div>
+
+
+<p>Note como nós usamos <span style="color: #666600;">*</span><span
+style="color: #000000;">args</span> e <span
+style="color: #666600;">**</span><span
+style="color: #000000;">kwargs</span> na definição da função wrapper
+interna; isso é pelo simples motivo que nós não podemos saber de antemão
+quais argumentos estão sendo passados para uma função que está sendo
+decorada.</p>
+<h2>Função decorator com argumentos de função</h2>
+<p>Nós também podemos passar argumentos para a função decorator atual, mas
+isso é mais complexo do que o caso de passar funções para funções
+decoradas. Nós ilustramos isso com um grande exemplo abaixo:</p>
+<div class="highlight"><pre><span class="c"># Essa função recebe argumentos e retorna uma função</span>
+<span class="c"># a função retornada é nosso decorator real</span>
+<span class="k">def</span> <span class="nf">decorator_maker_with_arguments</span><span class="p">(</span><span class="n">decorator_arg1</span><span class="p">):</span>
+
+    <span class="c"># isso é nosso decorator real que aceita uma função</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="p">):</span>
+        <span class="c"># a função wrapper recebe argumentos para a função decoradora</span>
+        <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="n">function_arg1</span><span class="p">,</span> <span class="n">function_arg2</span><span class="p">)</span> <span class="p">:</span>
+            <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Calling function: {} at {} with decorator arguments: {} and function arguments:{} {}&quot;</span><span class="o">.</span>  
+               <span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">decorator_arg1</span><span class="p">,</span> <span class="n">function_arg1</span><span class="p">,</span> <span class="n">function_arg2</span><span class="p">))</span>
+
+            <span class="n">func_to_decorate</span><span class="p">(</span><span class="n">function_arg1</span><span class="p">,</span> <span class="n">function_arg2</span><span class="p">)</span>
+
+            <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finished calling : {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">wrapped</span>
+
+    <span class="k">return</span> <span class="n">decorator</span>
+
+<span class="nd">@decorator_maker_with_arguments</span><span class="p">(</span><span class="s">&quot;Apollo 11 Landing&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">print_name</span><span class="p">(</span><span class="n">function_arg1</span><span class="p">,</span> <span class="n">function_arg2</span><span class="p">):</span>
+   <span class="k">print</span> <span class="p">(</span><span class="s">&quot;My full name is -- {} {} --&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">function_arg1</span><span class="p">,</span> <span class="n">function_arg2</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; print_name<span class="o">(</span><span class="s2">&quot;Tranquility base &quot;</span>, <span class="s2">&quot;To Houston&quot;</span><span class="o">)</span>
+
+Calling <span class="k">function</span>: print_name at 2015-01-24 15:03:23.696982 with decorator arguments: Apollo <span class="m">11</span> Landing and <span class="k">function</span> arguments:Tranquility base  To Houston
+My full name is -- Tranquility base  To Houston --
+Finished calling : print_name
+</pre></div>
+
+
+<p>Como mencionado anteriormente, a chave para entender o que está
+acontecendo com isso é notar que nós podemos substituir o valor de
+referência seguindo a @ em uma decoração de função com qualquer valor
+que <strong><em>resulta em um objeto de função que recebe uma outra função como
+argumento</em></strong>. No exemplo acima, o valor retornado pela chamada de
+função, <span
+style="color: #000000;">decorator_make_with_arguments</span>(<span
+style="color: #008800;">"Apollo 11 landing"</span>), é o decorator. A
+chamada resulta em uma função, decorator que aceita uma função como
+argumento. Assim a decoração '@decorator_maker_with_arguments("Apollo
+11 landing")' é equivalente a <span
+style="color: #006666;">@decorator</span> mas com o decorador, <span
+style="color: #000000;">decorator</span>, fechado sobre o
+argumento <span style="color: #008800;">Apollo 11 landing</span> pela
+chamada da função <span
+style="color: #000000;">decorator_maker_with_arguments</span>. Note
+que os argumentos fornecidos para um decorator não pode ser
+dinamicamente mudado em tempo de execução como eles são executados na
+importação do script.</p>
+<h2>Functools.wrap</h2>
+<p>Usar decorators envolve trocar de uma função para uma outra. Um
+resultado disso é que meta informações, tais como docstrings são
+perdidas quando usar um decorator com tal função. Isso é ilustrado
+abaixo:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="c"># decorator espera uma outra função como argumento</span>
+<span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="p">):</span>
+
+    <span class="c"># uma função wrapper é definida na hora</span>
+    <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">():</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Calling function: {} at {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+
+        <span class="c"># execute a função original</span>
+        <span class="n">func_to_decorate</span><span class="p">()</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finished calling : {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+
+    <span class="c"># retorne a função wrapper definida no momento. O corpo da</span>
+    <span class="c"># função wrapper não foi executado ainda, mas um closure</span>
+    <span class="c"># na função func_to_decorate foi criado </span>
+    <span class="k">return</span> <span class="n">func_wrapper</span>
+
+<span class="nd">@logger</span>
+<span class="k">def</span> <span class="nf">print_full_name</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;return john doe&#39;s full name&quot;&quot;&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;My name is John Doe&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; print<span class="o">(</span>print_full_name.__doc__<span class="o">)</span>
+None
+&gt;&gt;&gt; print<span class="o">(</span>print_full_name.__name__<span class="o">)</span>
+func_wrapper
+</pre></div>
+
+
+<p>No exemplo acima uma tentativa de mostrar a string de documentação
+retorna <span style="color: #000088;">None</span> porque o decorator
+trocou a função <span style="color: #000000;">print_full_name</span>
+com a função <span style="color: #000000;">func_wrapper</span> que não
+tem string de documentação. Até mesmo o nome da função agora referencia
+o nome da função wrapper, em vez da função real. Isso, na maioria das
+vezes, não o que nós queremos quando usamos decorators. Para contornar
+isso, o módulo Python <span style="color: #000000;">functools</span>
+fornece a função <span style="color: #000000;">wraps</span> que também
+passa a ser um decorator. Esse decorator é aplicado a função wrapper e
+recebe a função a ser decorada como argumento. O uso é ilustrado abaixo:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span> 
+
+<span class="c"># decorator espera uma outra função como argumento</span>
+<span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="p">):</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="p">)</span>
+    <span class="c"># uma função wrapper é definida na hora</span>
+    <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Calling function: {} at {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+
+        <span class="c"># execute a função original</span>
+        <span class="n">func_to_decorate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># adicione qualquer funcionalidade de execução na função original</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finished calling : {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_to_decorate</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+
+    <span class="c"># retorne a função wrapper definida no momento. O corpo da</span>
+    <span class="c"># função wrapper não foi executado ainda, mas um closure</span>
+    <span class="c"># na função func_to_decorate foi criado </span>
+    <span class="k">return</span> <span class="n">func_wrapper</span>
+
+<span class="nd">@logger</span>
+<span class="k">def</span> <span class="nf">print_full_name</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;return john doe&#39;s full name&quot;&quot;&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;My name is {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; print<span class="o">(</span>print_full_name.__doc__<span class="o">)</span>
+<span class="k">return</span> john doe<span class="err">&#39;</span>s full name
+&gt;&gt;&gt;print<span class="o">(</span>print_full_name.__name__<span class="o">)</span>
+print_full_name
+</pre></div>
+
+
+<h2>Aplicação de Decoradores</h2>
+<p>Decorators tem uma ampla variedades de aplicações em Python, e todas
+essas não podem ser cobertas nesse artigo. Alguns exemplos de aplicações
+de decorators incluem:</p>
+<ol>
+<li>Memoização (<em>memoization</em>) que é o cache de valores para prevenir
+    recomputar tais valores se a computação é muito custosa; Um
+    decorator de memoização pode ser usado para decorar uma função que
+    executa o cálculo real, e a funcionalidade adicionada é que, para um
+    dado argumento se o resultado já foi computado anteriormente então o
+    valor armazenado é retornado para o chamador.</li>
+<li>Em aplicações web, decorators podem ser usados para proteger
+    endpoints que requer autenticação; um endpoint é protegido com um
+    decorator que checa se um usuário está autenticado quando uma
+    requisição é feita para o endpoint. Django, um popular framework
+    web, faz uso de decorators para gerenciar cache e permissões
+    de views.</li>
+<li>Decorators podem também fornecer uma maneira limpa para realização
+    de tarefas domésticas, tais como chamadas de funções de logging,
+    tempo de função e etc.</li>
+</ol>
+<p>O uso de decorators é um campo de atuação muito largo, que é único para
+diferentes situações. A <a href="https://wiki.python.org/moin/PythonDecoratorLibrary">biblioteca de decorator
+Python</a> fornecem
+ricos casos de uso de decorators Python. Navegando por esta coleção
+fornecerá visão prática para o uso de decorators Python.</p>
+<h2>Leitura complementar</h2>
+<ul>
+<li><a href="https://www.python.org/dev/peps/pep-0318/">PEP 318 - Decorators for Functions and Methods</a></li>
+<li><a href="http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/1594484#1594484">StackOverflow</a></li>
+</ul>
+<p><a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html">Clique aqui para voltar para a tabela de conteúdo.</a></p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Go Top</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="__labs__, ">
+
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+
+        <title>Python Comprehensions // __labs__ // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Published</h5>
+                <p>Fri 30 January 2015</p>
+                <a href="/">&larr;Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Python Comprehensions</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p><img alt="Créditos da imagem" src="{filename}/images/list1.jpg" />
+Créditos da imagem: https://datasciencelab.wordpress.com/2014/01/08/list-comprehension-in-python/</p>
+<p>Python comprehensions são construções sintáticas que permitem que
+sequências sejam construídas a partir de outras sequências de forma
+clara e concisa. Existem três tipo de Python comprehensions:</p>
+<ol>
+<li>list comprehensions,</li>
+<li>set comprehenscions, e</li>
+<li>dict comprehensions.</li>
+</ol>
+<p>Construções de list comprehensions tem sido parte do Python desde a
+versão 2.0, enquanto set e dict comprehensions só a partir do Python
+2.7.</p>
+<h3>List Comprehensions</h3>
+<p>List comprehensions são de longe a construção de comprehensions mais
+popular. List comprehensions fornecem uma maneira concisa de criar uma
+nova lista de elementos que satisfazem uma dada condição a partir de um
+<strong>iterável</strong>. Um <strong>iterável</strong> é qualquer construção python que possa ser
+posto/iterado em um loop. Exemplos de iteráveis embutidos incluem lists,
+sets e tuples. O exemplo abaixo da <a href="https://docs.python.org/2/tutorial/datastructures.html">Documentação
+Python</a> ilustra
+o uso de list comprehensions. Neste exemplo, nós queremos criar uma
+lista com os números elevado ao quadrado de 0 a 10. Uma maneira
+convencional de criar esta lista sem comprehensions é mostrada abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">squares</span> <span class="o">=</span> <span class="o">[]</span>
+&gt;&gt;&gt; <span class="k">for</span> x in range<span class="o">(</span>10<span class="o">)</span>:
+...     squares.append<span class="o">(</span>x**2<span class="o">)</span>
+...
+&gt;&gt;&gt; squares
+<span class="o">[</span>0, 1, 4, 9, 16, 25, 36, 49, 64, 81<span class="o">]</span>
+</pre></div>
+
+
+<p>A mesma lista pode ser criada de uma maneira mais concisa usando list
+comprehensions, como abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">squares</span> <span class="o">=</span> <span class="o">[</span>x**2 <span class="k">for</span> x in range<span class="o">(</span>10<span class="o">)]</span>
+</pre></div>
+
+
+<p>A versão com comprehension parece ser obviamente mais clara e concisa do
+que o método convencional.</p>
+<p>De acordo com a documentação python, <strong>uma list comprehension consiste
+de colchetes contendo uma expressão seguida por uma ou mais cláusulas 
+<em>for</em> ou cláusulas <em>if,</em> como mostrado abaixo</strong>.</p>
+<div class="highlight"><pre>[expression for item1 in iterable1 if condition1 
+            for item2 in iterable2 if condition2
+            ...
+            for itemN in iterableN if conditionN ]
+</pre></div>
+
+
+<p>O resultado é uma nova lista resultante da avaliação da expressão no
+contexto das cláusulas <em>for</em> e <em>if</em> em seguida. Por exemplo, para criar
+uma lista com o quadrado dos números pares entre 0 e 10, a seguinte
+comprehension é usada:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">even_squares</span> <span class="o">=</span> <span class="o">[</span>i**2 <span class="k">for</span> i in range<span class="o">(</span>10<span class="o">)</span> <span class="k">if</span> i % <span class="nv">2</span> <span class="o">==</span> 0<span class="o">]</span>
+&gt;&gt;&gt; even_squares
+<span class="o">[</span>0, 4, 16, 36, 64<span class="o">]</span>
+</pre></div>
+
+
+<p>A expressão i**2 é computada no contexto da cláusula <em>for</em> que itera
+sobre os número de 0 a 10, e a cláusula <em>if</em>  filtra os números não
+pares.</p>
+<h3>Loops <em>for</em> aninhandos numa list comprehensions</h3>
+<p>List comprehensions também podem ser usadas com múltiplos ou loops <em>for</em>
+aninhados. Considerando, por exemplo, o simples fragmento de código
+mostrado logo abaixo que cria uma tupla de pares de números extraídos
+das duas sequências apresentadas.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">combs</span> <span class="o">=</span> <span class="o">[]</span>
+&gt;&gt;&gt; <span class="k">for</span> x in <span class="o">[</span>1,2,3<span class="o">]</span>:
+...     <span class="k">for</span> y in <span class="o">[</span>3,1,4<span class="o">]</span>:
+...         <span class="k">if</span> x !<span class="o">=</span> y:
+...             combs.append<span class="o">((</span>x, y<span class="o">))</span>
+...
+&gt;&gt;&gt; combs
+<span class="o">[(</span>1, 3<span class="o">)</span>, <span class="o">(</span>1, 4<span class="o">)</span>, <span class="o">(</span>2, 3<span class="o">)</span>, <span class="o">(</span>2, 1<span class="o">)</span>, <span class="o">(</span>2, 4<span class="o">)</span>, <span class="o">(</span>3, 1<span class="o">)</span>, <span class="o">(</span>3, 4<span class="o">)]</span>
+</pre></div>
+
+
+<p>O código acima pode ser reescrito de uma maneira mais simples e concisa,
+como demonstrado abaixo usando list comprehensions.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="o">[(</span>x, y<span class="o">)</span> <span class="k">for</span> x in <span class="o">[</span>1,2,3<span class="o">]</span> <span class="k">for</span> y in <span class="o">[</span>3,1,4<span class="o">]</span> <span class="k">if</span> x !<span class="o">=</span> y<span class="o">]</span>
+<span class="o">[(</span>1, 3<span class="o">)</span>, <span class="o">(</span>1, 4<span class="o">)</span>, <span class="o">(</span>2, 3<span class="o">)</span>, <span class="o">(</span>2, 1<span class="o">)</span>, <span class="o">(</span>2, 4<span class="o">)</span>, <span class="o">(</span>3, 1<span class="o">)</span>, <span class="o">(</span>3, 4<span class="o">)]</span>
+</pre></div>
+
+
+<p>É importante levar em consideração em como a ordem dos loops <em>for</em> foi
+usada nesta list comprehension. A observação cuidadosa dos trechos de
+código usando comprehension e aquele sem comprehension mostra que a
+ordem dos loops <em>for</em> na comprehension seguiu a mesma ordem, como se
+tivesse sido escrita sem comprehensions. O mesmo se aplica para loops
+<em>for</em> aninhados com profundidade maior que 2 loops.</p>
+<h3>List Comprehensions Aninhadas</h3>
+<p>List comprehensions também podem ser aninhadas. Considere o seguinte
+exemplo extraído da documentação python, de uma matriz 3x4 implementada
+como uma lista de 3 listas de tamanho 4:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">matrix</span> <span class="o">=</span> <span class="o">[</span>
+...     <span class="o">[</span>1, 2, 3, 4<span class="o">]</span>,
+...     <span class="o">[</span>5, 6, 7, 8<span class="o">]</span>,
+...     <span class="o">[</span>9, 10, 11, 12<span class="o">]</span>,
+... <span class="o">]</span>
+</pre></div>
+
+
+<p>Transposição é uma operação das matrizes que cria uma nova matriz a
+partir de uma velha, usando as linhas da matriz velha como as colunas da
+matriz nova, e as colunas da matriz velha como as linhas da matriz nova.
+As linhas e colunas da matriz precisam ser transpostas usando a seguinte
+list comprehension:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="o">[[</span>row<span class="o">[</span>i<span class="o">]</span> <span class="k">for</span> row in matrix<span class="o">]</span> <span class="k">for</span> i in range<span class="o">(</span>4<span class="o">)]</span>
+<span class="o">[[</span>1, 5, 9<span class="o">]</span>, <span class="o">[</span>2, 6, 10<span class="o">]</span>, <span class="o">[</span>3, 7, 11<span class="o">]</span>, <span class="o">[</span>4, 8, 12<span class="o">]]</span>
+</pre></div>
+
+
+<p>O código acima é equivalente ao trecho dado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">transposed</span> <span class="o">=</span> <span class="o">[]</span>
+&gt;&gt;&gt; <span class="k">for</span> i in range<span class="o">(</span>4<span class="o">)</span>:
+...     transposed.append<span class="o">([</span>row<span class="o">[</span>i<span class="o">]</span> <span class="k">for</span> row in matrix<span class="o">])</span>
+...
+&gt;&gt;&gt; transposed
+<span class="o">[[</span>1, 5, 9<span class="o">]</span>, <span class="o">[</span>2, 6, 10<span class="o">]</span>, <span class="o">[</span>3, 7, 11<span class="o">]</span>, <span class="o">[</span>4, 8, 12<span class="o">]]</span>
+</pre></div>
+
+
+<h3>Set comprehensions</h3>
+<p>Set comprehensions foram adicionado ao python na versão 2.7. Em set
+comprehensions, nós usamos chaves ao invés de colchetes. Por exemplo,
+para criar o set do quadrado de todos os números entre 0 e 10, o
+seguinte set comprehension pode ser usado em vez do loop normal:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">x</span> <span class="o">=</span> <span class="o">{</span>i**2 <span class="k">for</span> i in range<span class="o">(</span>10<span class="o">)}</span>
+&gt;&gt;&gt; x
+<span class="nb">set</span><span class="o">([</span>0, 1, 4, 81, 64, 9, 16, 49, 25, 36<span class="o">])</span>
+&gt;&gt;&gt;
+</pre></div>
+
+
+<h3>Dict Comprehension</h3>
+<p>Assim como set comprehensions, dict comprehensions foram adicionados ao
+python na versão 2.7. Abaixo nós criamos um mapping, sendo as chaves os
+números entre 0 e 10, e os valores seus quadrados, usando dict
+comprehensions.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">x</span> <span class="o">=</span> <span class="o">{</span>i:i**2 <span class="k">for</span> i in range<span class="o">(</span>10<span class="o">)}</span>
+&gt;&gt;&gt; x
+<span class="o">{</span>0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81<span class="o">}</span>
+</pre></div>
+
+
+<h3>Leitura complementar</h3>
+<ol>
+<li><a href="https://docs.python.org/2/tutorial/datastructures.html">Documentação Python</a></li>
+<li>Python Essential Reference, Fourth Edition</li>
+<li><a href="http://python-3-patterns-idioms-test.readthedocs.org/en/latest/Comprehensions.html">Python 3 Patterns, Recipes and Idioms</a></li>
+</ol>
+<p><a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html">Clique aqui para voltar para a tabela de conteúdo.</a></p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Go Top</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="__labs__, ">
+
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+
+        <title>Introdução ao Python Generators // __labs__ // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Published</h5>
+                <p>Wed 04 February 2015</p>
+                <a href="/">&larr;Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Introdução ao Python Generators</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p><img alt="Créditos da imagem" src="{filename}/images/relationships-generator-iterator-edit.png" />
+Créditos da imagem: http://nvie.com/posts/iterators-vs-generators/</p>
+<p><em>Geradores</em> (<em>generators</em>) é um conceito muito fascinante em Python;
+<em>geradores</em> tem uma ampla gama de aplicações, que vai desde simples
+avaliação preguiçosa (<em>lazy evaluation</em>) até avançadas execuções
+simultâneas de tarefas (<em>veja</em> <a href="http://www.dabeaz.com/finalgenerator/">David
+Beazley</a>). Antes de mergulharmos
+no fascinante mundo dos geradores Python, nós pegaremos um pequeno
+desvio para explicar iteradores Python (<em>python iterators</em>), um conceito
+que eu acho que seja parte integrante para entender geradores.</p>
+<h3>Iteradores Python</h3>
+<p>Simplificando, um iterador em Python é qualquer tipo Python que pode ser
+usado com um loop <em>for.</em> Listas, tuplas, dicionários e <em>sets</em> Python são
+todos exemplos de iteradores embutidos. Alguém pode perguntar: "O que
+faz desses tipos um iterador, e essa é uma propriedade apenas dos tipos
+embutidos do Python?"</p>
+<p>Esses tipos são iteradores porque eles implementam o <strong>protocolo
+iterador</strong>. Então, <strong>O que é um protocolo iterador</strong>? Para responder
+esta pergunta, vamos precisar fazer outro pequeno desvio. Em Python,
+existem alguns métodos especiais, comumente chamados como <strong><em>métodos
+mágicos</em></strong>. Pode parecer estranho, mas apenas fique comigo e acredite
+pela fé no que digo, pelo menos, até chegarmos à orientação a objetos em
+Python.</p>
+<p>Esses métodos normalmente não são chamados explicitamente no código, mas
+são chamados implicitamente durante sua execução. Um exemplo muito
+familiar desses métodos mágicos, é o método <em>__<span
+style="color: #000000;">init</span>__</em>, que é mais ou menos como se
+fosse um construtor que é chamado durante a inicialização de um objeto
+Python. Semelhante a maneira como o método <em>__<span
+style="color: #000000;">init</span>__</em> tem de ser implementado na
+inicialização de um objeto personalizado, o protocolo iterador tem uma
+série de métodos mágicos que precisam ser implementados em qualquer
+objeto que queira ser usado como um <strong>iterador</strong>.</p>
+<p>Esses são os seguintes métodos:</p>
+<ul>
+<li>O método __<span style="color: #000000;">iter</span>__ que é
+    chamado na inicialização de um iterador. Ele deve retornar um objeto
+    que tem o método <em><span style="color: #000088;">next</span>()</em> (no
+    Python 3 este método foi mudado para __<span
+    style="color: #000000;">next</span>__).</li>
+<li>O método <span style="color: #000088;"><em>next</em></span> que é chamado
+    sempre que a função global <em><span
+    style="color: #000088;">next</span>()</em> é invocada com o iterador
+    como argumento. O método iterador <span
+    style="color: #000088;"><em>next</em></span>deve retornar o próximo valor
+    do iterável. Quando um iterador é usado com um loop <em>for</em>, o <em>for</em>
+    chama implicitamente o método <em><span
+    style="color: #000088;">next</span>()</em>. Este método levanta uma
+    exceção <span style="color: #660066;"><em>StopIteration</em></span> quando
+    não existe mais nenhum novo valor, para sinalizar o fim da iteração.</li>
+</ul>
+<p>Qualquer classe Python pode ser definida para agir como um iterador,
+desde que o protocolo iterador seja implementado. Isto é ilustrado
+através da implementação de um simples iterador que retorna os números
+da sequência Fibonacci até um determinado valor máximo.</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Fib</span><span class="p">:</span>                                        
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">max</span><span class="p">):</span>                      
+        <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                          
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                          
+        <span class="n">fib</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span>
+        <span class="k">if</span> <span class="n">fib</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>                  
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="k">return</span> <span class="n">fib</span>           
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt;for i in Fib<span class="o">(</span>10<span class="o">)</span>:
+        print i      
+
+0
+1
+1
+2
+3
+5
+8
+</pre></div>
+
+
+<p>Nós também podemos ir mais em frente e implementar nossa própria função
+<span style="color: #000000;"><em>range</em></span> personalizada para loop em
+números. Esta simples implementação apenas entra no loop partindo do 0
+para cima.</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CustomRange</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">max</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">numb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">numb</span>
+</pre></div>
+
+
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="k">for</span> i in CustomRange<span class="o">(</span>10<span class="o">)</span>:
+        print i 
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></div>
+
+
+<h3>Voltando aos Geradores</h3>
+<p>Agora, nós temos um entendimento básico sobre iteradores, mas não como
+eles se relacionam com geradores. Em resumo, geradores são iteradores. A
+<strong><em>PEP 255</em></strong>, que descreve simples geradores, refere-se a geradores
+pelo seu nome completo: <strong><em>generator-iterator</em></strong> (gerador de
+iteradores). Geradores são utilizados quer chamando o método <em>next</em> no
+objeto gerador, ou usando o objeto gerador em um loop <em>for</em>.</p>
+<p>Em Python, funções geradoras ou apenas geradores retornam objetos
+geradores. Esses geradores são funções que contêm a palavra reservada
+<span style="color: #000088;"><em>yield</em></span>. Ao invés de ter que
+escrever cada gerador com o método <em>__<span
+style="color: #000000;">iter</span>__</em> e <span
+style="color: #000088;"><em>next</em></span>, que é bastante complicado, Python
+fornece a palavra reservada <span style="color: #000088;"><em>yield</em></span>
+que provê uma maneira fácil para definir geradores. Por exemplo, o
+iterador de Fibonacci pode ser remodelado como um gerador usando a
+palavra reservada <span style="color: #000088;"><em>yield</em></span>, como
+mostrado abaixo:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="nb">max</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">a</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+
+
+<p>O uso da palavra reservada <span
+style="color: #000088;"><em>yield</em></span>simplifica muito a criação do
+gerador.</p>
+<h3>A palavra reservada <em>yield</em></h3>
+<p>A palavra reservada <span style="color: #000088;"><em>yield</em></span>é usada
+da seguinte maneira.</p>
+<div class="highlight"><pre><span class="k">yield</span> <span class="n">lista_expressao</span>
+</pre></div>
+
+
+<p>O <span style="color: #000088;"><em>yield</em></span>é fundamental para as
+funções geradoras em Python, mas o que essa palavra reservada <span
+style="color: #000088;"><em>yield</em></span> faz? Para entender o <span
+style="color: #000088;"><em>yield</em></span>, nós contrastamos ela com a
+palavra reservada <span style="color: #000088;"><em>return</em></span>;  uma
+outra palavra chave que devolve o controle para o chamador de uma
+função. Quando uma função que está executando encontra o <span
+style="color: #000088;"><em>yield</em></span>, ela suspende a execução naquele
+ponto, salva seu contexto e retorna para o chamador, juntamente com
+qualquer valor na lista_expressao; quando o chamador invoca o método
+<em>next</em> no objeto, a execução da função continua até outro <span
+style="color: #000000;"><em>yield</em></span> ou <span
+style="color: #000000;"><em>return</em></span> ser encontrado, ou quando o fim
+da função é atingido. Citando a <strong><em>PEP 255</em></strong>:</p>
+<blockquote>
+<p>Se a declaração de um yield é encontrado, o estado da função é
+congelado, e o valor da lista_expressao é retornado para o chamador
+do método next(). Por "congelado" nós queremos dizer que todo o estado
+local é retido, incluindo a ligação das variáveis locais, o ponteiro
+de instrução e a pilha de avaliação interna: informação suficiente é
+salva para que na próxima vez que o .next() é invocado, a função pode
+proceder exatamente como se a declaração yield fosse apenas outra
+chamada externa. Por outro lado, quando uma função encontra a
+declaração de um <span style="color: #000088;">return</span>, ele
+retorna para o chamador junto com qualquer valor que prosseguir a
+declaração do <span style="color: #000088;">return</span>, e a
+execução de tal função é completa para todos os efeitos. Pode-se
+pensar do <span style="color: #000088;">yield</span> como o causador
+de uma interrupção temporária.</p>
+</blockquote>
+<h3>Geradores Python em ação</h3>
+<p>Retornando para a função de números Fibonacci, se nós queremos gerar
+todos os número Fibonacci até um determinado valor, o seguinte trecho de
+código não-gerador pode ser usado para criar a sequência</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="nb">max</span><span class="p">):</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+     <span class="k">return</span> <span class="n">numbers</span>
+</pre></div>
+
+
+<p>O trecho acima calcula avidamente todos os números abaixo do valor <em>max</em>
+e retorna a coleção de tais números usando uma simples chamada de
+função. Por outro lado, usando o gerador Fibonacci para resolver o mesmo
+problema é um jogada diferente. Nós podemos usá-lo em um loop <em>for</em> e
+permitir o construtor do <em>for</em> implicitamente inicializar o gerador e
+chamar o método <span style="color: #000088;">next</span> no objeto
+gerador, ou ao explicitamente inicializá-lo e chamar o método <span
+style="color: #000088;">next</span> no objeto. Os valores são
+retornados, um depois do outro, ao chamar o método <span
+style="color: #000088;">next</span> no gerador. O gerador de números
+Fibonacci é implementado usando <span
+style="color: #000088;"><em>yield</em></span> logo abaixo:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="nb">max</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">a</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+
+
+<p>Nas seções seguintes, nós explicitamente inicializaremos o gerador, e
+faremos uso da função <span style="color: #000088;">next</span> para
+pegar os valores do gerador. Primeiro, nós vamos inicializar o objeto
+gerador como mostrado abaixo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">gen</span> <span class="o">=</span> fib<span class="o">(</span>10<span class="o">)</span>
+&gt;&gt;&gt; gen
+&lt;generator object fib at 0x1069a6d20&gt;
+&gt;&gt;&gt;
+</pre></div>
+
+
+<p>O que aconteceu acima é que quando o gerador é chamado, os argumentos
+(max tem um valor máximo de 10) são ligados aos nomes, mas o corpo da
+função não é executado. Ao invés disso, um objeto <strong>generator-iterator</strong>
+é retornado como mostrado pelo valor de gen. Este objeto pode então ser
+usado como um iterador. Note que é a presença da palavra reservada <span
+style="color: #000088;"><em>yield</em></span> é responsável por isso.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+0
+&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+1
+&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+1
+&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+2
+&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+3
+&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+5
+&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+8
+&gt;&gt;&gt; next<span class="o">(</span>gen<span class="o">)</span>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;&lt;stdin&gt;&quot;</span>, line 1, in &lt;module&gt;
+StopIteration
+</pre></div>
+
+
+<p>Agora quando chamamos a função <span style="color: #000088;">next</span>
+com o objeto gerador como argumento, o corpo da função geradora é
+executado até ela encontrar a declaração de um <em><span
+style="color: #000088;">yield</span>,</em> <span
+style="color: #000088;"><em>return</em></span> ou o fim da função ser atingido.
+No caso de encontrar a declaração de um <em>yield</em>, a expressão seguinte ao
+<em>yield</em> é retornado para o chamador, e o estado da função é salvo.
+Quando a função <span style="color: #000088;">next</span> é chamada no
+objeto gerador de Fibonacci, a variável <span
+style="color: #000000;">a</span> <span style="color: #000000;">está
+ligado a 0</span> e <span style="color: #000000;">b está ligado a
+1</span>. A condição do <span style="color: #000088;"><em>while</em></span> é
+verdadeira, de modo que a primeira declaração do loop <em>while</em> é
+executada, que passa a ser uma expressão <span
+style="color: #000088;"><em>yield</em></span>.</p>
+<p>Esta expressão retorna para o chamador o valor de a que passa a ser 0, e
+suspende naquele ponto com todo o contexto local salvo. Pense nisso como
+comer seu almoço em partes, e que em seguida você guarda ele pra
+continuar a comer mais tarde. Você pode continuar comendo até seu almoço
+se esgotar, e no caso de um gerador isto é a função obtendo a declaração
+de um <em>return</em> ou o fim do corpo da função. Quando a função <span
+style="color: #000088;">next</span> é chamada no objeto Fibonacci
+novamente, a execução é retomada na linha a, b = b, a+b e continua
+executando normalmente até um <span
+style="color: #000088;"><em>yield</em></span> ser encontrado novamente. E assim
+continua até a condição do loop for false e uma exceção <span
+style="color: #660066;">StopIteration</span> seja levantada, que é o
+sinal que não há mais dados para gerar.</p>
+<h3>Expressões Geradoras</h3>
+<p>Em <a href="http://indacode.com/python-comprehensions/" title="Python Comprehensions">Python
+Comprehensions</a>nós
+discutimos sobre list comprehensions e como elas são formadas. Uma
+desvantagem com list comprehensions é que os valores são todos
+calculados de uma vez, independente se esses valores são necessários
+naquele momento ou não. Isto pode algumas vezes consumir uma quantidade
+excessiva de memória. A <a href="https://www.python.org/dev/peps/pep-0289/"><strong>PEP
+289</strong></a>propôs a expressão
+geradora para resolver isto, e esta proposta foi aceita e adicionada a
+linguagem. Expressões geradoras são como list comprehensions; a única
+diferença é que os colchetes na list comprehensions são substituídos por
+parênteses. Nós contrastamos uma list comprehension com uma expressão
+geradora logo abaixo.</p>
+<p>Para gerar uma lista com o quadrado dos número de 0 e 10 usando list
+comprehensions é feita da seguinte forma:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">squares</span> <span class="o">=</span> <span class="o">[</span>i**2 <span class="k">for</span> i in range<span class="o">(</span>10<span class="o">)]</span>
+&gt;&gt;&gt; squares
+<span class="o">[</span>0, 1, 4, 9, 16, 25, 36, 49, 64, 81<span class="o">]</span>
+</pre></div>
+
+
+<p>Nós poderíamos usar uma expressão geradora, tal como mostrada abaixo, no
+lugar de uma list comprehension:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">squares</span> <span class="o">=</span> <span class="o">(</span>i**2 <span class="k">for</span> i in range<span class="o">(</span>10<span class="o">))</span>
+&gt;&gt;&gt; squares
+&lt;generator object &lt;genexpr&gt; at 0x7f8c48ec8cd0&gt;
+</pre></div>
+
+
+<p>Nós podemos então acessar os valores do gerador usando um loop <em>for</em> ou
+o método <span style="color: #000088;">next</span>, como mostrado
+abaixo. Cada valor é computado sob demanda, ou seja, só quando
+requisitado.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="k">for</span> square in squares:
+            print square
+0
+1
+4
+9
+16
+25
+36
+49
+64
+81
+</pre></div>
+
+
+<h3>De que servem esses geradores?</h3>
+<p>Geradores Python fornecem a base para <strong>avaliação preguiçosa</strong> e
+<strong>cálculo sob demanda</strong> em Python. Avaliação preguiçosa é uma parte
+integral do processamento de fluxo (processamento de grande quantidades
+de dados). Por exemplo, imagine que nós queremos criar uma quantidade
+indeterminada de números Fibonacci, isto não seria possível com uma
+abordagem sem geradores, porque nós temos que definir a quantidade de
+números que precisamos ou entrar num loop infinito. Por outro lado,
+adotando a abordagem dos geradores, fazer isso se torna trivial; nós
+apenas temos que chamar o <span style="color: #000088;">next</span> para
+pegar o próximo número Fibonacci, sem se preocupar sobre onde ou quando
+o fluxo de números terminam.</p>
+<p>Um tipo mais prático de processamento de fluxo é manipulando grandes
+arquivos de dados tais como arquivos de log. Geradores fornecem métodos
+eficientes para processamento desses dados, onde só algumas partes do
+arquivo são tratadas em um ponto no tempo. (<a href="http://www.dabeaz.com/generators-uk/GeneratorsUK.pdf">David
+Beazley</a>)</p>
+<p>Geradores também podem ser usados para substituir callbacks (<em>retorno de
+chamada de funções</em>). Ao invés de passar um callback para uma função, a
+função pode ceder o controle (<em>yield control</em>) para o chamador quando
+ele precisar informar algo ao chamador. O chamador pode então invocar
+uma função que teria sido usada como callback. Isto libera a função
+principal da obrigação de saber sobre o callback.</p>
+<p>Em um nível mais avançado, geradores podem ser usados para implementar
+concorrência (<a href="http://www.dabeaz.com/finalgenerator/">David Beazley</a>).
+Quando um gerador <span style="color: #000000;"><em>yields</em></span> cede o
+controle para o chamador, o chamador pode então ir em frente e chamar
+outro gerador, simulando concorrência.</p>
+<p>O que listamos acima são apenas algumas das aplicabilidades dos
+geradores Python. Em um post futuro, nós discutiremos novas adições ao
+gerador Python que permitem um chamador enviar valores para o gerador,
+bem como alguns usos avançados de geradores.</p>
+<h3>Leitura complementar</h3>
+<ul>
+<li><a href="https://www.python.org/dev/peps/pep-0255/">PEP 255 – Simple Generators</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-0289/">PEP 289 – Generator Expressions</a></li>
+<li><a href="http://www.dabeaz.com/finalgenerator/FinalGenerator.pdf">Generators: The Final Frontier by David Beazley</a></li>
+<li><a href="https://docs.python.org/2/tutorial/classes.html#generators">Python Tutorials - Generators</a></li>
+<li><a href="https://docs.python.org/2/tutorial/classes.html#generator-expressions">Python Tutorials - Generator Expressions</a></li>
+<li><a href="https://docs.python.org/2/tutorial/classes.html#iterators">Python Tutorials - Iterators</a></li>
+</ul>
+<p><a href="https://dunderlabs.github.io/pages/pythonista-intermediario.html">Clique aqui para voltar para a tabela de conteúdo.</a></p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Go Top</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
