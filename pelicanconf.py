@@ -78,7 +78,6 @@ META_KEYWORDS = [
     'pug-pi', 'python', 'parnaiba', 'desenvolvimento', 'web', 'django'
 ]
 
-SITE_LOGO = '/images/logo1.png'
+SITE_LOGO = '/images/logo1.jpg'
 
-OPEN_GRAPH_IMAGE = "/images/logo1.png"
-
+OPEN_GRAPH_IMAGE = "/images/logo1.jpg"
