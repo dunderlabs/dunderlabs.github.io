@@ -7,7 +7,7 @@ from collections import OrderedDict
 AUTHOR = 'Dunderlabs'
 SITENAME = '__labs__'
 SITEURL = ''
-TITLE_SITE = '__Labs__ - Respirando inovação, expirando qualidade'
+TITLE_SITE = 'DunderLabs - Respirando inovação, expirando qualidade'
 
 DISPLAY_PAGES_ON_MENU = True
 
