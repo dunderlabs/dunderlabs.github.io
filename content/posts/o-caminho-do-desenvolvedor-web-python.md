@@ -4,8 +4,10 @@ author: Patrick Mazulo
 category: web
 tags: python, web, web development
 slug: o-caminho-do-desenvolvedor-web-python
+summary: Sempre ao iniciar na área de desenvolvimento web, vagueamos com a pergunta na mente: Por onde começar? Aqui vamos falar sobre um possível caminho
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
+image: /images/posts/dev_way2.png
 
 ![Créditos da imagem]({filename}/images/posts/dev_way2.png)
 

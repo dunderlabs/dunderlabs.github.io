@@ -6,7 +6,6 @@ author: Patrick Mazulo
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 summary: Meu primeiro post com Pelican
-FacebookImage: http://cdn.myanimelist.net/s/common/uploaded_files/1449004938-79aed40e1b35b492b483e8b0c9a17bf4.png
 
 # Hello World!
 
