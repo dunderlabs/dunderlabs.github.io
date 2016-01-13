@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+from collections import OrderedDict
+
 
 AUTHOR = 'Dunderlabs'
 SITENAME = '__labs__'
@@ -67,6 +69,7 @@ DISQUS_SITENAME = 'dunderlabs'
 
 
 # Custom configs
+
 META_DESCRIPTION = '''
     4 amigos com gostos igualmente parecidos e diferentes, reunindo
     conhecimento, experiências e muitas dúvidas sobre: Front-End,
@@ -81,3 +84,13 @@ META_KEYWORDS = [
 SITE_LOGO = '/images/logo1.jpg'
 
 OPEN_GRAPH_IMAGE = "/images/logo1.jpg"
+
+TWITTER = '@dunderlabs'
+
+MEMBROS = OrderedDict((
+    ('Patrick Mazulo', {
+        'email': 'pmazulo@gmail.com',
+        'twitter': '@ericleribertson',
+        'github': 'mazulo'
+    }),
+))
