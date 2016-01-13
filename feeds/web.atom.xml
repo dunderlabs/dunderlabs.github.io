@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/web.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2015-03-17T14:13:00-03:00</updated><entry><title>O caminho do desenvolvedor web Python</title><link href="https://dunderlabs.github.io/o-caminho-do-desenvolvedor-web-python.html" rel="alternate"></link><updated>2015-03-17T14:13:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-03-17:o-caminho-do-desenvolvedor-web-python.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/dev_way2.png" /&gt;&lt;/p&gt;
-&lt;p&gt;Créditos da imagem: http://brianmcdonnell.github.io/pycon_ie_2013/#/&lt;/p&gt;
+&lt;p&gt;Créditos da imagem: &lt;a href="http://brianmcdonnell.github.io/pycon_ie_2013/#/"&gt;http://brianmcdonnell.github.io/pycon_ie_2013/#/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Do começo do ano passado para cá, acabei ficando bem ativo no
 grupo Python Brasil do Facebook, sempre compartilhando coisas legais que
 eu encontrava pela internet, e/ou respondendo perguntas que eu poderia
@@ -168,4 +168,4 @@ curto, na verdade podemos dizer que ele nunca acaba, porque você sempre
 vai estar estudando sobre alguma coisa relacionada a web. Então dê-se o
 tempo necessário até que você pegue no gancho, e comece e realmente
 sentir as coisas fluindo. Pode ser bem complicado no começo, mas posso
-lhe dizer que com o tempo só tende a melhorar :) Bons estudos!&lt;/p&gt;</summary><category term="python"></category><category term="web"></category><category term="web development"></category></entry></feed>
+lhe dizer que com o tempo só tende a melhorar :) Bons estudos!&lt;/p&gt;</summary><category term="python"></category><category term="web development"></category><category term="tips"></category><category term="web frameworks"></category></entry></feed>
