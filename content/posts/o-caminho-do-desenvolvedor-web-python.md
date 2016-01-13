@@ -2,7 +2,7 @@ title: O caminho do desenvolvedor web Python
 date: 2015-03-17 14:13
 author: Patrick Mazulo
 category: web
-tags: python, web, web development
+tags: python, web development, tips, web frameworks
 slug: o-caminho-do-desenvolvedor-web-python
 summary: Sempre ao iniciar na área de desenvolvimento web, vagueamos com a pergunta na mente: Por onde começar? Aqui vamos falar sobre um possível caminho
 email: pmazulo@gmail.com
@@ -11,7 +11,7 @@ image: /images/posts/dev_way2.png
 
 ![Créditos da imagem]({filename}/images/posts/dev_way2.png)
 
-Créditos da imagem: http://brianmcdonnell.github.io/pycon_ie_2013/#/
+Créditos da imagem: <http://brianmcdonnell.github.io/pycon_ie_2013/#/>
 
 Do começo do ano passado para cá, acabei ficando bem ativo no
 grupo Python Brasil do Facebook, sempre compartilhando coisas legais que

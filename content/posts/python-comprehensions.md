@@ -2,12 +2,16 @@ title: Python Comprehensions
 date: 2015-01-30 02:25
 author: Patrick Mazulo
 slug: python-comprehensions
+category: python
+tags: python, iterators, list comprehensions, translations
+summary: Neste 1º post da série Pythonista Intermediário vamos mostrar o que são e como funcionam as lists comprehensions em Python.
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
+image: /images/posts/list1.jpg
 
 ![Créditos da imagem]({filename}/images/posts/list1.jpg)
 
-Créditos da imagem: https://datasciencelab.wordpress.com/2014/01/08/list-comprehension-in-python/
+Créditos da imagem: <https://datasciencelab.wordpress.com/2014/01/08/list-comprehension-in-python/>
 
 Python comprehensions são construções sintáticas que permitem que
 sequências sejam construídas a partir de outras sequências de forma

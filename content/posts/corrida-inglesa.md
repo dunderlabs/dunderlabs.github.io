@@ -2,12 +2,15 @@ title: Corrida Inglesa
 date: 2015-01-28 17:07
 author: Patrick Mazulo
 slug: corrida-inglesa
+category: inglês
+tags: english, tips
+summary: Saber inglês pra quem trabalha em TI além de ser mais do que necessário, é essencial para sobreviver em meio ao mercado. Mas o problema na grande maioria das vezes é: onde começar.
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
 ![It's time to learn!]({filename}/images/posts/aprender_ingles.jpg)
 
-Créditos da imagem: http://wiseup.com/magazine/aprender-ingles
+Créditos da imagem: <http://wiseup.com/magazine/aprender-ingles>
 
 
 Saber inglês pra quem trabalha em TI além de ser mais do que necessário,

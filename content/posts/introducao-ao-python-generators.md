@@ -2,11 +2,15 @@ title: Introdução ao Python Generators
 date: 2015-02-04 12:16
 author: Patrick Mazulo
 slug: introducao-ao-python-generators
+category: python
+tags: python, python iterators, generators, translations
+summary: 2º post da série Pythonista Intermediário. Seguindo ainda no fluxo do primeiro post, vamos falar sobre iteradores e generators em Python.
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
+image: /images/posts/relationships-generator-iterator.png
 
 ![Créditos da imagem]({filename}/images/posts/relationships-generator-iterator.png)
-Créditos da imagem: http://nvie.com/posts/iterators-vs-generators/
+Créditos da imagem: <http://nvie.com/posts/iterators-vs-generators/>
 
 *Geradores* (*generators*) é um conceito muito fascinante em Python;
 *geradores* tem uma ampla gama de aplicações, que vai desde simples

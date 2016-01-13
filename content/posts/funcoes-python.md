@@ -2,11 +2,15 @@ title: Funções Python
 date: 2015-02-11 13:15
 author: Patrick Mazulo
 slug: funcoes-python
+category: python
+tags: python, python function, translations
+summary: 3º post da série Pythonista Intermediário. Vamos conhecer como Python trata funções.
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
+image: /images/posts/python_function_syntax.png
 
 ![Créditos da imagem]({filename}/images/posts/python_function_syntax.png)
-Créditos da imagem: http://www.voidspace.org.uk/python/weblog/arch_Tools.shtml
+Créditos da imagem: <http://www.voidspace.org.uk/python/weblog/arch_Tools.shtml>
 
 Funções Python nomeadas ou *anônimas* são um conjunto de declarações ou
 expressões. Em Python, ***funções são objetos de primeira classe***.

@@ -5,10 +5,11 @@ email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 slug: pythonista-intermediario
 status: published
+image: /images/pages/python-intermediate.jpg
 
 ![Créditos da imagem]({filename}/images/pages/python-intermediate.jpg)
 
-Créditos da imagem: http://cgninjas.ru/workshop/python-intermediate
+Créditos da imagem: <http://cgninjas.ru/workshop/python-intermediate>
 
 Aqui vamos dar início a primeira série de posts do blog
 

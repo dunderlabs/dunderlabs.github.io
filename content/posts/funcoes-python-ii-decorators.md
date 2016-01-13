@@ -2,12 +2,16 @@ title: Funções Python II: decorators
 date: 2015-02-18 12:38
 author: Patrick Mazulo
 slug: funcoes-python-ii-decorators
+category: python
+tags: python, python function, decorators, translations
+summary: 4º post da série Pythonista Intermediário. Vamos continuar falando sobre funções em Python, mas dentro do conceito de `decorators`.
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
+image: /images/posts/DecoratorsVisuallyExplained.png
 
 ![Créditos da imagem]({filename}/images/posts/DecoratorsVisuallyExplained.png)
 
-Créditos da imagem: https://www.freshbooks.com/developers/blog/logging-actions-with-python-decorators-part-i-decorating-logged-functions
+Créditos da imagem: <https://www.freshbooks.com/developers/blog/logging-actions-with-python-decorators-part-i-decorating-logged-functions>
 
 Decoradores de função (*Function Decorators*) habilitam a adição de nova
 funcionalidade para a função sem alterar a funcionalidade original dela.
