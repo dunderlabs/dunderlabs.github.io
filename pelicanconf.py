@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Dunderlabs'
 SITENAME = '__labs__'
-SITEURL = 'http://dunderlabs.github.io'
+SITEURL = ''
+TITLE_SITE = '__Labs__ - Respirando inovação, expirando qualidade'
 
 DISPLAY_PAGES_ON_MENU = True
 
@@ -67,14 +68,17 @@ DISQUS_SITENAME = 'dunderlabs'
 
 # Custom configs
 META_DESCRIPTION = '''
-    O Grupy-DF é uma comunidade de usuários (profissionais e
-    amadores) da linguagem Python, onde prezamos pela troca de
-    conhecimento, respeito mútuo e diversidade (tanto de opinião
-    quanto de tecnologias).
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
 '''
 
 META_KEYWORDS = [
     'pug-pi', 'python', 'parnaiba', 'desenvolvimento', 'web', 'django'
 ]
+
 SITE_LOGO = '/images/logo1.png'
+
 OPEN_GRAPH_IMAGE = "/images/logo1.png"
+

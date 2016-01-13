@@ -5,7 +5,8 @@ slug: corrida-inglesa
 email: pmazulo@gmail.com
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
 
-![It's time to learn!]({filename}/images/aprender_ingles.jpg)
+![It's time to learn!]({filename}/images/posts/aprender_ingles.jpg)
+
 Créditos da imagem: http://wiseup.com/magazine/aprender-ingles
 
 
