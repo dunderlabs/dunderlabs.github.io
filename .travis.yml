@@ -9,6 +9,7 @@ install:
 script:
   - make publish
 notifications:
+  slack: dunderlabs:Gkx9FdRZXO5pfbiuHOy4vB3W
   email:
     on_success: never
     on_failure: never
