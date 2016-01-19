@@ -262,7 +262,7 @@ Digamos que seus arquivos estáticos estão dentro do seu projeto Django, que se
 Bom pessoal, por enquanto é isso. Ainda tem **MUITA** coisa, que se eu fosse cobrir tornaria este post gigantescamente maior do que ficou hahaha. Caso tenha curiosidade, não esqueça de visitar a documentação.
 E se você curtiu esse post, compartilhe com os amigos devs! :D
 
-PS.: Há um python packate muito bom chamado [simple-settings](https://github.com/drgarcia1986/simple-settings) muito, desenvolvido pelo [@drgarcia1986](https://twitter.com/drgarcia1986), com o intuito de facilitar a maneira como você gerencia os settings dos projetos. Vale a pena dar uma olhada.
+PS.: Há um python packate muito bacana chamado [simple-settings](https://github.com/drgarcia1986/simple-settings), desenvolvido pelo [@drgarcia1986](https://twitter.com/drgarcia1986), com o intuito de facilitar a maneira como você gerencia os settings dos projetos. Vale a pena dar uma olhada.
 
 Valeu pessoal, e até a próxima!
 
