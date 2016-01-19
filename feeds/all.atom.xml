@@ -1,5 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2015-03-17T14:13:00-03:00</updated><entry><title>O caminho do desenvolvedor web Python</title><link href="https://dunderlabs.github.io/o-caminho-do-desenvolvedor-web-python.html" rel="alternate"></link><updated>2015-03-17T14:13:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-03-17:o-caminho-do-desenvolvedor-web-python.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/dev_way2.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2016-01-17T21:34:00-03:00</updated><entry><title>Série Django - Settings</title><link href="https://dunderlabs.github.io/serie-django-settings.html" rel="alternate"></link><updated>2016-01-17T21:34:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2016-01-17:serie-django-settings.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-settings.jpg" /&gt;  &lt;/p&gt;
+&lt;p&gt;Créditos da imagem: &lt;a href="https://www.coderedcorp.com/blog/django-settings-for-multiple-environments/"&gt;https://www.coderedcorp.com/blog/django-settings-for-multiple-environments/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Estaremos iniciando uma nova série no blog. Mas vamos tentar fazer de uma maneira diferente. Ao invés de criarmos uma aplicação, vamos falar sobre o Django em si, seus componentes, como funcionam, como se interrelacionam e etc. O post de hoje na realidade é uma "transcrição" de um hangout que aconteceu há um tempo atrás, de um grupo de estudo no Telegram chamado "Django Group - Initial Steps". Caso tenha interesse, &lt;a href="http://pastebin.com/nwYyG7Ar"&gt;neste link&lt;/a&gt; vc terá informações sobre como se juntar ao grupo.&lt;/p&gt;
+&lt;p&gt;Neste &lt;a href="https://youtu.be/m7PujnjPboU"&gt;hangout&lt;/a&gt; em questão falamos sobre o módulo &lt;code&gt;settings.py&lt;/code&gt;. Então, vamos discutir um pouco sobre ele aqui neste post.&lt;/p&gt;
+&lt;p&gt;O &lt;code&gt;settings.py&lt;/code&gt; nada mais é do que um arquivo de configuração do Django que contém todas as configurações da sua instalação do framework. Esse arquivo nada mais é do que também um módulo Python com váriaveis de nível de módulo.&lt;/p&gt;
+&lt;p&gt;Agora vamos percorrer suas linhas e entender o que cada uma faz.&lt;/p&gt;
+&lt;p&gt;Ao início do arquivo, você terá uma string de múltiplas linhas, com informações relevantes, incluindo links da documentação para você depois ter mais informações sobre este arquivo.
+Agora vamos trazer atenção para estas linhas:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="n"&gt;BASE_DIR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dirname&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dirname&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;abspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;__file__&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O que está acontecendo? E para que serve esta variável &lt;code&gt;BASE_DIR&lt;/code&gt;?&lt;/p&gt;
+&lt;p&gt;O módulo &lt;code&gt;os&lt;/code&gt; do Python nos fornece uma maneira portável de usar funcionalidades do sistema operacional. No caso estaremos usando para manipular caminhos de diretórios (paths).&lt;/p&gt;
+&lt;p&gt;BASE_DIR é a variável que vai ter o caminho para o nosso projeto Django, e será usada mais a frente. Serve como uma maneira facilitada para que não tenhamos que trabalhar com caminho absoluto (absolute paths). Imagine que você salve o caminho para o seu projeto com o caminho absoluto como  &lt;code&gt;BASE_DIR = '/home/&amp;lt;user&amp;gt;/dev/django_projects/my_project'&lt;/code&gt;, e por algum motivo tenha que mudar seu projeto para outra máquina. Quanta dor de cabeça seria para mudar todos os arquivos onde você precise desse caminho? Pois bem, o settings, ao iniciar o projeto, já vem com uma abordagem bem bacana para facilitar e nos livrar desse imenso trabalho.&lt;/p&gt;
+&lt;p&gt;Mas para entender melhor vamos pedaço por pedaço.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;__file__&lt;/code&gt; é um atributo do módulo atual que representa o nome do arquivo. Faça um teste: salve um arquivo .py apenas com um &lt;code&gt;print(__file__)&lt;/code&gt; e execute-o para ver o que será printado na tela.
+Este vai ser o ponto de partida para descobrirmos o restante do caminho para o projeto.
+Agora vamos realizar as chamadas dos métodos de dentro para fora, para podermos ver como vamos conseguir realizar tal façanha.&lt;/p&gt;
+&lt;p&gt;A chamada mais interna é esta: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;abspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;__file__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O &lt;code&gt;abspath&lt;/code&gt; vai nos retornar uma versão absoluta e normalizada do caminho deste arquivo (arquivo este disponibilizado pelo &lt;code&gt;__file__&lt;/code&gt;, lembra?). Digamos que na minha máquina eu tenha um projeto django chamado "django_project_1_9". O &lt;code&gt;abspath&lt;/code&gt; retornaria o seguinte caminho:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;/home/mazulo/dev/web/django_projects/django_project_1_9/django_project_1_9/settings.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Perceba que ao final do arquivo nós temos o próprio arquivo &lt;code&gt;settings.py&lt;/code&gt;. Pois bem, o resultado desta chamada vai ser imediatamente jogado para a chamada mais externa, que no caso é o:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dirname&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;abspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;__file__&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O &lt;code&gt;dirname&lt;/code&gt; vai retorna o nome do diretório pai do caminho passado ao diretório. Vai ser o primeiro elemento do par retornado ao passar este path para a função &lt;code&gt;os.path.split()&lt;/code&gt;. O resultado será:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;/home/mazulo/dev/web/django_projects/django_project_1_9/django_project_1_9
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note que ele apenas retirou o nome do arquivo &lt;code&gt;settings.py&lt;/code&gt;. Este é o diretório onde está o arquivo &lt;code&gt;settings.py&lt;/code&gt;, ainda não é a raiz do nosso projeto, nosso atual objetivo. O resultado dessa chamada será então jogado como parâmetro para a última função encadeada:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;BASE_DIR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dirname&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dirname&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;abspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;__file__&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Usamos novamente o &lt;code&gt;dirname&lt;/code&gt; para pegar o diretório pai. Uma vez o último diretório era onde está armazenado o settings, acima dele teremos a raiz do nosso projeto, onde também está o arquivo &lt;code&gt;manage.py&lt;/code&gt;. E é exatamente isso que será retornado e atribuído para a variável &lt;code&gt;BASE_DIR&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;/home/mazulo/dev/web/django_projects/django_project_1_9
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pronto, aí está o caminho para a raiz do nosso projeto sendo setada de maneira dinâmica. Agora, independente de quantas vezes trocarmos nosso projeto de pasta/máquina, este caminho estará funcionando perfeitamente.&lt;/p&gt;
+&lt;p&gt;Seguindo em frente teremos o &lt;code&gt;DEBUG&lt;/code&gt;. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;DEBUG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Sua função basicamente é mostrar informações detalhadas em uma página sobre o erro ocorrido. Lembra daquela página amarela?&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Exemplo da página de erro" src="https://dunderlabs.github.io/images/posts/django_page_error.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Mas não somente na documentação, como em qualquer post você vai encontrar o seguinte conseglho: &lt;strong&gt;NUNCA&lt;/strong&gt; faça deploy de um sistema com o modo &lt;code&gt;DEBUG&lt;/code&gt; ligado. &lt;strong&gt;NUNCA&lt;/strong&gt;. O motivo é que nessa tela de erro, junto com o traceback do erro, são mostradas muitos metadados sobre o seu ambiente, assim como o que está definido no seu settings. Então, fica dado o recado: &lt;strong&gt;NUNCA&lt;/strong&gt; &lt;em&gt;faça deploy de um sistema com o modo &lt;code&gt;DEBUG&lt;/code&gt; ligado.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Logo após a declaração do &lt;code&gt;BASE_DIR&lt;/code&gt;, teremos o &lt;code&gt;ALLOWED_HOSTS&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ALLOWED_HOSTS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O &lt;code&gt;ALLOWED_HOSTS&lt;/code&gt; é uma lista de strings representando o host/nome de domínio que o projeto Django pode servir. Serve como uma medida de segurança para impedir que um invasor possa realizar certos tipos de ataque (evenenamento de cache, disparo de e-mails de redefinição de senha contendo links para hosts maliciosos e etc).&lt;/p&gt;
+&lt;p&gt;Seguindo em frente teremos uma das mais conhecidas variáveis deste módulo, e primeiramente modificadas ao início de um projeto: &lt;code&gt;INSTALLED_APPS&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Application definition&lt;/span&gt;
+
+&lt;span class="n"&gt;INSTALLED_APPS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.admin&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.auth&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.contenttypes&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.sessions&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.messages&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.staticfiles&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;myapp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;INSTALLED_APPS&lt;/code&gt; é uma lista de strings designando todas as aplicações que estão habilitadas nesta instalação do Django. Cada string deve ser um caminho Python (com pontos, algo como 'module.class') para:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Uma classe de configuração de aplicação, ou&lt;/li&gt;
+&lt;li&gt;Um pacote contendo uma aplicação (o caso daquele 'myapp')&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Logo após teremos o &lt;code&gt;MIDDLEWARE_CLASSES&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;MIDDLEWARE_CLASSES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.middleware.security.SecurityMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.sessions.middleware.SessionMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.middleware.common.CommonMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.middleware.csrf.CsrfViewMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.auth.middleware.AuthenticationMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.auth.middleware.SessionAuthenticationMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.contrib.messages.middleware.MessageMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;django.middleware.clickjacking.XFrameOptionsMiddleware&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O &lt;code&gt;MIDDLEWARE_CLASSES&lt;/code&gt; é uma lista de classes Middleware que serão usadas no seu projeto Django. Middleware na realidade é um framework do Django, que tem um conjunto de classes que servem como "gatilhos" para processar e modificar request/response. Cada componente é responsável por fazer alguma coisa em específico. Por exemplo, é por causa do &lt;code&gt;'django.contrib.auth.middleware.AuthenticationMiddleware'&lt;/code&gt; que você consegue ter acesso ao usuário da requisição (&lt;code&gt;request.user&lt;/code&gt;, para ver o código do Django responsável por isso, &lt;a href="https://github.com/django/django/blob/master/django/contrib/auth/middleware.py#L22"&gt;clique aqui&lt;/a&gt;), e também ao dicionário session (&lt;code&gt;request.session&lt;/code&gt;), tendo a classe &lt;code&gt;'django.contrib.sessions.middleware.SessionMiddleware'&lt;/code&gt; como responsável por isso. A ordem em que está configurado realmente importa, porque um middleware pode depender de outro. Por exemplo os que citamos aqui: a classe &lt;code&gt;AuthenticationMiddleware&lt;/code&gt; armazena o usuário na sessão, então ele deve rodar depois do &lt;code&gt;SessionMiddleware&lt;/code&gt;. Tudo beleza? Próximo, então.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TEMPLATES&lt;/code&gt; é uma lista de configuraçẽs para todas as engines de templates a serem usadas pelo Django. Cada item da lista é um dicionário contendo as opções para uma única engine. Neste dicionário teremos as seguintes chaves para sua configuração:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;TEMPLATES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;BACKEND&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django.template.backends.django.DjangoTemplates&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;DIRS&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BASE_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;templates&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),],&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;APP_DIRS&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;OPTIONS&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="s"&gt;&amp;#39;context_processors&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+                &lt;span class="s"&gt;&amp;#39;django.template.context_processors.debug&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="s"&gt;&amp;#39;django.template.context_processors.request&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="s"&gt;&amp;#39;django.contrib.auth.context_processors.auth&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="s"&gt;&amp;#39;django.contrib.messages.context_processors.messages&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;BACKEND&lt;/code&gt;: o backend/engine que será usado para renderizar os templates. Por padrão é usado o &lt;code&gt;DjangoTemplates&lt;/code&gt;, mas você pode trocar e usar o &lt;code&gt;Jinja2&lt;/code&gt; no lugar, que também já vem por padrão. Você também pode usar alguma outra engine de terceiros, basta indicar o caminho completo: &lt;code&gt;'mypackage.whatever.Backend'&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DIRS&lt;/code&gt;: Diretórios onde a engine vai procurar por arquivos de templates, em ordem de pesquisa.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;APP_DIRS&lt;/code&gt;: Valor booleano que vai indicar se a engine deve procurar por arquivos de templates dentro das aplicações instaladas no projeto.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;OPTIONS&lt;/code&gt;: Um dicionário que servirá como parâmetros extras para passar ao backend do template. Esses parâmetros podem variar dependendo do backend. Por padrão virá apenas com apenas uma chave-valor, chamado &lt;code&gt;context_processors&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;context_processors&lt;/code&gt; é uma lista de objetos chamáveis que são usados para popular o contexto no objeto &lt;code&gt;RequestContext&lt;/code&gt;. Esses chamáveis recebem um objeto request como argumento e retornam um dicionário de item para serem incorporados no contexto.&lt;/p&gt;
+&lt;p&gt;Vamos aos &lt;code&gt;WSGI_APPLICATION&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;WSGI_APPLICATION&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django_project_1_9.wsgi.application&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;É o caminho Python completo para o objeto WSGI da aplicação que os servidores built-in (&lt;code&gt;runserver&lt;/code&gt;, por exemplo) do Django vão usar. Ao executar o &lt;code&gt;django-admin.py startproject&lt;/code&gt;, o comando vai criar um arquivo &lt;code&gt;wsgi.py&lt;/code&gt; simples com um &lt;code&gt;application&lt;/code&gt; chamável e apontar essa configuração para essa &lt;code&gt;application&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Agora chegamos em outro também muito importante, o &lt;code&gt;DATABASES&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Database&lt;/span&gt;
+&lt;span class="c"&gt;# https://docs.djangoproject.com/en/1.9/ref/settings/#databases&lt;/span&gt;
+
+&lt;span class="n"&gt;DATABASES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;ENGINE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django.db.backends.sqlite3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BASE_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;db.sqlite3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nada mais é do que um dicionário de dicionários (dicionário aninhado) onde cada dicionário contém as configurações para uso de um banco de dados, possibilitando assim o uso de múltiplos banco num mesmo projeto. A configuração mais simples para esta variável encontra-se no &lt;code&gt;default&lt;/code&gt; gerado pelo &lt;code&gt;django-admin.py&lt;/code&gt; (snippet acima).&lt;/p&gt;
+&lt;p&gt;Seguindo em frente teremos o &lt;code&gt;AUTH_PASSWORD_VALIDATORS&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Password validation&lt;/span&gt;
+&lt;span class="c"&gt;# https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators&lt;/span&gt;
+
+&lt;span class="n"&gt;AUTH_PASSWORD_VALIDATORS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django.contrib.auth.password_validation.MinimumLengthValidator&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django.contrib.auth.password_validation.CommonPasswordValidator&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django.contrib.auth.password_validation.NumericPasswordValidator&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;É uma lisa de validadores que são usados para checar a força da senha do usuário. O Django já disponibiliza alguns por padrão, mas nada o impede de criar os seus próprios e usar nesta configuração.&lt;/p&gt;
+&lt;p&gt;Internacionalização:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Internationalization&lt;/span&gt;
+&lt;span class="c"&gt;# https://docs.djangoproject.com/en/1.9/topics/i18n/&lt;/span&gt;
+
+&lt;span class="n"&gt;LANGUAGE_CODE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;en-us&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;TIME_ZONE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;UTC&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;USE_I18N&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+
+&lt;span class="n"&gt;USE_L10N&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+
+&lt;span class="n"&gt;USE_TZ&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Vamos por partes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;LANGUAGE_CODE&lt;/code&gt;: Uma string que representa o código do idioma para esta instalação. Esse código tem de estar de acordo com o &lt;a href="https://docs.djangoproject.com/en/1.9/topics/i18n/#term-language-code"&gt;formato padrão de ID de linguagem&lt;/a&gt;. Essa variável tem dois propósitos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Se o locale middleware não está em uso, ele vai decidir qual tradução vai ser servida para todos os usuários&lt;/li&gt;
+&lt;li&gt;Se o locale middleware está ativado, ele fornece um idioma como fallback no caso do idioma escolhido pelo usuário não puder ser determinado, ou não for suportado pelo website.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;TIME_ZONE&lt;/code&gt;: Uma string representando a time zone para essa instalação. Essa não necessariamente vai ser a time zone do server. Um servidor pode servir múltiplos projetos Django, cada um com sua configuração de time zone separada. Ao usar &lt;code&gt;USE_TZ&lt;/code&gt; como &lt;code&gt;False&lt;/code&gt;, essa será a time zone na qual Django vai armazenar todos os horários (datetimes). Já quando o &lt;code&gt;USE_TZ&lt;/code&gt; está setado como &lt;code&gt;True&lt;/code&gt;, esse vai ser a time zone padrão que o Django vai usar para mostrar horários em templates, e interpretar datas/horários submetidos em forms.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;USE_TZ&lt;/code&gt;: Um boolean que indica se datas/horários serão reconhecidos pela timezone, ou não. Se for &lt;code&gt;True&lt;/code&gt;, então o Django vai usar esse reconhecimento de datetimes internamente. Caso contrário, Django vai usar datetimes no tempo local.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;USE_I18N&lt;/code&gt;: Um boolean indicando se o sistema de tradução do Django deve ser habilitado.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;USE_L10N&lt;/code&gt;: Indica se os dados devem ser formatados levando em consideração sua localização. Se for &lt;code&gt;True&lt;/code&gt;, Django vai mostrar números e datas usando o formato local atual.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;E por fim, ao final do &lt;code&gt;settings.py&lt;/code&gt; padrão gerado pelo &lt;code&gt;django-admin.py&lt;/code&gt;, teremos o &lt;code&gt;STATIC_URL&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Static files (CSS, JavaScript, Images)&lt;/span&gt;
+&lt;span class="c"&gt;# https://docs.djangoproject.com/en/1.9/howto/static-files/&lt;/span&gt;
+
+&lt;span class="n"&gt;STATIC_URL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/static/&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Vai ser a URL usada para se referir aos arquivos estáticos localizados no &lt;code&gt;STATIC_ROOT&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Exemplo: "/static/" (como no snippet acima), ou "http://static.server.com/"&lt;/p&gt;
+&lt;p&gt;Digamos que seus arquivos estáticos estão dentro do seu projeto Django, que seu &lt;code&gt;STATIC_URL&lt;/code&gt; é "static", e que seu site se chama "http://meusite.com". No seu projeto você tem uma pasta "staticfiles" onde há um diretório para imagens chamado "img/". Ao acessar pela web a URL de alguma imagem do seu site, o caminho seria algo como: &lt;code&gt;http://meusite.com/static/img/imagem.jpg&lt;/code&gt;. Sacou? :)&lt;/p&gt;
+&lt;p&gt;Bom pessoal, por enquanto é isso. Ainda tem &lt;strong&gt;MUITA&lt;/strong&gt; coisa, que se eu fosse cobrir tornaria este post gigantescamente maior do que ficou hahaha. Caso tenha curiosidade, não esqueça de visitar a documentação.
+E se você curtiu esse post, compartilhe com os amigos devs! :D&lt;/p&gt;
+&lt;p&gt;Valeu pessoal, e até a próxima!&lt;/p&gt;
+&lt;p&gt;Referências:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.9/topics/settings/"&gt;Documentação Django - settings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.djangobook.com/en/2.0/chapter17.html"&gt;Django Book&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/1.9/_images/middleware.svg"&gt;Image how middleware works&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://agiliq.com/blog/2015/07/understanding-django-middlewares/"&gt;Understanding django middlewares&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/20957388/what-is-a-context-in-django"&gt;What is a context in django&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.b-list.org/weblog/2006/jun/14/django-tips-template-context-processors/"&gt;Django tips: Template context processors&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="python"></category><category term="django"></category><category term="django settings"></category><category term="web development"></category></entry><entry><title>O caminho do desenvolvedor web Python</title><link href="https://dunderlabs.github.io/o-caminho-do-desenvolvedor-web-python.html" rel="alternate"></link><updated>2015-03-17T14:13:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2015-03-17:o-caminho-do-desenvolvedor-web-python.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/dev_way2.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Créditos da imagem: &lt;a href="http://brianmcdonnell.github.io/pycon_ie_2013/#/"&gt;http://brianmcdonnell.github.io/pycon_ie_2013/#/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Do começo do ano passado para cá, acabei ficando bem ativo no
 grupo Python Brasil do Facebook, sempre compartilhando coisas legais que
