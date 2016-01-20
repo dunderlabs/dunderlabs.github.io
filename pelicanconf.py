@@ -81,6 +81,8 @@ META_KEYWORDS = [
     'pug-pi', 'python', 'parnaiba', 'desenvolvimento', 'web', 'django'
 ]
 
+GOOGLE_ANALYTICS = 'UA-72641866-1'
+
 SITE_LOGO = '/images/logo1.jpg'
 
 OPEN_GRAPH_IMAGE = "/images/logo1.jpg"
