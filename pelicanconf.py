@@ -57,7 +57,8 @@ PLUGIN_PATHS = [
 ]
 
 PLUGINS = [
-    'gravatar'
+    'gravatar',
+    'sitemap'
 ]
 
 
@@ -96,3 +97,18 @@ MEMBROS = OrderedDict((
         'github': 'mazulo'
     }),
 ))
+
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 1,
+        'pages': 0.8,
+        'indexes': 0.5
+    },
+    'exclude': ['tag/'],
+    'changefreqs': {
+        'articles': 'monthly',
+        'indexes': 'monthly',
+        'pages': 'monthly'
+    }
+}
