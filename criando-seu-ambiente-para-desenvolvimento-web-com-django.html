@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Criando seu ambiente isolado para desenvolvimento web com Django"/>
+    <meta property="og:url" content="https://dunderlabs.github.io/criando-seu-ambiente-para-desenvolvimento-web-com-django.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Está decidido, você vai estudar desenvolvimento web com Django. Mas como ter um ambiente preparado para começar? Quais ferramentas podem me ajudar ..."/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/posts/criando_ambiente_django.png"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@ericleribertson"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Criando seu ambiente isolado para desenvolvimento web com Django"/>
+    <meta name="twitter:description" content="Está decidido, você vai estudar desenvolvimento web com Django. Mas como ter um ambiente preparado para começar? Quais ferramentas podem me ajudar ..."/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/posts/criando_ambiente_django.png"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Patrick Mazulo"/>
+    <meta property="article:section" content="django"/>
+    <meta property="article:tag" content="python, django, django environment, web development"/>
+    <meta property="article:published_time" content="2016-01-25T23:29:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Criando seu ambiente isolado para desenvolvimento web com Django"/>
+    <meta itemprop="description" content="Está decidido, você vai estudar desenvolvimento web com Django. Mas como ter um ambiente preparado para começar? Quais ferramentas podem me ajudar ..."/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/posts/criando_ambiente_django.png"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Está decidido, você vai estudar desenvolvimento web com Django. Mas como ter um ambiente preparado para começar? Quais ferramentas podem me ajudar ..."/>
+    <meta name="keywords" content="python, django, django environment, web development"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Criando seu ambiente isolado para desenvolvimento web com Django // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Publicado</h5>
+                <p>Mon 25 January 2016</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Criando seu ambiente isolado para desenvolvimento web com Django</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/python.html">python</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/django.html">django</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/django-environment.html">django environment</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/web-development.html">web development</a>
+                        </p>
+                </header>
+            </section>
+            <p><img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/criando_ambiente_django.png" /></p>
+<p>Créditos da imagem: <a href="https://www.howtoforge.com/tutorial/how-to-install-django-1-9-on-ubuntu-15-04/">https://www.howtoforge.com/tutorial/how-to-install-django-1-9-on-ubuntu-15-04/</a></p>
+<p>O começo de qualquer nova atividade é sempre meio complicada. Você se vê perdido no meio de tantas possibilidades e maneiras diferentes de se fazer a mesma coisa. Se você não tiver um mínimo de mentoria, como alguém mais experiente que lhe mostre alguns macetes iniciais, ou que indique o tão famoso "caminho das pedras", essa nova estrada vai estar cheia de obstáculos que você ainda não conhece. Dentre os vários tipos de pessoas no mundo, existem aquelas que documentam essas experiências, para servir de guia para quem estará passando por ele também. E é isso que este post será. Simbora?</p>
+<p>Que Python é uma maravilha e que deveria estar na lista das maravilhas deste mundo, todo mundo já sabe. E com ele foi criado um dos mais conhecidos frameworks web: Django. Mas qual a dessa história toda de ambiente de desenvolvimento? Para ilustrar melhor, vamos imaginar o seguinte cenário:</p>
+<p>Digamos que você foi contratado para desenvolver um sistema web, e para ele você vai utilizar uma determinada versão do Django. Então você vai lá na sua máquina e instala:</p>
+<div class="highlight"><pre><span class="nv">$ </span>pip install <span class="nv">django</span><span class="o">==</span>1.6
+</pre></div>
+
+
+<blockquote>
+<p>Obs.: Ao não especificar a versão que será instalada, o pip irá instalar a versão mais recente e estável.</p>
+</blockquote>
+<p>Porém nesse sistema você terá que utilizar algumas libs externas. Simples, só instalar usando o pip:</p>
+<div class="highlight"><pre><span class="nv">$ </span>pip install gunicorn&lt;<span class="o">=</span>18.0 lxml&lt;<span class="o">=</span>3.2.4
+</pre></div>
+
+
+<blockquote>
+<p>Obs.: Se você estiver utilizando o <a href="http://www.zsh.org/">zsh</a> como seu shell padrão, terá que envolver cada uma das declarações de pacote com aspas simples, ficando assim: </p>
+</blockquote>
+<div class="highlight"><pre><span class="nv">$ </span>pip install <span class="s1">&#39;gunicorn&lt;=18.0&#39;</span> <span class="s1">&#39;lxml&lt;=3.2.4&#39;</span>
+</pre></div>
+
+
+<p>Pronto, você acaba de instalar no seu SO esses 3 pacotes, e já pode começar a desenvolver. Mas agora digamos que você também vai trabalhar em outro projeto paralelo. E agora se vê diante de um problema ao olhar as versões que terá que usar:</p>
+<div class="highlight"><pre>django # 1.9
+gunicorn # 19.4.5
+lxml # 3.5
+</pre></div>
+
+
+<p>E agora, o que fazer? Vou ter que desinstalar as versões anteriores para instalar essas específicas deste novo projeto? E quando eu for para outro, terei que fazer isso novamente?</p>
+<p>A resposta é: Sim, caso você não use a abordagem de trabalhar com ambientes virtuais isolados.</p>
+<p>Ambiente virtual isolado é auto-explicativo. Você terá um ambiente isolado do seu sistema, onde nele você poderá ter todas as dependências instaladas para o seu projeto. Uma vez criado e instalado os pacotes, você pode iniciar seu projeto. Vai começar outro projeto com outras dependências? Beleza, só criar outro ambiente e ser feliz!</p>
+<p>Mas como começar a usar essa abordagem? Aqui que a parada começa a ficar interessante ;-)</p>
+<p>Lhes apresento o <a href="https://virtualenv.readthedocs.org/en/latest/">virtualenv</a> e <a href="https://virtualenvwrapper.readthedocs.org/en/latest/install.html">virtualenvwrapper</a>!
+São duas ferramentas maravilhosas que vão possibilitar essa nova maneira de trabalhar. Mas o que é um ou outro? Vamo lá.</p>
+<p><code>virtualenv</code> é uma ferramenta para criar para criar ambientes Python isolados. Para instalar é super simples:</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="o">[</span>sudo<span class="o">]</span> pip install virtualenv
+</pre></div>
+
+
+<p>A instalação dele é feita globalmente, então dependendo do seu SO talvez seja necessário usar o <code>sudo</code> neste comando. Ao finalizar, já podemos criar nossa primeira env:</p>
+<div class="highlight"><pre><span class="nv">$ </span>virtualenv minha_env
+New python executable in /home/mazulo/dev/python/minha_env/bin/python
+Installing setuptools, pip, wheel...done.
+</pre></div>
+
+
+<blockquote>
+<p>Obs.: Ao executar dessa maneira, a env criada usará como python padrão o mesmo Python que é padrão no seu SO. No caso do Ubuntu, até a versão 14.04 (a que eu uso), o Python 2.7.6 é o padrão. Sendo assim o python do <code>minha_env</code> será o python 2.7.6. Caso você queira usar uma versão diferente, basta usar o parâmetro <code>-p</code> (ou <code>--python</code>) e indicar qual versão utilizar. Caso eu use a versão 3.x, ficaria dessa maneira:</p>
+</blockquote>
+<div class="highlight"><pre><span class="nv">$ </span>virtualenv minha_env -p python3 
+</pre></div>
+
+
+<p>Isso criará no seu diretório atual uma pasta chamada <code>minha_env</code>. Dentro deste diretório teremos:</p>
+<ul>
+<li>
+<p><strong>minha_env/lib/</strong> e <strong>minha_env/include/</strong>, contendo arquivos da biblioteca de suporte para um virtualenv python. Pacotes de terceiros (instalados via pip, por exemplo) instalados neste ambiente ficarão em <strong>minha_env/lib/pythonX.X/site-packages/</strong>.</p>
+</li>
+<li>
+<p><strong>minha_env/bin/</strong> é onde os executáveis ficam, como o próprio python, por exemplo. Sendo assim, executar um arquivo com <code>#! /caminho/para/minha_env/bin/python</code> usará a versão do Python desta virtualenv.</p>
+</li>
+<li>
+<p>Os pacotes principais, <code>pip</code> e <code>setuptools</code> já estão instalados. Dessa maneira, você pode instalar novos pacotes dentro da própria env.</p>
+</li>
+</ul>
+<p>env criada, agora vamos ativá-la:</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">source </span>minha_env/bin/activate
+</pre></div>
+
+
+<p>Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash. Eu uso <a href="http://www.zsh.org/">zsh</a> com o tema fox, e ao ativar a env ele fica da seguinte maneira:</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="o">(</span>minha_env<span class="o">)</span> ┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; <span class="c"># sim, o nome do meu PC é cabuloso hahaha</span>
+</pre></div>
+
+
+<p>A partir deste momento, você está totalmente isolado do seu sistema, e pode começar a instalar todas as dependências do seu projeto sem medo de ser feliz. </p>
+<p>Porém...</p>
+<p>Como você percebeu, o <code>virtualenv</code> cria uma pasta no seu diretório atual, o que pode se tornar uma chatice, principalmente se você utilizar versionamento de código. </p>
+<ul>
+<li>"Ah, mas é só colocar essa pasta no .gitignore"</li>
+</ul>
+<p>Verdade, mas seria bem melhor não ter que fazer isso, né? Bom, uma maneira seria centralizar todas suas envs dentro de uma pasta, chamada <code>virtualenvs</code>, por exemplo. Ela ficaria na sua home (ou onde você achar melhor). Daí sempre na hora de criar uma nova env, você navegaria até este diretório, criaria sua env, ativaria ela e depois iria para o seu diretório de trabalho... Eita, meus dedos até cansaram de digitar todo esse percurso :-P</p>
+<p>Com o tempo isso pode se tornar extremamente fatigante. Mas não perca as esperanças, pois está na hora do <a href="https://virtualenvwrapper.readthedocs.org/en/latest/install.html">virtualenvwrapper</a> entrar em ação!</p>
+<p>virtualenvwrapper é um conjunto de extensões para o virtualenv. Essas extensões incluem wrappers para criação e exclusão de ambientes virtuais, além de gerenciar seu workflow de desenvolvimento, tornando fácil trabalhar em mais de um projeto.</p>
+<p>Suas features:</p>
+<ul>
+<li>Organizar todos os seus ambientes virtuais em um só lugar(!!!!)</li>
+<li>Wrappers para gerenciar seus ambientes (criar, deletar, copiar e etc)</li>
+<li>Usar um simples comando para trocar entre ambientes(!!!!!!!!!!!!!!)</li>
+<li>Autocomplete com tab para comandos que recebem um ambiente virtual como argumento</li>
+<li>Gatilhos configuráveis pelo usuário para todas as operações</li>
+</ul>
+<p>dentre algumas outras.</p>
+<p>Conseguem ver a maravilha que isso é?! Acho simplesmente sensacional! E para poder usufruir de tudo isso, vamos para o passo a passo.</p>
+<p>Da mesma maneira que o <code>virtualenv</code>, a instalação do <code>virtualenvwrapper</code> será feita globalmente.</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="o">[</span>sudo<span class="o">]</span> pip install virtualenvwrapper
+</pre></div>
+
+
+<p>Agora nós vamos adicionar 3 linhas no arquivo de inicialização do seu shell </p>
+<ul>
+<li><em>.bashrc</em> ou <em>.profile</em> para o bash padrão</li>
+<li><em>.zshrc</em> para zsh shell</li>
+</ul>
+<div class="highlight"><pre><span class="x">export WORKON_HOME=</span><span class="p">$</span><span class="nv">HOME</span><span class="x">/.virtualenvs</span>
+<span class="x">export PROJECT_HOME=</span><span class="p">$</span><span class="nv">HOME</span><span class="x">/Devel</span>
+<span class="x">source /usr/local/bin/virtualenvwrapper.sh</span>
+</pre></div>
+
+
+<p>A primeira linha configura a localização de onde seus ambientes virtuais vão ficar. Na segunda teremos a localização dos seus diretórios de projetos em desenvolvimento (pode apagar essa, se quiser), e na terceira a localização do script instalado com esse pacote. Depois disso você terá que recarregar a inicialização deste arquivo</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">source</span> ~/.zshrc <span class="c"># ou .bashrc, ou o arquivo que o seu shell usa</span>
+</pre></div>
+
+
+<p>Pronto, agora você pode criar/ativar suas envs da maneira mais simples possível :)
+Exemplo executado na minha máquina:</p>
+<div class="highlight"><pre><span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; mkvirtualenv nova_env -p /usr/bin/python3.4 
+Running virtualenv with interpreter /usr/bin/python3.4
+Using base prefix <span class="s1">&#39;/usr&#39;</span>
+New python executable in /home/mazulo/.virtualenvs/nova_env/bin/python3.4
+Also creating executable in /home/mazulo/.virtualenvs/nova_env/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/get_env_details
+<span class="o">(</span>nova_env<span class="o">)</span> ┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; 
+</pre></div>
+
+
+<p>Estou criando uma outra env, chamada <strong>nova_env</strong>, agora utilizando o wrapper do <code>virtualenvwrapper</code> chamado <code>mkvirtualenv</code>. Ele vai criar essa env dentro do diretório que nós configuramos naquela 1ª das 3 linhas que adicionamos no arquivo de configuração do shell, e após isso já ativa ela pra nós!</p>
+<p>Agora digamos que eu vá trabalhar em outro projeto. Vou criar a env para ele:</p>
+<div class="highlight"><pre><span class="o">(</span>nova_env<span class="o">)</span> ┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; mkvirtualenv django_project -p /usr/bin/python3.4 
+Running virtualenv with interpreter /usr/bin/python3.4
+Using base prefix <span class="s1">&#39;/usr&#39;</span>
+New python executable in /home/mazulo/.virtualenvs/django_project/bin/python3.4
+Also creating executable in /home/mazulo/.virtualenvs/django_project/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/get_env_details
+<span class="o">(</span>django_project<span class="o">)</span> ┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; 
+</pre></div>
+
+
+<p>Perceba que eu ainda estava com a <strong>nova_env</strong> ativada ao criar a env <strong>django_project</strong>. Mas sem problemas, o <code>virtualenvwrapper</code> cria a env, desativa a anterior e ativa a nova pra mim :)</p>
+<p>E caso eu queira trocar de ambiente para voltar a trabalhar na nova_env? Simples:</p>
+<div class="highlight"><pre><span class="o">(</span>django_project<span class="o">)</span> ┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; workon nova_env 
+<span class="o">(</span>nova_env<span class="o">)</span>┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; 
+</pre></div>
+
+
+<p>Vou utilizar o <code>workon</code> para trocar de maneira rápida e fácil de ambiente. O bacana é que ele permite você usar autocomplete com o tab para a env que deseja ativar. Sem trocar de diretório para isso. Sensacional, diz aí!</p>
+<p>Bom, basicamente era isso que eu gostaria de mostrar sobre o <a href="https://virtualenv.readthedocs.org/en/latest/">virtualenv</a> e <a href="https://virtualenvwrapper.readthedocs.org/en/latest/install.html">virtualenvwrapper</a>, e como configurar um ambiente para começar a trabalhar com django.</p>
+<ul>
+<li>"Ah, mas você nem falou como instalar o django"</li>
+</ul>
+<p>Super fácil, ora pois:</p>
+<div class="highlight"><pre><span class="o">(</span>django_project<span class="o">)</span> ┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
+└&gt; pip install django
+Collecting django
+  Downloading Django-1.9.1-py2.py3-none-any.whl <span class="o">(</span>6.6MB<span class="o">)</span>
+    100% <span class="p">|</span>████████████████████████████████<span class="p">|</span> 6.6MB 181kB/s 
+Installing collected packages: django
+Successfully installed django-1.9.1
+</pre></div>
+
+
+<p>Pronto, django instalado de maneira isolada no seu ambiente. Agora só começar a codar!</p>
+<p>Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!</p>
+<p>Referências:</p>
+<ul>
+<li><a href="https://virtualenv.readthedocs.org/en/latest/index.html">Virtualenv</a></li>
+<li><a href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a></li>
+</ul>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>

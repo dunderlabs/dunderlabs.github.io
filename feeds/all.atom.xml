@@ -1,5 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2016-01-17T21:34:00-03:00</updated><entry><title>Série Django - Settings</title><link href="https://dunderlabs.github.io/serie-django-settings.html" rel="alternate"></link><updated>2016-01-17T21:34:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2016-01-17:serie-django-settings.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-settings.jpg" /&gt;  &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2016-01-25T23:29:00-03:00</updated><entry><title>Criando seu ambiente isolado para desenvolvimento web com Django</title><link href="https://dunderlabs.github.io/criando-seu-ambiente-para-desenvolvimento-web-com-django.html" rel="alternate"></link><updated>2016-01-25T23:29:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2016-01-25:criando-seu-ambiente-para-desenvolvimento-web-com-django.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/criando_ambiente_django.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Créditos da imagem: &lt;a href="https://www.howtoforge.com/tutorial/how-to-install-django-1-9-on-ubuntu-15-04/"&gt;https://www.howtoforge.com/tutorial/how-to-install-django-1-9-on-ubuntu-15-04/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;O começo de qualquer nova atividade é sempre meio complicada. Você se vê perdido no meio de tantas possibilidades e maneiras diferentes de se fazer a mesma coisa. Se você não tiver um mínimo de mentoria, como alguém mais experiente que lhe mostre alguns macetes iniciais, ou que indique o tão famoso "caminho das pedras", essa nova estrada vai estar cheia de obstáculos que você ainda não conhece. Dentre os vários tipos de pessoas no mundo, existem aquelas que documentam essas experiências, para servir de guia para quem estará passando por ele também. E é isso que este post será. Simbora?&lt;/p&gt;
+&lt;p&gt;Que Python é uma maravilha e que deveria estar na lista das maravilhas deste mundo, todo mundo já sabe. E com ele foi criado um dos mais conhecidos frameworks web: Django. Mas qual a dessa história toda de ambiente de desenvolvimento? Para ilustrar melhor, vamos imaginar o seguinte cenário:&lt;/p&gt;
+&lt;p&gt;Digamos que você foi contratado para desenvolver um sistema web, e para ele você vai utilizar uma determinada versão do Django. Então você vai lá na sua máquina e instala:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install &lt;span class="nv"&gt;django&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;1.6
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Obs.: Ao não especificar a versão que será instalada, o pip irá instalar a versão mais recente e estável.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Porém nesse sistema você terá que utilizar algumas libs externas. Simples, só instalar usando o pip:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install gunicorn&amp;lt;&lt;span class="o"&gt;=&lt;/span&gt;18.0 lxml&amp;lt;&lt;span class="o"&gt;=&lt;/span&gt;3.2.4
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Obs.: Se você estiver utilizando o &lt;a href="http://www.zsh.org/"&gt;zsh&lt;/a&gt; como seu shell padrão, terá que envolver cada uma das declarações de pacote com aspas simples, ficando assim: &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install &lt;span class="s1"&gt;&amp;#39;gunicorn&amp;lt;=18.0&amp;#39;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;lxml&amp;lt;=3.2.4&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pronto, você acaba de instalar no seu SO esses 3 pacotes, e já pode começar a desenvolver. Mas agora digamos que você também vai trabalhar em outro projeto paralelo. E agora se vê diante de um problema ao olhar as versões que terá que usar:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;django # 1.9
+gunicorn # 19.4.5
+lxml # 3.5
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;E agora, o que fazer? Vou ter que desinstalar as versões anteriores para instalar essas específicas deste novo projeto? E quando eu for para outro, terei que fazer isso novamente?&lt;/p&gt;
+&lt;p&gt;A resposta é: Sim, caso você não use a abordagem de trabalhar com ambientes virtuais isolados.&lt;/p&gt;
+&lt;p&gt;Ambiente virtual isolado é auto-explicativo. Você terá um ambiente isolado do seu sistema, onde nele você poderá ter todas as dependências instaladas para o seu projeto. Uma vez criado e instalado os pacotes, você pode iniciar seu projeto. Vai começar outro projeto com outras dependências? Beleza, só criar outro ambiente e ser feliz!&lt;/p&gt;
+&lt;p&gt;Mas como começar a usar essa abordagem? Aqui que a parada começa a ficar interessante ;-)&lt;/p&gt;
+&lt;p&gt;Lhes apresento o &lt;a href="https://virtualenv.readthedocs.org/en/latest/"&gt;virtualenv&lt;/a&gt; e &lt;a href="https://virtualenvwrapper.readthedocs.org/en/latest/install.html"&gt;virtualenvwrapper&lt;/a&gt;!
+São duas ferramentas maravilhosas que vão possibilitar essa nova maneira de trabalhar. Mas o que é um ou outro? Vamo lá.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;virtualenv&lt;/code&gt; é uma ferramenta para criar para criar ambientes Python isolados. Para instalar é super simples:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;sudo&lt;span class="o"&gt;]&lt;/span&gt; pip install virtualenv
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A instalação dele é feita globalmente, então dependendo do seu SO talvez seja necessário usar o &lt;code&gt;sudo&lt;/code&gt; neste comando. Ao finalizar, já podemos criar nossa primeira env:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;virtualenv minha_env
+New python executable in /home/mazulo/dev/python/minha_env/bin/python
+Installing setuptools, pip, wheel...done.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Obs.: Ao executar dessa maneira, a env criada usará como python padrão o mesmo Python que é padrão no seu SO. No caso do Ubuntu, até a versão 14.04 (a que eu uso), o Python 2.7.6 é o padrão. Sendo assim o python do &lt;code&gt;minha_env&lt;/code&gt; será o python 2.7.6. Caso você queira usar uma versão diferente, basta usar o parâmetro &lt;code&gt;-p&lt;/code&gt; (ou &lt;code&gt;--python&lt;/code&gt;) e indicar qual versão utilizar. Caso eu use a versão 3.x, ficaria dessa maneira:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;virtualenv minha_env -p python3 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Isso criará no seu diretório atual uma pasta chamada &lt;code&gt;minha_env&lt;/code&gt;. Dentro deste diretório teremos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;minha_env/lib/&lt;/strong&gt; e &lt;strong&gt;minha_env/include/&lt;/strong&gt;, contendo arquivos da biblioteca de suporte para um virtualenv python. Pacotes de terceiros (instalados via pip, por exemplo) instalados neste ambiente ficarão em &lt;strong&gt;minha_env/lib/pythonX.X/site-packages/&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;minha_env/bin/&lt;/strong&gt; é onde os executáveis ficam, como o próprio python, por exemplo. Sendo assim, executar um arquivo com &lt;code&gt;#! /caminho/para/minha_env/bin/python&lt;/code&gt; usará a versão do Python desta virtualenv.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Os pacotes principais, &lt;code&gt;pip&lt;/code&gt; e &lt;code&gt;setuptools&lt;/code&gt; já estão instalados. Dessa maneira, você pode instalar novos pacotes dentro da própria env.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;env criada, agora vamos ativá-la:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;source &lt;/span&gt;minha_env/bin/activate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash. Eu uso &lt;a href="http://www.zsh.org/"&gt;zsh&lt;/a&gt; com o tema fox, e ao ativar a env ele fica da seguinte maneira:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;minha_env&lt;span class="o"&gt;)&lt;/span&gt; ┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; &lt;span class="c"&gt;# sim, o nome do meu PC é cabuloso hahaha&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A partir deste momento, você está totalmente isolado do seu sistema, e pode começar a instalar todas as dependências do seu projeto sem medo de ser feliz. &lt;/p&gt;
+&lt;p&gt;Porém...&lt;/p&gt;
+&lt;p&gt;Como você percebeu, o &lt;code&gt;virtualenv&lt;/code&gt; cria uma pasta no seu diretório atual, o que pode se tornar uma chatice, principalmente se você utilizar versionamento de código. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;"Ah, mas é só colocar essa pasta no .gitignore"&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Verdade, mas seria bem melhor não ter que fazer isso, né? Bom, uma maneira seria centralizar todas suas envs dentro de uma pasta, chamada &lt;code&gt;virtualenvs&lt;/code&gt;, por exemplo. Ela ficaria na sua home (ou onde você achar melhor). Daí sempre na hora de criar uma nova env, você navegaria até este diretório, criaria sua env, ativaria ela e depois iria para o seu diretório de trabalho... Eita, meus dedos até cansaram de digitar todo esse percurso :-P&lt;/p&gt;
+&lt;p&gt;Com o tempo isso pode se tornar extremamente fatigante. Mas não perca as esperanças, pois está na hora do &lt;a href="https://virtualenvwrapper.readthedocs.org/en/latest/install.html"&gt;virtualenvwrapper&lt;/a&gt; entrar em ação!&lt;/p&gt;
+&lt;p&gt;virtualenvwrapper é um conjunto de extensões para o virtualenv. Essas extensões incluem wrappers para criação e exclusão de ambientes virtuais, além de gerenciar seu workflow de desenvolvimento, tornando fácil trabalhar em mais de um projeto.&lt;/p&gt;
+&lt;p&gt;Suas features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Organizar todos os seus ambientes virtuais em um só lugar(!!!!)&lt;/li&gt;
+&lt;li&gt;Wrappers para gerenciar seus ambientes (criar, deletar, copiar e etc)&lt;/li&gt;
+&lt;li&gt;Usar um simples comando para trocar entre ambientes(!!!!!!!!!!!!!!)&lt;/li&gt;
+&lt;li&gt;Autocomplete com tab para comandos que recebem um ambiente virtual como argumento&lt;/li&gt;
+&lt;li&gt;Gatilhos configuráveis pelo usuário para todas as operações&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;dentre algumas outras.&lt;/p&gt;
+&lt;p&gt;Conseguem ver a maravilha que isso é?! Acho simplesmente sensacional! E para poder usufruir de tudo isso, vamos para o passo a passo.&lt;/p&gt;
+&lt;p&gt;Da mesma maneira que o &lt;code&gt;virtualenv&lt;/code&gt;, a instalação do &lt;code&gt;virtualenvwrapper&lt;/code&gt; será feita globalmente.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;sudo&lt;span class="o"&gt;]&lt;/span&gt; pip install virtualenvwrapper
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora nós vamos adicionar 3 linhas no arquivo de inicialização do seu shell &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;.bashrc&lt;/em&gt; ou &lt;em&gt;.profile&lt;/em&gt; para o bash padrão&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;.zshrc&lt;/em&gt; para zsh shell&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;export WORKON_HOME=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/.virtualenvs&lt;/span&gt;
+&lt;span class="x"&gt;export PROJECT_HOME=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/Devel&lt;/span&gt;
+&lt;span class="x"&gt;source /usr/local/bin/virtualenvwrapper.sh&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A primeira linha configura a localização de onde seus ambientes virtuais vão ficar. Na segunda teremos a localização dos seus diretórios de projetos em desenvolvimento (pode apagar essa, se quiser), e na terceira a localização do script instalado com esse pacote. Depois disso você terá que recarregar a inicialização deste arquivo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt; ~/.zshrc &lt;span class="c"&gt;# ou .bashrc, ou o arquivo que o seu shell usa&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pronto, agora você pode criar/ativar suas envs da maneira mais simples possível :)
+Exemplo executado na minha máquina:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; mkvirtualenv nova_env -p /usr/bin/python3.4 
+Running virtualenv with interpreter /usr/bin/python3.4
+Using base prefix &lt;span class="s1"&gt;&amp;#39;/usr&amp;#39;&lt;/span&gt;
+New python executable in /home/mazulo/.virtualenvs/nova_env/bin/python3.4
+Also creating executable in /home/mazulo/.virtualenvs/nova_env/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/nova_env/bin/get_env_details
+&lt;span class="o"&gt;(&lt;/span&gt;nova_env&lt;span class="o"&gt;)&lt;/span&gt; ┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Estou criando uma outra env, chamada &lt;strong&gt;nova_env&lt;/strong&gt;, agora utilizando o wrapper do &lt;code&gt;virtualenvwrapper&lt;/code&gt; chamado &lt;code&gt;mkvirtualenv&lt;/code&gt;. Ele vai criar essa env dentro do diretório que nós configuramos naquela 1ª das 3 linhas que adicionamos no arquivo de configuração do shell, e após isso já ativa ela pra nós!&lt;/p&gt;
+&lt;p&gt;Agora digamos que eu vá trabalhar em outro projeto. Vou criar a env para ele:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;(&lt;/span&gt;nova_env&lt;span class="o"&gt;)&lt;/span&gt; ┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; mkvirtualenv django_project -p /usr/bin/python3.4 
+Running virtualenv with interpreter /usr/bin/python3.4
+Using base prefix &lt;span class="s1"&gt;&amp;#39;/usr&amp;#39;&lt;/span&gt;
+New python executable in /home/mazulo/.virtualenvs/django_project/bin/python3.4
+Also creating executable in /home/mazulo/.virtualenvs/django_project/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/django_project/bin/get_env_details
+&lt;span class="o"&gt;(&lt;/span&gt;django_project&lt;span class="o"&gt;)&lt;/span&gt; ┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Perceba que eu ainda estava com a &lt;strong&gt;nova_env&lt;/strong&gt; ativada ao criar a env &lt;strong&gt;django_project&lt;/strong&gt;. Mas sem problemas, o &lt;code&gt;virtualenvwrapper&lt;/code&gt; cria a env, desativa a anterior e ativa a nova pra mim :)&lt;/p&gt;
+&lt;p&gt;E caso eu queira trocar de ambiente para voltar a trabalhar na nova_env? Simples:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;(&lt;/span&gt;django_project&lt;span class="o"&gt;)&lt;/span&gt; ┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; workon nova_env 
+&lt;span class="o"&gt;(&lt;/span&gt;nova_env&lt;span class="o"&gt;)&lt;/span&gt;┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Vou utilizar o &lt;code&gt;workon&lt;/code&gt; para trocar de maneira rápida e fácil de ambiente. O bacana é que ele permite você usar autocomplete com o tab para a env que deseja ativar. Sem trocar de diretório para isso. Sensacional, diz aí!&lt;/p&gt;
+&lt;p&gt;Bom, basicamente era isso que eu gostaria de mostrar sobre o &lt;a href="https://virtualenv.readthedocs.org/en/latest/"&gt;virtualenv&lt;/a&gt; e &lt;a href="https://virtualenvwrapper.readthedocs.org/en/latest/install.html"&gt;virtualenvwrapper&lt;/a&gt;, e como configurar um ambiente para começar a trabalhar com django.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;"Ah, mas você nem falou como instalar o django"&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Super fácil, ora pois:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;(&lt;/span&gt;django_project&lt;span class="o"&gt;)&lt;/span&gt; ┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
+└&amp;gt; pip install django
+Collecting django
+  Downloading Django-1.9.1-py2.py3-none-any.whl &lt;span class="o"&gt;(&lt;/span&gt;6.6MB&lt;span class="o"&gt;)&lt;/span&gt;
+    100% &lt;span class="p"&gt;|&lt;/span&gt;████████████████████████████████&lt;span class="p"&gt;|&lt;/span&gt; 6.6MB 181kB/s 
+Installing collected packages: django
+Successfully installed django-1.9.1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pronto, django instalado de maneira isolada no seu ambiente. Agora só começar a codar!&lt;/p&gt;
+&lt;p&gt;Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!&lt;/p&gt;
+&lt;p&gt;Referências:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://virtualenv.readthedocs.org/en/latest/index.html"&gt;Virtualenv&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://virtualenvwrapper.readthedocs.org/en/latest/"&gt;virtualenvwrapper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="python"></category><category term="django"></category><category term="django environment"></category><category term="web development"></category></entry><entry><title>Série Django - Settings</title><link href="https://dunderlabs.github.io/serie-django-settings.html" rel="alternate"></link><updated>2016-01-17T21:34:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2016-01-17:serie-django-settings.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-settings.jpg" /&gt;  &lt;/p&gt;
 &lt;p&gt;Créditos da imagem: &lt;a href="https://www.coderedcorp.com/blog/django-settings-for-multiple-environments/"&gt;https://www.coderedcorp.com/blog/django-settings-for-multiple-environments/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Estaremos iniciando uma nova série no blog. Mas vamos tentar fazer de uma maneira diferente. Ao invés de criarmos uma aplicação, vamos falar sobre o Django em si, seus componentes, como funcionam, como se interrelacionam e etc. O post de hoje na realidade é uma "transcrição" de um hangout que aconteceu há um tempo atrás, de um grupo de estudo no Telegram chamado "Django Group - Initial Steps". Caso tenha interesse, &lt;a href="http://pastebin.com/nwYyG7Ar"&gt;neste link&lt;/a&gt; vc terá informações sobre como se juntar ao grupo.&lt;/p&gt;
 &lt;p&gt;Neste &lt;a href="https://youtu.be/m7PujnjPboU"&gt;hangout&lt;/a&gt; em questão falamos sobre o módulo &lt;code&gt;settings.py&lt;/code&gt;. Então, vamos discutir um pouco sobre ele aqui neste post.&lt;/p&gt;
