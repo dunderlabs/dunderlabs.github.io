@@ -167,12 +167,20 @@ Installing setuptools, pip, wheel...done.
 </pre></div>
 
 
-<p>Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash. Eu uso <a href="http://www.zsh.org/">zsh</a> com o tema fox, e ao ativar a env ele fica da seguinte maneira:</p>
+<p>Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash.</p>
+<div class="highlight"><pre><span class="o">(</span>minha_env<span class="o">)</span>user@machine:~<span class="err">$</span>
+</pre></div>
+
+
+<p>Eu uso <a href="http://www.zsh.org/">zsh</a> com o tema fox, e ao ativar a env ele fica da seguinte maneira:</p>
 <div class="highlight"><pre><span class="nv">$ </span><span class="o">(</span>minha_env<span class="o">)</span> ┌<span class="o">[</span>mazulo☮cabuloso<span class="o">]</span>-<span class="o">(</span>~/dev/python<span class="o">)</span>
 └&gt; <span class="c"># sim, o nome do meu PC é cabuloso hahaha</span>
 </pre></div>
 
 
+<blockquote>
+<p>Obs.: Daqui em diante, os exemplos do terminal serão um ctrl+c ctrl+v do meu terminal, que usa o tema citado acima.</p>
+</blockquote>
 <p>A partir deste momento, você está totalmente isolado do seu sistema, e pode começar a instalar todas as dependências do seu projeto sem medo de ser feliz. </p>
 <p>Porém...</p>
 <p>Como você percebeu, o <code>virtualenv</code> cria uma pasta no seu diretório atual, o que pode se tornar uma chatice, principalmente se você utilizar versionamento de código. </p>

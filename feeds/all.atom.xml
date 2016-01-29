@@ -72,12 +72,20 @@ Installing setuptools, pip, wheel...done.
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash. Eu uso &lt;a href="http://www.zsh.org/"&gt;zsh&lt;/a&gt; com o tema fox, e ao ativar a env ele fica da seguinte maneira:&lt;/p&gt;
+&lt;p&gt;Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;(&lt;/span&gt;minha_env&lt;span class="o"&gt;)&lt;/span&gt;user@machine:~&lt;span class="err"&gt;$&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Eu uso &lt;a href="http://www.zsh.org/"&gt;zsh&lt;/a&gt; com o tema fox, e ao ativar a env ele fica da seguinte maneira:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;minha_env&lt;span class="o"&gt;)&lt;/span&gt; ┌&lt;span class="o"&gt;[&lt;/span&gt;mazulo☮cabuloso&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;(&lt;/span&gt;~/dev/python&lt;span class="o"&gt;)&lt;/span&gt;
 └&amp;gt; &lt;span class="c"&gt;# sim, o nome do meu PC é cabuloso hahaha&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;blockquote&gt;
+&lt;p&gt;Obs.: Daqui em diante, os exemplos do terminal serão um ctrl+c ctrl+v do meu terminal, que usa o tema citado acima.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;A partir deste momento, você está totalmente isolado do seu sistema, e pode começar a instalar todas as dependências do seu projeto sem medo de ser feliz. &lt;/p&gt;
 &lt;p&gt;Porém...&lt;/p&gt;
 &lt;p&gt;Como você percebeu, o &lt;code&gt;virtualenv&lt;/code&gt; cria uma pasta no seu diretório atual, o que pode se tornar uma chatice, principalmente se você utilizar versionamento de código. &lt;/p&gt;
