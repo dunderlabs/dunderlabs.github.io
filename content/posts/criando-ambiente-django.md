@@ -90,12 +90,20 @@ env criada, agora vamos ativá-la:
 $ source minha_env/bin/activate
 ````
 
-Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash. Eu uso [zsh](http://www.zsh.org/) com o tema fox, e ao ativar a env ele fica da seguinte maneira:
+Esse comando ativará sua env. Um indicativo disso será o nome da sua env aparecer entre () antes do nome do seu usuário no seu bash.
+
+````shell
+(minha_env)user@machine:~$
+````
+
+Eu uso [zsh](http://www.zsh.org/) com o tema fox, e ao ativar a env ele fica da seguinte maneira:
 
 ````shell
 $ (minha_env) ┌[mazulo☮cabuloso]-(~/dev/python)
 └> # sim, o nome do meu PC é cabuloso hahaha
 ````
+
+> Obs.: Daqui em diante, os exemplos do terminal serão um ctrl+c ctrl+v do meu terminal, que usa o tema citado acima.
 
 A partir deste momento, você está totalmente isolado do seu sistema, e pode começar a instalar todas as dependências do seu projeto sem medo de ser feliz. 
 
