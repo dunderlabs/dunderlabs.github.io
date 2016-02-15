@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Wat&#39;s up, doc?"/>
+    <meta property="og:url" content="https://dunderlabs.github.io/wats-up-doc.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Voltando com as traduções, veremos aqui um post que explica sobre alguns &#34;Wat?!&#34; do Python, baseado na palestra do Gary Bernhardt sobre ..."/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/posts/wat.jpg"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@ericleribertson"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Wat&#39;s up, doc?"/>
+    <meta name="twitter:description" content="Voltando com as traduções, veremos aqui um post que explica sobre alguns &#34;Wat?!&#34; do Python, baseado na palestra do Gary Bernhardt sobre ..."/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/posts/wat.jpg"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Patrick Mazulo"/>
+    <meta property="article:section" content="python"/>
+    <meta property="article:tag" content="python, python wat, translations"/>
+    <meta property="article:published_time" content="2016-02-15T10:48:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Wat&#39;s up, doc?"/>
+    <meta itemprop="description" content="Voltando com as traduções, veremos aqui um post que explica sobre alguns &#34;Wat?!&#34; do Python, baseado na palestra do Gary Bernhardt sobre ..."/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/posts/wat.jpg"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Voltando com as traduções, veremos aqui um post que explica sobre alguns &#34;Wat?!&#34; do Python, baseado na palestra do Gary Bernhardt sobre ..."/>
+    <meta name="keywords" content="python, python wat, translations"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Wat's up, doc? // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Publicado</h5>
+                <p>Mon 15 February 2016</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Wat's up, doc?</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/python.html">python</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/python-wat.html">python wat</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/translations.html">translations</a>
+                        </p>
+                </header>
+            </section>
+            <p><img alt="Créditos para a imagem" src="https://dunderlabs.github.io/images/posts/wat.jpg" /></p>
+<p>Créditos para a imagem: <a href="http://www.b-list.org/weblog/2015/nov/15/real-python-wat/">http://www.b-list.org/weblog/2015/nov/15/real-python-wat/</a></p>
+<h3>Wat's up, doc?</h3>
+<p>No mesmo rumo da <a href="https://www.destroyallsoftware.com/talks/wat">maravilhosa palestra do Gary Bernhardt sobre JavaScript</a>, há também uma <a href="https://github.com/cosmologicon/pywat">coleção de momentos de Python "wat"</a> que muitas vezes aparecem por aí. Há também um questionário relacionado na página deste último link (que não vou dar spoiler; você pode ler ele e checar suas respostas). Toda linguagem tem algumas partes não intuitivas — ou, no mínimo, aparentemente não. Mas se você está trabalhando com Python, entender <em>porque</em> esses pedaços de código se comportam dessa maneira é interessante, e potencialmente útil (OK, provavelmente não útil, mas no mínimo interessante). Então vamos dar uma olhada neles e ver o que realmente está acontecendo.</p>
+<p><strong>"Convertendo para uma string e vice-versa"</strong></p>
+<p>O exemplo é este:</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">False</span><span class="p">))</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>Esta é uma muito simples: <code>str(False)</code> é <code>"False"</code>, e <code>bool("False")</code> é <code>True</code>, porque qualquer string não vazia é <code>True</code> ("truthy", se quiser ser preciso, uma vez que a checagem boolean do Python raramente usa instancias reais de <code>bool</code>).</p>
+<p><strong>"Misturar strings com inteiros"</strong></p>
+<p>O exemplo:</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">6</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="s">&#39;3&#39;</span><span class="p">)</span>
+<span class="mi">33</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="s">&#39;2&#39;</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">222</span>
+</pre></div>
+
+
+<p>Esse é um caso um pouco mais interessante, e leva as pessoas a discutirem sobre o sistema de tipos do Python. O comportamento neste caso vem do fato que Python suporta sobrecarga de operador, e não restringe quais tipos você está permitido definir que seus operadores atuem. Neste caso, o operador * está implementado nos tipos numéricos, onde é o operador de multiplicação (e, obviamente, exige que o outro operando seja um número). Mas é também implementado nos tipos sequenciais (lembre, <code>str</code> é um tipo sequencial em Python), onde é um operador de repetição e exige que o outro operando seja numérico.</p>
+<p>Então, quando usar este operador com um operando numérico e outro operando que é sequencial, Python aplica o comportamento de repetição.</p>
+<p><strong>"O operador de conversão implícita não documentado"</strong></p>
+<p>Hora de brincar:</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="bp">False</span> <span class="o">**</span> <span class="bp">False</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">False</span> <span class="o">**</span> <span class="bp">True</span> <span class="o">==</span> <span class="bp">False</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span> <span class="o">**</span> <span class="bp">False</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span> <span class="o">**</span> <span class="bp">True</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>Entender esse requer saber um pouco da história do Python. Inicialmente não havia o tipo boolean built-in (como em muitas das outras linguagens que carecem do tipo boolean), então a convenção era usar o inteiro 1 como o valor "true" e o inteiro 0 como "false". Python 2.2.1 trouxe <code>bool()</code> como uma função built-in, mas não o tipo boolean — em vez disso, ele definiu <code>True</code> e <code>False</code> como alias (apelidos) built-in para 1 e 0. A função <code>bool()</code> retornaria 1 para valores "True" e 0 para "False". Python 2.3 implementou o tipo <code>bool</code>, como uma sub-classe de <code>int</code> com apenas duas instâncias: <code>True</code> e <code>False</code>, que teriam valores inteiros 1 e 0. Esse comportamento acabou ficando preso para o Python 3, como você pode verificar abaixo:</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">python</span>
+<span class="n">Python</span> <span class="mf">3.5</span><span class="o">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Sep</span> <span class="mi">26</span> <span class="mi">2015</span><span class="p">,</span> <span class="mi">18</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">42</span><span class="p">)</span>
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">Compatible</span> <span class="n">Apple</span> <span class="n">LLVM</span> <span class="mf">6.1</span><span class="o">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">602.0</span><span class="o">.</span><span class="mi">53</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
+<span class="n">Type</span> <span class="s">&quot;help&quot;</span><span class="p">,</span> <span class="s">&quot;copyright&quot;</span><span class="p">,</span> <span class="s">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">issubclass</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span> <span class="o">+</span> <span class="bp">True</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="bp">True</span> <span class="o">-</span> <span class="bp">False</span>
+<span class="mi">1</span>
+</pre></div>
+
+
+<p>Para mais detalhes sobre essa esquisitice em torno da introdução do tipo <code>bool</code>, veja esse <a href="http://python-history.blogspot.com/2013/11/the-history-of-bool-true-and-false.html">post do Guido</a>.</p>
+<p><strong>"Combinação dos tipos numéricos"</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">53</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">&lt;</span> <span class="n">x</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>O autor diz "Note: isso não é simplesmente devido a imprecisão de ponto flutuante."
+O que é tecnicamente verdade, eu acho, mas um pouco enganador: o truque aqui é empurrar a faixa no qual um float de dupla precisão pode representar cada inteiro (o deslocamento do 53º bit, como floats de dupla precisão têm apenas 53 bits de precisão). Se você brincar com ele, vai descobrir que só tem números anteriores esse ponto, como esperado para esta faixa: no IEEE 754, de <code>2**51</code> a <code>2**52</code>, floats de dupla precisão são espaçados por 0.5, passando a serem espaçados por 1 — isto é, todos inteiros e apenas inteiros pode ser representados — acima de <code>2**53</code>, e além <code>2**53</code> eles são espaçados por 2, de modo que apenas inteiros pares possam ser reprensentados.</p>
+<p><strong>"Precedência de operador?"</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="bp">False</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>Isso não é exatamente sobre precedência; em vez disso, é sobre suporte do Python a operadores de comparação encadeados. Estamos acostumados a poder fazer coisas como <code>if x&lt; y &lt;= z</code> em Python, e estamos com isso fazendo contruções como esta. Esse encadeamento de operadores é equivalente a <code>if (x &lt; y) and (y &lt;= z)</code>, mas com <code>y</code> sendo avaliado só na primeira.</p>
+<p>E uma vez que <code>==</code> e <code>in</code> são operadores de comparação, o mesmo acontece aqui: <code>False == False in [False]</code> é equivalente a <code>(False == False) and (False in [False])</code>. Ambas comparações são verdadeiras, então o resultado polêmico está correto.</p>
+<p><strong>"Tipo iteráveis em comparação"</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">a</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">a</span>
+<span class="bp">False</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="bp">False</span>
+</pre></div>
+
+
+<p>Esse tem um alcance maior. O que realmente está acontecendo no primeiro exemplo é que <code>a</code> é uma lista, e <code>(x, y)</code> é uma tupla. Uma lista e uma tupla não serão idênticas quando comparadas, mesmo se seus conteúdos forem iguais. De igual modo, <code>sorted()</code> retorna uma lista, então você só vai ter uma comparação de igualdade bem sucedida quando comparar o resultado com uma lista.</p>
+<p><strong>"Tipos de operações aritméticas"</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">**</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">**</span> <span class="o">-</span><span class="mi">1</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span> <span class="o">**</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span> <span class="o">**</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="bp">False</span>
+</pre></div>
+
+
+<p>Python permite que comparações aritméticas de floats e ints funcionem, então <code>1 == 1.0</code> (e <code>1 ** -1</code> é igual a <code>1.0</code> — expoentes negativos sempre retornam um valor float). Mas <code>int</code> e <code>float</code> não são do mesmo tipo, então a igualdade de tipo dará falso.</p>
+<p><strong>"Brincando com iteradores"</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="bp">False</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="bp">False</span>
+</pre></div>
+
+
+<p>Novamente, esta é uma brincadeira com tipos. A função built-in <code>sorted()</code> do Python recebe uma sequência, e retorna uma lista contendo os mesmos valores ordenados. Mas <code>reversed()</code> retorna um objeto iterador que vai percorrer a sequência na ordem reversa.</p>
+<p>O iterador retornado pela função <code>reversed()</code> não implementa o método <code>__eq__()</code>, então para comparações Python volta para chamar <code>__hash__()</code> em cada operando e compara os resultados. O iterador também não implementa <code>__hash__()</code>, então ele pega a implementação padrão de <code>object</code>, que por sua vez é derivada do endereço de memória do objeto. Uma vez que duas diferentes instâncias de iteradores tem endereços de memória diferentes, o resultado de duas chamadas a <code>reversed()</code> na mesma sequência irá comparar como desigual.</p>
+<p>A comparação dos resultados de <code>sorted()</code> no segundo exemplo é mais complicado: a primeira chamada para <code>sorted()</code> consome o iterador retornado pelo <code>reversed()</code> e produz a lista ordenada <code>[1, 2, 3]</code>. Mas a segunda chamada para <code>sorted()</code> não tem mais nada para consumir, e retorna uma lista vazia <code>[]</code>, e é o caso em que <code>[1, 2, 3] != []</code>;</p>
+<p><strong>"Tipos circulares"</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>Isso é uma daquelas coisas :)</p>
+<p><strong>"extend vs +="</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">([],)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="s">&#39;tuple&#39;</span> <span class="nb">object</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">item</span> <span class="n">assignment</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Python não vai permitir você atribuir diretamente aos índices de uma tupla, seja através da sintaxe normal ou aumentada (+= e similares). Mas ele vai deixar você chamar métodos dos objetos na tupla, e se acontecer desses objetos serem mutáveis e deles definirem métodos que permitem você mudá-los sem usar sintaxe de atribuição, vai funcionar.</p>
+<p><strong>“Indexando com floats”</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mf">0.0</span><span class="p">]</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="nb">list</span> <span class="n">indices</span> <span class="n">must</span> <span class="n">be</span> <span class="n">integers</span><span class="p">,</span> <span class="ow">not</span> <span class="nb">float</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">}[</span><span class="mi">0</span><span class="p">]</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">}[</span><span class="mf">0.0</span><span class="p">]</span>
+<span class="mi">4</span>
+</pre></div>
+
+
+<p>Esse é um pouco sorrateiro: os dois primeiros exemplos usam uma lista, e índices de listas devem ser inteiros. Os outros dois exemplos usam um dicionário, e qualquer tipo "hasheável" pode servir como uma chave de dicionário.</p>
+<p>Quanto ao motivo de <code>0</code> e <code>0.0</code> devolverem o mesmo valor, não estou 100% certo disso (como não tenho analisado a implementação de dicionário do CPython ultimamente), mas eu acredito que a prevenção de colisões permitem que duas chaves peguem o mesmo valor do dicionário se eles tem o mesmo hash e são comparados iguais (e uma vez que <code>hash(0) == hash(0.0)</code> e <code>0 == 0.0</code> você tem o resultado no exemplo).</p>
+<p><strong>"tudo e vazio"</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">all</span><span class="p">([])</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">all</span><span class="p">([[]])</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">all</span><span class="p">([[[]]])</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>Complicado, né? O argumento para <code>all()</code> é uma sequência. Então no primeiro exemplo, nós estamos pedindo para ele avaliar uma sequência vazia; <code>all()</code> está definido para retornar <code>True</code> para uma sequência vazia. O segundo exemplo tem uma sequência contendo um item — uma lista vazia — que é avaliado como <code>False</code>, então retorna <code>False</code>. O terceiro pega uma sequência contendo um item — uma lista contendo uma lista vazia — que é avaliada como <code>True</code> (porque a lista contendo a lista vazia é por si só não vazia), e então retorna <code>True</code>.</p>
+<p><strong>“sum and strings”</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">())</span>
+<span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="nb">sum</span><span class="p">()</span> <span class="n">can</span><span class="s">&#39;t sum strings [use &#39;&#39;.join(seq) instead]</span>
+</pre></div>
+
+
+<p>Esse é outra onde uma rápida olhada na documentação da função revela o que está acontecendo.</p>
+<p>Quando dá-se uma sequência vazia, <code>sum()</code> retornará 0, e a string vazia é uma sequência vazia. Quando dado dois argumentos, <code>sum()</code> trata o segundo argumento como um valor acumulador inicial para retornar quando a sequência fornecida é vazia (de fato, a definição dessa função é <code>sum(sequence, start=0)</code> então realmente, no caso de uma sequência vazia com um argumento, ela está apenas retornando o valor padrão de <code>start</code>); isso que está acontecendo no segundo, terceiro e quarto exemplos. No quinto exemplo, <code>sum()</code> reclama que não funciona com um valor string para o segundo parâmetro, uma vez que <code>sum()</code> está definido para ser capaz de rejeitar tipos não numéricos.</p>
+<p>Há outro "wat": <code>sum()</code> apenas checa o tipo do seu segundo argumento (se você quiser verificar, é a função <code>builtin_sum()</code> no Python 2, e <code>builtin_sum_impl()</code> no Python 3, e em ambas as versões está localizado em <code>Python/bltinmodule.c</code> na árvore de código fonte). No Python 2, ele curto-circuita com um <code>TypeError</code> se o segundo argumento é uma instância de <code>basestring</code>; no Python 3 ele curto-circuita com <code>TypeError</code> quando o segundo argumento é uma instância de <code>str</code>, <code>bytes</code> ou <code>bytearray</code>.</p>
+<p>Mas ele nunca checa o tipo do primeiro argumento, ou dos itens na sequência (se for uma sequência); ela simplesmente confia no fato que iteração em um tipo não sequencial lança uma exceção <code>TypeError</code>, e adição de uma string para um inteiro vai levantar um <code>TypeError</code> (o último porque você não pode passar um valor do tipo string para o segundo argumento, e esse argumento é padrão 0 quando não especificado).</p>
+<p><strong>“Comparing NaNs”</strong></p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="mf">1e400</span>  <span class="c"># nan</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">({</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">0</span><span class="o">*</span><span class="mf">1e400</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="mf">1e400</span><span class="p">})</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">({</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">0</span><span class="o">*</span><span class="mf">1e400</span><span class="p">})</span>
+<span class="mi">2</span>
+</pre></div>
+
+
+<p><code>NaN</code> é estranho. IEEE 754 nos fala que comparações com <code>NaN</code> são desordenadas; <code>NaN</code> não é nem maior, menor ou igual a qualquer valor de ponto flutuante, incluindo ele mesmo.</p>
+<p>Então, na primeira chamada de <code>len()</code>, em teoria nós devemos esperar 6 como resposta; todos os valores são <code>NaN</code> e nenhum deles são iguais aos outros, de modo que o conjunto literal não deve suprimir qualquer valor duplicado. De igual modo, a segunda chamada de <code>len()</code> deveria retornar 3.</p>
+<p>O que realmente parece estar acontecendo é que Python está considerando <code>x</code> e <code>x</code> serem valores duplicados, <code>float(x)</code> e <code>float(x)</code> também serem valores duplicados, e <code>0*1e400</code> and <code>0*1e400</code> serem valores "distintos". ~~O porque eu não tenho certeza. Eu acredito que é possível que esteja acontecendo algum tipo complicado de avaliação única, mas isso exigiria Python saber <code>float(x)</code> sempre retorna o mesmo valor para o mesmo <code>x</code> (e neste caso não é verdade no caso que ambas as chamadas retornam valores <code>NaN</code> que são desiguais).~~</p>
+<p><em>Edit</em>: <a href="https://www.reddit.com/r/Python/comments/3ojwf9/explaining_the_python_wats/cvxxto3">um comentário no reddit acertou na solução</a>. Python parece estar usando o identificador como um curto-circuito otimizado para evitar fazer uma checagem de igualdade potencialmente custosa. E realmente, ambos <code>x is x</code> e <code>float(x) is float(x)</code> retornam <code>True</code> com <code>x = 0*1e400</code>, mas <code>0*1e400 is 0*1e400</code> retorna <code>False</code>. Se alguém mais quiser se divertir um pouco mais, dê uma olhada em <em>porquê</em> <code>*1e400 is not 0*1e400</code> retorna <code>True</code>.</p>
+<p><strong><em>Viu algum trecho que poderia ficar com uma tradução melhor? Manda lá nos comentários mais abaixo. Valeu pessoal, e até a próxima!</em></strong></p>
+<p>Referências:</p>
+<ul>
+<li><a href="http://www.b-list.org/weblog/2015/oct/13/wats-doc/">Post original</a></li>
+</ul>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>
