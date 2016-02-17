@@ -1,5 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/python.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2016-02-15T10:48:00-03:00</updated><entry><title>Wat's up, doc?</title><link href="https://dunderlabs.github.io/wats-up-doc.html" rel="alternate"></link><updated>2016-02-15T10:48:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2016-02-15:wats-up-doc.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos para a imagem" src="https://dunderlabs.github.io/images/posts/wat.jpg" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/python.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2016-02-17T12:06:00-03:00</updated><entry><title>Python decorators em 12 passos fáceis</title><link href="https://dunderlabs.github.io/decorators-python-em-doze-passos.html" rel="alternate"></link><updated>2016-02-17T12:06:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2016-02-17:decorators-python-em-doze-passos.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos para a imagem" src="https://dunderlabs.github.io/images/posts/decorator2.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;Créditos para a imagem: &lt;a href="http://slideplayer.com.br/slide/4928758/"&gt;http://slideplayer.com.br/slide/4928758/&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Entendendo Python decorators em 12 passos fáceis!&lt;/h2&gt;
+&lt;p&gt;Ok, talvez eu esteja brincando. Como um instrutor Python, entender decorators é um tópico onde acho estudantes lutando constantemente após a primeira exposição ao assunto. O motivo é que decorators são difíceis de entender! Entendê-los requer compreender vários conceitos de programação funcional bem como se sentir confortável com algumas funcionalidades únicas da definição de função do Python e sintaxe de chamada de função. &lt;em&gt;Usar&lt;/em&gt; decorators é fácil (veja na Seção 10)! Mas escrevê-los pode ser complicado.&lt;/p&gt;
+&lt;p&gt;Eu não posso tornar os decorators fáceis - mas talvez ao caminharmos por cada pedaço desse puzzle, um passo de cada vez, eu possa ajudar você a se sentir mais confiante em entender decorators. Pelo motivo de decorators ser um assunto complexo, esse artigo vai ser longo - mas desista dele! Eu prometo fazer cada pedaço tão simples quanto possível - e se você entender cada pedaço, vai entender como decorators funcionam! Estou tentando assumir mínimo conhecimento de Python mas esse artigo provavelmente vai ser mais útils para pessoas que já tenha tido pelo menos um trabalho ocasional com Python.&lt;/p&gt;
+&lt;p&gt;Eu gostaria também de salientar que eu usei o módulo de doctest do Python para rodar os exemplos de código neste artigo. O código parece com uma sessão no console interativo do Python (&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; e &lt;code&gt;...&lt;/code&gt; indicam comandos Python enquanto a saída tem sua própria linha). Eventualmente podem haver comentários enigmáticos que começam com "doctest" - eles são apenas diretivas para o doctest e podem ser ignorados.&lt;/p&gt;
+&lt;h3&gt;1. Funções&lt;/h3&gt;
+&lt;p&gt;Funções em Python são criadas com a palavra chave &lt;code&gt;def&lt;/code&gt; e recebe um nome e uma lista opcional de parâmetros. Elas podem retornar valores com a palavra chave &lt;code&gt;return&lt;/code&gt;. Vamos fazer e chamar uma função bem simples.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;()&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; 1
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt;
+1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O corpo da função (assim como todas as declarações multi-linhas em Python) é obrigatório e indicado por indentação. Podemos chamar funções acrescentando parênteses ao nome da função.&lt;/p&gt;
+&lt;h3&gt;2. Escopo&lt;/h3&gt;
+&lt;p&gt;Em Python, funções criam um novo escopo. Pythonistas também podem dizer que funções têm seu próprio namespace. Isso significa que Python olha primeiro no namespace da função para procurar nomes de variáveis que encontra no corpo da função. Python inclui algumas funções que nos deixam olhar no nosso namespace. Vamos escrever uma função simples para investigar a diferença entre escopo local e global.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;a_string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;This is a global variable&amp;quot;&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;()&lt;/span&gt;:
+...     print locals&lt;span class="o"&gt;()&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; print globals&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="c"&gt;# doctest: +ELLIPSIS&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;..., &lt;span class="s1"&gt;&amp;#39;a_string&amp;#39;&lt;/span&gt;: &lt;span class="s1"&gt;&amp;#39;This is a global variable&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="c"&gt;# 2&lt;/span&gt;
+&lt;span class="o"&gt;{}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A função builtin &lt;code&gt;globals&lt;/code&gt; retorna um dicionário contendo todas os nomes de variáveis que o Python conhece. (Por uma questão de clareza, eu omiti na saída algumas variáveis que o Python cria automaticamente.) No ponto #2 eu chamei minha função &lt;code&gt;foo&lt;/code&gt; que mostra o conteúdo do namespace local de dentro da função. Como nós podemos ver, a função &lt;code&gt;foo&lt;/code&gt; tem seu próprio e separado namespace que está atualmente vazio.&lt;/p&gt;
+&lt;h3&gt;3. Regras de resolução de variáveis&lt;/h3&gt;
+&lt;p&gt;Claro que isso não significa que não podemos acessar variáveis globais dentro de nossas funções. A regra do escopo do Python é que a criação de variáveis sempre cria uma nova variável local, mas acesso de variável (incluindo modificação) verificano escopo local e então procura por todo o escopo envolvido para procurar uma que bata com a busca. Então se nós modificarmos nossa função &lt;code&gt;foo&lt;/code&gt; para mostrar nossa variável global, tudo vai funcionar como esperado:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;a_string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;This is a global variable&amp;quot;&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;()&lt;/span&gt;:
+...     print a_string &lt;span class="c"&gt;# 1&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt;
+This is a global variable
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;No ponto #1 Python procura por uma variável local na nossa função e não a encontra, então ele vai em busca de uma variável global com o mesmo nome.&lt;/p&gt;
+&lt;p&gt;Por outro lado, se nós tentarmos fazer uma atribuição na variável global dentro da nossa função, isso não vai fazer o que nós pensamos:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;a_string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;This is a global variable&amp;quot;&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;()&lt;/span&gt;:
+...     &lt;span class="nv"&gt;a_string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;test&amp;quot;&lt;/span&gt; &lt;span class="c"&gt;# 1&lt;/span&gt;
+...     print locals&lt;span class="o"&gt;()&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a_string&amp;#39;&lt;/span&gt;: &lt;span class="s1"&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; a_string &lt;span class="c"&gt;# 2&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;#39;This is a global variable&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Como podemos ver, variáveis globais pode ser acessadas (mesmo se elas são  de tipos mutáveis) mas não podem (por padrão) receber atribuição. No ponto #1 dentro da nossa função, na realidade estamos criando uma nova variável local que "cobre" a variável global com o mesmo nome. Podemos ver isso ao dar &lt;code&gt;print&lt;/code&gt; no namespace &lt;code&gt;local&lt;/code&gt; dentro da nossa função &lt;code&gt;foo&lt;/code&gt; e perceber que agora ele tem uma entrada. Podemos também ver novamente o namespace global no ponto #2 que ao checarmos o valor da variável &lt;code&gt;a_string&lt;/code&gt; que esta não foi de fato alterada.&lt;/p&gt;
+&lt;h3&gt;4. Tempo de vida da variável&lt;/h3&gt;
+&lt;p&gt;É importante também notar que não apenas as variáveis "vivem" dentro de um namespace, elas também tem um tempo de vida.
+Considere:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;()&lt;/span&gt;:
+...     &lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 1
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; print x &lt;span class="c"&gt;# 1&lt;/span&gt;
+Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+  ...
+NameError: name &lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt; is not defined
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Não é apenas uma questão de regra de escopo no ponto #1 que causa o problema (embora esse é o porque de nós termos um &lt;code&gt;NameError&lt;/code&gt;) isso também tem a ver com a forma que as chamadas de função são implementadas em Python e muitas outras linguagens. Não existe nenhuma sintaxe que possamos usar para pegar o valor da variável &lt;code&gt;x&lt;/code&gt; nesse ponto - ela literalmente não existe! O namespace criado para nossa função &lt;code&gt;foo&lt;/code&gt; é criado do zero toda vez que a função é chamada, e é destruído quando a função termina.&lt;/p&gt;
+&lt;h3&gt;5. Argumentos e parâmetros de função&lt;/h3&gt;
+&lt;p&gt;Python nos permite passar argumentos para funções. O nome do parâmetro se torna uma variável local na nossa função.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;(&lt;/span&gt;x&lt;span class="o"&gt;)&lt;/span&gt;:
+...     print locals&lt;span class="o"&gt;()&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;(&lt;/span&gt;1&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: 1&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Python tem uma variedade de maneiras para definir parâmetros de função e passar argumentos para eles. Você poderá ver uma lista completa e detalhada na &lt;a href="https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions"&gt;documentação oficial do Python sobre definição de funções&lt;/a&gt;. Vou mostrar aqui a versão resumida: parâmetros de função podem ser tanto &lt;strong&gt;posicionais&lt;/strong&gt; quanto podem ser &lt;strong&gt;obrigatórios&lt;/strong&gt; ou &lt;strong&gt;nomeados&lt;/strong&gt;, parâmetros que tem &lt;strong&gt;valor padrão&lt;/strong&gt; são &lt;strong&gt;opcionais&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;(&lt;/span&gt;x, &lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0&lt;span class="o"&gt;)&lt;/span&gt;: &lt;span class="c"&gt;# 1&lt;/span&gt;
+...     &lt;span class="k"&gt;return&lt;/span&gt; x - y
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;(&lt;/span&gt;3, 1&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 2&lt;/span&gt;
+2
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;(&lt;/span&gt;3&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 3&lt;/span&gt;
+3
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="c"&gt;# 4&lt;/span&gt;
+Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+  ...
+TypeError: foo&lt;span class="o"&gt;()&lt;/span&gt; takes at least &lt;span class="m"&gt;1&lt;/span&gt; argument &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; given&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1, &lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;3&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 5&lt;/span&gt;
+2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;No ponto #1 estamos definindo uma função que tem um parâmetro posicional &lt;code&gt;x&lt;/code&gt; e um parâmetro nomeado &lt;code&gt;y&lt;/code&gt;. Como vemos no ponto #2 podemos chamar essa função passando argumentos normalmente - os valores são passados para os parâmetros de &lt;code&gt;foo&lt;/code&gt; pela posição embora um dele está definido na definição da função como um parâmetro nomeado. Também podemos chamar a função sem passar nenhum argumento para o parâmetro nomeado, como você pode ver no ponto #3 - Python usa o valor padrão de &lt;code&gt;0&lt;/code&gt; que declaramos se ele não receber um valor para o parâmetro nomeado &lt;code&gt;y&lt;/code&gt;. Claro que não podemos deixar de passar valores para o primeiro (obrigatório, posicional) parâmetro - ponto #4 mostra que o resultado disso é uma exceção.&lt;/p&gt;
+&lt;p&gt;Tudo simples e claro? Agora vai começar a ficar um pouco confuso - Python suporta argumentos nomeados na chamada da função. Olhe no ponto #5 - aqui estamos chamando a função com dois argumentos nomeados embora ela esteja definida com um parâmetro nomeado e outro sendo posicional. Desde que tenhamos nomes para nossos parâmetros, a ordem em que passamos eles não importa.&lt;/p&gt;
+&lt;p&gt;O caso contrário é verdadeiro, claro. Um dos parâmetros para nossa função está definido como um parâmetro nomeado, mas passamos um argumento para ele pela posição - a chamada &lt;code&gt;foo(3,1)&lt;/code&gt; no ponto #2 passa o &lt;code&gt;3&lt;/code&gt; como o argumento para o nosso parâmetro obrigatório &lt;code&gt;x&lt;/code&gt; e passa o segundo (o inteiro &lt;code&gt;1&lt;/code&gt;) para o segundo parâmetro embora ele já estivesse definido como um parâmetro nomeado.&lt;/p&gt;
+&lt;p&gt;Wooow! Parecem ser muitas palavras para explicar um conceito bem simples: parâmetros de função podem ser nomes ou posições. Isso significa coisas ligeiramente diferentes dependendo se estamos na definição de função ou na hora da chamada de função, e podemos usar argumentos nomeados para funções definidas apenas com paramêtros posicionais e vice-versa! Novamente - se tudo isso foi muito rápido, dê uma olhada nas &lt;a href="https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions"&gt;documentações&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;6. Funções aninhadas&lt;/h3&gt;
+&lt;p&gt;Python permite a criação de funções aninhadas. Isso significa que podemos declarar funções dentro de funções e as regras sobre escopo e tempo de vida continuam valendo normalmente.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def outer&lt;span class="o"&gt;()&lt;/span&gt;:
+...     &lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 1
+...     def inner&lt;span class="o"&gt;()&lt;/span&gt;:
+...         print x &lt;span class="c"&gt;# 1&lt;/span&gt;
+...     inner&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="c"&gt;# 2&lt;/span&gt;
+...
+&amp;gt;&amp;gt;&amp;gt; outer&lt;span class="o"&gt;()&lt;/span&gt;
+1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Parece um pouco complicado, mas ainda continua se comportando de uma maneira bem sensata. Considere o que acontece no ponto #1 - Python procura por uma variável local de nome &lt;code&gt;x&lt;/code&gt;, não achando ele então procura no escopo em volta que é outra função! A variável &lt;code&gt;x&lt;/code&gt; é uma variável local para nossa função &lt;code&gt;outer&lt;/code&gt; mas como antes nossa função &lt;code&gt;inner&lt;/code&gt; tem acesso ao escopo em que está envolta (pelo menos ler e modificar o acesso). No ponto #2 nós chamamos a função &lt;code&gt;inner&lt;/code&gt;. É importante lembrar que &lt;code&gt;inner&lt;/code&gt; também é apenas um nome de variável que segue as regras de busca de variáveis do Python - Python procura no escopo de &lt;code&gt;outer&lt;/code&gt; primeiro e encontra uma variável local de nome &lt;code&gt;inner&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;7. Funções são objetos de primeira classe em Python&lt;/h3&gt;
+&lt;p&gt;Esta é uma simples observação de que, em Python, funções são objetos como qualquer outro. Ah, função contendo variável, você não é tão especial!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; issubclass&lt;span class="o"&gt;(&lt;/span&gt;int, object&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# all objects in Python inherit from a common baseclass&lt;/span&gt;
+True
+&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;()&lt;/span&gt;:
+...     pass
+&amp;gt;&amp;gt;&amp;gt; foo.__class__ &lt;span class="c"&gt;# 1&lt;/span&gt;
+&amp;lt;&lt;span class="nb"&gt;type&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;function&amp;#39;&lt;/span&gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; issubclass&lt;span class="o"&gt;(&lt;/span&gt;foo.__class__, object&lt;span class="o"&gt;)&lt;/span&gt;
+True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Você pode nunca ter pensando em suas funções tendo atributos - mas funções são objetos em Python, assim como qualquer outro. (E se você achou isso confuso, espere até ver que classes são objetos em Python, assim como qualquer outro objeto!) Talvez isso esteja tornando o ponto em uma maneira acadêmica - funções são apenas valores normais como qualquer outro valor em Python. Isso significa que você pode passar funções para outras funções como argumentos, ou retornar funções em uma função como seu valor de retorno! Se você nunca pensou nesse tipo de coisa, considere o seguinte código Python que funciona perfeitamente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def add&lt;span class="o"&gt;(&lt;/span&gt;x, y&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; x + y
+&amp;gt;&amp;gt;&amp;gt; def sub&lt;span class="o"&gt;(&lt;/span&gt;x, y&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; x - y
+&amp;gt;&amp;gt;&amp;gt; def apply&lt;span class="o"&gt;(&lt;/span&gt;func, x, y&lt;span class="o"&gt;)&lt;/span&gt;: &lt;span class="c"&gt;# 1&lt;/span&gt;
+...     &lt;span class="k"&gt;return&lt;/span&gt; func&lt;span class="o"&gt;(&lt;/span&gt;x, y&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 2&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; apply&lt;span class="o"&gt;(&lt;/span&gt;add, 2, 1&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 3&lt;/span&gt;
+3
+&amp;gt;&amp;gt;&amp;gt; apply&lt;span class="o"&gt;(&lt;/span&gt;sub, 2, 1&lt;span class="o"&gt;)&lt;/span&gt;
+1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Esse exemplo pode não parecer tão estranho pra você - &lt;code&gt;add&lt;/code&gt; e &lt;code&gt;sub&lt;/code&gt; são funções Python normais que recebem dois valores e retornam um valor calculado. No ponto #1 pode ver que a variável espera receber uma função é uma variável como qualquer outra. No ponto #2 chamamos a função passamos para &lt;code&gt;apply&lt;/code&gt; - parêntesis em Python são o operador de chamada, e eles chamam o valor que o nome daquela variável contém. E no ponto #3 você pode ver que passar funções como valores não tem nenhuma sintaxe especial em Python - nomes de função são apenas rótulos/nomes de variáveis como qualquer outra variável.&lt;/p&gt;
+&lt;p&gt;Você pode ver esse tipo de comportamento antes - Python usa funções como argumentos para operações frequentemente usadas como personalização da função built-in &lt;code&gt;sorted&lt;/code&gt;, ao fornever uma função para o parâmetro &lt;code&gt;key&lt;/code&gt;. Mas e sobre retornar funções como valores? Veja:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def outer&lt;span class="o"&gt;()&lt;/span&gt;:
+...     def inner&lt;span class="o"&gt;()&lt;/span&gt;:
+...         print &lt;span class="s2"&gt;&amp;quot;Inside inner&amp;quot;&lt;/span&gt;
+...     &lt;span class="k"&gt;return&lt;/span&gt; inner &lt;span class="c"&gt;# 1&lt;/span&gt;
+...
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; outer&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="c"&gt;#2&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo &lt;span class="c"&gt;# doctest:+ELLIPSIS&lt;/span&gt;
+&amp;lt;&lt;span class="k"&gt;function&lt;/span&gt; inner at 0x...&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt;
+Inside inner
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Isso pode parecer um pouco bizarro. No ponto #1 retornamos a variável &lt;code&gt;inner&lt;/code&gt; que passa a ser um rótulo/nome de função. Não há sintaxe especial aqui - nossa função está retornando a função &lt;code&gt;inner&lt;/code&gt; que de outra forma não poderia ser chamada. Lembra do tempo de vida da variável? A função &lt;code&gt;inner&lt;/code&gt; é sempre redefinida toda vez que a função &lt;code&gt;outer&lt;/code&gt; é chamada, mas se &lt;code&gt;inner&lt;/code&gt; não fosse retornada pela função, ela iria simplesmente deixar de existir quando o escopo se fosse.&lt;/p&gt;
+&lt;p&gt;No ponto #2 podemos pegar o valor de retorno que é nossa função &lt;code&gt;inner&lt;/code&gt; e armazená-la em uma nova variável &lt;code&gt;foo&lt;/code&gt;. Podemos ver que se nós avaliarmos &lt;code&gt;foo&lt;/code&gt;, veremos que ela realmente contém nossa função &lt;code&gt;inner&lt;/code&gt; e que podemos chamá-la ao usar o operador de chamada (parêntesis, lembra?). Isso pode parecer um pouco estranho, mas nada difícil de entender, né? Mas calma, porque as coisas estão prestes a ficar realmente estranhas!&lt;/p&gt;
+&lt;h3&gt;8. Closures&lt;/h3&gt;
+&lt;p&gt;Não vamos começar com uma definição, mas sim com outro exemplo de código. Vamos dar uma copiada no nosso último exemplo:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def outer&lt;span class="o"&gt;()&lt;/span&gt;:
+...     &lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 1
+...     def inner&lt;span class="o"&gt;()&lt;/span&gt;:
+...         print x &lt;span class="c"&gt;# 1&lt;/span&gt;
+...     &lt;span class="k"&gt;return&lt;/span&gt; inner
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; outer&lt;span class="o"&gt;()&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo.func_closure &lt;span class="c"&gt;# doctest: +ELLIPSIS&lt;/span&gt;
+&lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;cell at 0x...: int object at 0x...&amp;gt;,&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A partir do nosso último exemplo, podemos ver que &lt;code&gt;inner&lt;/code&gt; é uma função retornada por &lt;code&gt;outer&lt;/code&gt; em uma variável chamada &lt;code&gt;foo&lt;/code&gt;, e que poderíamos chamar ela com &lt;code&gt;foo()&lt;/code&gt;. Mas ela vai rodar? Vamos considerar primeiro as regras de escopo.&lt;/p&gt;
+&lt;p&gt;Tudo funciona de acordo com as regras de escopo do Python - &lt;code&gt;x&lt;/code&gt; é uma variável local na nossa função &lt;code&gt;outer&lt;/code&gt;. Quando &lt;code&gt;inner&lt;/code&gt; imprime &lt;code&gt;x&lt;/code&gt; no ponto #1 Python procura por uma variável local em &lt;code&gt;inner&lt;/code&gt;, e ao não encontrar, procura no escopo que está envolta, que é a função &lt;code&gt;outer&lt;/code&gt;, encontrando a variável lá.&lt;/p&gt;
+&lt;p&gt;Mas o que acontece do ponto de vista do tempo de vida da variável? Nossa variável &lt;code&gt;x&lt;/code&gt; é local para a função &lt;code&gt;outer&lt;/code&gt;, o que significa que ela existe apenas enquanto a função &lt;code&gt;outer&lt;/code&gt; está sendo executada. Não somos capazes de chamar a função &lt;code&gt;inner&lt;/code&gt; até depois do retorno de &lt;code&gt;outer&lt;/code&gt;, então de acordo com o nosso modelo de como Python funciona, &lt;code&gt;x&lt;/code&gt; não deveria existir mais na hora que chamamos &lt;code&gt;inner&lt;/code&gt;, e talvez um erro de runtime ou algo do tipo deveria acontecer.&lt;/p&gt;
+&lt;p&gt;Acontece que, contra nossas expectativas, nossa função retornada &lt;code&gt;inner&lt;/code&gt; funciona. Python tem suporte para uma funcionalidade chamada &lt;strong&gt;function closures&lt;/strong&gt; que significa que funções internas (isso é, uma função que está dentro de outra função) definidas em escopo não global lembram como era o namespace em que estava envolto em tempo de definição. Isso pode ser visto ao acessar o atributo &lt;code&gt;func_closure&lt;/code&gt; da nossa função &lt;code&gt;inner&lt;/code&gt; que contém as variáveis no escopo envolto.&lt;/p&gt;
+&lt;p&gt;Lembre - a função interna está sendo definida novamente cada vezes que a função &lt;code&gt;outer&lt;/code&gt; é chamada. Agora o valor de &lt;code&gt;x&lt;/code&gt; não muda, então cada função &lt;code&gt;inner&lt;/code&gt; faz a mesma coisa como outra função &lt;code&gt;inner&lt;/code&gt; - mas e se mexermos nela um pouco mais?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def outer&lt;span class="o"&gt;(&lt;/span&gt;x&lt;span class="o"&gt;)&lt;/span&gt;:
+...     def inner&lt;span class="o"&gt;()&lt;/span&gt;:
+...         print x &lt;span class="c"&gt;# 1&lt;/span&gt;
+...     &lt;span class="k"&gt;return&lt;/span&gt; inner
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;print1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; outer&lt;span class="o"&gt;(&lt;/span&gt;1&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;print2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; outer&lt;span class="o"&gt;(&lt;/span&gt;2&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; print1&lt;span class="o"&gt;()&lt;/span&gt;
+1
+&amp;gt;&amp;gt;&amp;gt; print2&lt;span class="o"&gt;()&lt;/span&gt;
+2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A partir desse exemplo, você pode ver que &lt;strong&gt;closures&lt;/strong&gt; - o fato que funções lembram seus escopo - podem ser usadas para construir funções customizadas que têm, essencialmente, um argumento explicito. Não estamos passando os números 1 ou 2 para nossa função &lt;code&gt;inner&lt;/code&gt;, mas estamos construindo versões customizadas da nossa função &lt;code&gt;inner&lt;/code&gt; que "se lembram" que números elas devem imprimir.&lt;/p&gt;
+&lt;p&gt;Isso por si só é uma técnica poderosa - você pode até pensar dele como similar a técnicas de orientação de objeto em algumas maneiras: &lt;code&gt;outer&lt;/code&gt; é um construtor para &lt;code&gt;inner&lt;/code&gt; com &lt;code&gt;x&lt;/code&gt; agindo como uma variável privada. E os usos são numerosos - se você está familiarizado com o parâmetro &lt;code&gt;key&lt;/code&gt; da função &lt;code&gt;sorted&lt;/code&gt;, provavelmente escreveu uma função lambda para ordenar uma lista de listas pelo segundo item ao invés do primeiro. Você pode agora estar capacitado a escrever uma função &lt;code&gt;itemgetter&lt;/code&gt; que recebe o índice para recuperar e retornar uma função que poderia adequadamente ser passada ao parâmetro key.&lt;/p&gt;
+&lt;p&gt;Mas não vamos fazer nada tão mundano com closures! Ao invés disso, vamos em frente mais uma vez e escrever um decorator!&lt;/p&gt;
+&lt;h3&gt;9. Decorator!&lt;/h3&gt;
+&lt;p&gt;Um decorator é apenas um objeto chamável que recebe uma função uma função substituta. Vamos começar de forma simples e trabalhar nosso caminho até úteis decorators.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def outer&lt;span class="o"&gt;(&lt;/span&gt;some_func&lt;span class="o"&gt;)&lt;/span&gt;:
+...     def inner&lt;span class="o"&gt;()&lt;/span&gt;:
+...         print &lt;span class="s2"&gt;&amp;quot;before some_func&amp;quot;&lt;/span&gt;
+...         &lt;span class="nv"&gt;ret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; some_func&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="c"&gt;# 1&lt;/span&gt;
+...         &lt;span class="k"&gt;return&lt;/span&gt; ret + 1
+...     &lt;span class="k"&gt;return&lt;/span&gt; inner
+&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;()&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; 1
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;decorated&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; outer&lt;span class="o"&gt;(&lt;/span&gt;foo&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 2&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; decorated&lt;span class="o"&gt;()&lt;/span&gt;
+before some_func
+2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Veja cuidadosamente nosso exemplo de decorator. Definimos uma função chamada &lt;code&gt;outer&lt;/code&gt; que tem um único parâmetro &lt;code&gt;some_func&lt;/code&gt;. Dentro de &lt;code&gt;outer&lt;/code&gt; definimos uma função aninhada chamada &lt;code&gt;inner&lt;/code&gt;. A função &lt;code&gt;inner&lt;/code&gt; vai imprimir uma string e então chamar &lt;code&gt;some_func&lt;/code&gt;, pegando seu valor de retorno no ponto #1. O valor de &lt;code&gt;some_func&lt;/code&gt; pode ser diferente em cada vez que &lt;code&gt;outer&lt;/code&gt; é chamada, mas não importa que função seja, nós vamos chamá-la. Finalmente &lt;code&gt;inner&lt;/code&gt; retorna o valor de retorno de &lt;code&gt;some_func()&lt;/code&gt; + 1 - e podemos ver que quando chamamos nossa função retornada armazenada em &lt;code&gt;decorated&lt;/code&gt; no ponto #2 temos os resultados do print e também retorna o valor 2 ao invés do valor original 1 que nós poderíamos estar esperando receber ao chamar &lt;code&gt;foo&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Poderíamos dizer que a variável &lt;code&gt;decorated&lt;/code&gt; é uma versão decorada de &lt;code&gt;foo&lt;/code&gt; - é &lt;code&gt;foo&lt;/code&gt; mais alguma coisa. De fato se nós escrevemos um decorator útil podemos querer substituir completamente &lt;code&gt;foo&lt;/code&gt; com a versão decorada, então sempre vamos ter nossa versão "mais alguma coisa" de &lt;code&gt;foo&lt;/code&gt;. Podemos fazer isso sem aprender uma nova sintaxe, simplesmente reatribuindo a variável que contém nossa função:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def outer&lt;span class="o"&gt;(&lt;/span&gt;some_func&lt;span class="o"&gt;)&lt;/span&gt;:
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; outer&lt;span class="o"&gt;(&lt;/span&gt;foo&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo &lt;span class="c"&gt;# doctest: +ELLIPSIS&lt;/span&gt;
+&amp;lt;&lt;span class="k"&gt;function&lt;/span&gt; inner at 0x...&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora todas as chamadas de &lt;code&gt;foo()&lt;/code&gt; não vão ter o resultado original de antes, terão a nossa versão decorada! Pegou a ideia? Vamos escrever um decorator mais útil.&lt;/p&gt;
+&lt;p&gt;Imagine que nós temos uma biblioteca que nos dá objetos de coordenadas. Talvez eles sejam primariamente compostos de pares de coordenadas &lt;code&gt;x&lt;/code&gt; e &lt;code&gt;y&lt;/code&gt;. Infelizmente os objetos de coordenadas não suportam operações matemáticas e não podemos modificar o código fonte, então não podemos adicionar esse suporte. No entanto, vamos estar fazendo muita matemática então queremos fazer funções &lt;code&gt;add&lt;/code&gt; e &lt;code&gt;sub&lt;/code&gt; para receberem dois objetos de coordenada e fazerem a operação matemática apropriada. Esas funções seriam fácil de escrever (vou fornecer um exemplo da classe Coordenada para ilustrar)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; class Coordinate&lt;span class="o"&gt;(&lt;/span&gt;object&lt;span class="o"&gt;)&lt;/span&gt;:
+...     def __init__&lt;span class="o"&gt;(&lt;/span&gt;self, x, y&lt;span class="o"&gt;)&lt;/span&gt;:
+...         self.x &lt;span class="o"&gt;=&lt;/span&gt; x
+...         self.y &lt;span class="o"&gt;=&lt;/span&gt; y
+...     def __repr__&lt;span class="o"&gt;(&lt;/span&gt;self&lt;span class="o"&gt;)&lt;/span&gt;:
+...         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Coord: &amp;quot;&lt;/span&gt; + str&lt;span class="o"&gt;(&lt;/span&gt;self.__dict__&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; def add&lt;span class="o"&gt;(&lt;/span&gt;a, b&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;a.x + b.x, a.y + b.y&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; def sub&lt;span class="o"&gt;(&lt;/span&gt;a, b&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;a.x - b.x, a.y - b.y&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;one&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;100, 200&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;two&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;300, 200&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; add&lt;span class="o"&gt;(&lt;/span&gt;one, two&lt;span class="o"&gt;)&lt;/span&gt;
+Coord: &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;: 400, &lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: 400&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Mas e se nossas funções de adição e subtração tivessem que também ter um comportamento de verificação de limites? Talvez você possa apenas somar ou subtrair baseado em coordenadas positivas e qualquer resultado deveria ser limitado a coordenadas positivas. Então atualmente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;one&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;100, 200&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;two&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;300, 200&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;three&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;-100, -100&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; sub&lt;span class="o"&gt;(&lt;/span&gt;one, two&lt;span class="o"&gt;)&lt;/span&gt;
+Coord: &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;: 0, &lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: -200&lt;span class="o"&gt;}&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; add&lt;span class="o"&gt;(&lt;/span&gt;one, three&lt;span class="o"&gt;)&lt;/span&gt;
+Coord: &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;: 100, &lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: 0&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;mas preferimos ter a diferença de &lt;code&gt;one&lt;/code&gt; e &lt;code&gt;two&lt;/code&gt; sendo &lt;code&gt;{x: 0, y: 0}&lt;/code&gt; e a soma de &lt;code&gt;one&lt;/code&gt; e &lt;code&gt;three&lt;/code&gt; sendo &lt;code&gt;{x: 100, y: 200}&lt;/code&gt; sem modificar &lt;code&gt;one&lt;/code&gt;, &lt;code&gt;two&lt;/code&gt; ou &lt;code&gt;three&lt;/code&gt;. Invés de adicionar verificação de limites na entrada de argumentos de cada função e o valor de retorno de cada função, vamos escrever um decorator de verificação de limites!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def wrapper&lt;span class="o"&gt;(&lt;/span&gt;func&lt;span class="o"&gt;)&lt;/span&gt;:
+...     def checker&lt;span class="o"&gt;(&lt;/span&gt;a, b&lt;span class="o"&gt;)&lt;/span&gt;: &lt;span class="c"&gt;# 1&lt;/span&gt;
+...         &lt;span class="k"&gt;if&lt;/span&gt; a.x &amp;lt; &lt;span class="m"&gt;0&lt;/span&gt; or a.y &amp;lt; 0:
+...             &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;a.x &lt;span class="k"&gt;if&lt;/span&gt; a.x &amp;gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; 0, a.y &lt;span class="k"&gt;if&lt;/span&gt; a.y &amp;gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; 0&lt;span class="o"&gt;)&lt;/span&gt;
+...         &lt;span class="k"&gt;if&lt;/span&gt; b.x &amp;lt; &lt;span class="m"&gt;0&lt;/span&gt; or b.y &amp;lt; 0:
+...             &lt;span class="nv"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;b.x &lt;span class="k"&gt;if&lt;/span&gt; b.x &amp;gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; 0, b.y &lt;span class="k"&gt;if&lt;/span&gt; b.y &amp;gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; 0&lt;span class="o"&gt;)&lt;/span&gt;
+...         &lt;span class="nv"&gt;ret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; func&lt;span class="o"&gt;(&lt;/span&gt;a, b&lt;span class="o"&gt;)&lt;/span&gt;
+...         &lt;span class="k"&gt;if&lt;/span&gt; ret.x &amp;lt; &lt;span class="m"&gt;0&lt;/span&gt; or ret.y &amp;lt; 0:
+...             &lt;span class="nv"&gt;ret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;ret.x &lt;span class="k"&gt;if&lt;/span&gt; ret.x &amp;gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; 0, ret.y &lt;span class="k"&gt;if&lt;/span&gt; ret.y &amp;gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; 0&lt;span class="o"&gt;)&lt;/span&gt;
+...         &lt;span class="k"&gt;return&lt;/span&gt; ret
+...     &lt;span class="k"&gt;return&lt;/span&gt; checker
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;add&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; wrapper&lt;span class="o"&gt;(&lt;/span&gt;add&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;sub&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; wrapper&lt;span class="o"&gt;(&lt;/span&gt;sub&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; sub&lt;span class="o"&gt;(&lt;/span&gt;one, two&lt;span class="o"&gt;)&lt;/span&gt;
+Coord: &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;: 0, &lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: 0&lt;span class="o"&gt;}&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; add&lt;span class="o"&gt;(&lt;/span&gt;one, three&lt;span class="o"&gt;)&lt;/span&gt;
+Coord: &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;: 200, &lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: 100&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O decorator funciona do mesmo jeito que antes - retorna uma versão modificada de uma função, mas neste caso ela faz algo útil ao checar e normalizar a entrada de parâmetros e o valor de retorno, substituindo qualquer valor negativo de &lt;code&gt;x&lt;/code&gt; ou &lt;code&gt;y&lt;/code&gt; por 0.&lt;/p&gt;
+&lt;p&gt;É uma questão de opinião quanto ao fazer isso torna nosso código mais limpo: isolar a checagem de limites na sua própria função e aplicá-la para todas as funções que nos interessam envolvendo-as com um decorator. A alternativa seria uma chamada de função em cada argumento de entrada e na saída resultante antes de retornar dentro de cada função matemática, e é inegável que usar o decorator é, pelo menos, menos repetitivo em termos de quantidade de código necessário para aplicar checagem de limites para uma função.&lt;/p&gt;
+&lt;h3&gt;10. O símbolo @ aplica um decorator a uma função&lt;/h3&gt;
+&lt;p&gt;A versão 2.4 do Python nos trouxe suporte para envolver uma função em um decorator ao adicionar antes da definição da função o nome do decorator e o símbolo &lt;code&gt;@&lt;/code&gt;. Nos exemplos de código acima, nós usamos decorators nas nossas funções ao substituir a variável contendo a função com a versão decorada.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;add&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; wrapper&lt;span class="o"&gt;(&lt;/span&gt;add&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Esse padrão pode ser usado em qualquer momento, para envolver qualquer função. Mas se estamos definindo uma função, podemos "decorá-la" com o símbolo &lt;code&gt;@&lt;/code&gt; dessa maneira:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; @wrapper
+... def add&lt;span class="o"&gt;(&lt;/span&gt;a, b&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; Coordinate&lt;span class="o"&gt;(&lt;/span&gt;a.x + b.x, a.y + b.y&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;É importante notar que essa maneira não é diferente do que simplesmente substituir a variável original &lt;code&gt;add&lt;/code&gt; com o retorno da função &lt;code&gt;wrapper&lt;/code&gt; - Python apenas adiciona um &lt;code&gt;syntatic sugar&lt;/code&gt; para fazer aquilo que acontece de maneira explícita.&lt;/p&gt;
+&lt;p&gt;Novamente - usar decorators é fácil! Ainda que escrever decorators úteis como &lt;code&gt;staticmethod&lt;/code&gt; ou &lt;code&gt;classmethod&lt;/code&gt; seja difícil, usá-los é apenas uma questão de adicionar à sua função o &lt;code&gt;@nomedodecorator&lt;/code&gt;!&lt;/p&gt;
+&lt;h3&gt;11. &lt;em&gt;args e &lt;/em&gt;*kwargs&lt;/h3&gt;
+&lt;p&gt;Fizemos um decorator bem útil, mas ele está codificado para funcionar em apenas um tipo particular de função - uma que recebe dois argumentos. Nossa função interna &lt;code&gt;checker&lt;/code&gt; aceita dois argumentos e passa os argumentos para a função que foi capturada na closure. E se nós quiséssemos um decorator que fizesse alguma coisa para qualquer função possível? Vamos fazer um decorator que incrementa o contador para cada chamada de função de cada função decorada sem mudar nenhuma das funções decoradas. Isso significa que o decorator teria que aceitar a assinatura de chamada de qualquer função que ele decora e também chamar as funções decoradas passando quaisquer argumentos que foram passados pra ele.&lt;/p&gt;
+&lt;p&gt;Acontece que Python tem um suporte sintático para essa funcionalidade. Certifique-se de ter lido o &lt;a href="https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists"&gt;Tutorial Python&lt;/a&gt; para mais detalhes, mas o operador &lt;code&gt;*&lt;/code&gt; usado ao definir uma função significa que qualquer argumento posicional extra passado para a função vão ficar na variável antecedida por &lt;code&gt;*&lt;/code&gt;. Então:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def one&lt;span class="o"&gt;(&lt;/span&gt;*args&lt;span class="o"&gt;)&lt;/span&gt;:
+...     print args &lt;span class="c"&gt;# 1&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; one&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;()&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; one&lt;span class="o"&gt;(&lt;/span&gt;1, 2, 3&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;(&lt;/span&gt;1, 2, 3&lt;span class="o"&gt;)&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; def two&lt;span class="o"&gt;(&lt;/span&gt;x, y, *args&lt;span class="o"&gt;)&lt;/span&gt;: &lt;span class="c"&gt;# 2&lt;/span&gt;
+...     print x, y, args
+&amp;gt;&amp;gt;&amp;gt; two&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;, &lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;, &lt;span class="s1"&gt;&amp;#39;c&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+a b &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;c&amp;#39;&lt;/span&gt;,&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A primeira função &lt;code&gt;one&lt;/code&gt; simplesmente mostra quaisquer (se houver) argumentos posicionais que foram passados pra ela. Como você pode ver no ponto #1, nos referimos a variável &lt;code&gt;args&lt;/code&gt; dentro da função - &lt;code&gt;*args&lt;/code&gt; é usado apenas na definição da função para indicar que argumentos posicionais devem ser armazenados na variável &lt;code&gt;args&lt;/code&gt;. Python também nos permite especificar algumas variáveis e pegar os parâmetros adicionais em &lt;code&gt;args&lt;/code&gt;, como podemos ver no ponto #2.&lt;/p&gt;
+&lt;p&gt;O operador &lt;code&gt;*&lt;/code&gt; também pode ser usado ao chamar funções, e aqui ele tem um significado semelhante ao anterior. Uma variável antecedida por &lt;code&gt;*&lt;/code&gt; ao &lt;strong&gt;chamar&lt;/strong&gt; uma função significa que o conteúdo da variável deve ser extraído e usado como argumentos posicionais. Um exemplo para entender melhor:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def add&lt;span class="o"&gt;(&lt;/span&gt;x, y&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; x + y
+&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;lst&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;1,2&lt;span class="o"&gt;]&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; add&lt;span class="o"&gt;(&lt;/span&gt;lst&lt;span class="o"&gt;[&lt;/span&gt;0&lt;span class="o"&gt;]&lt;/span&gt;, lst&lt;span class="o"&gt;[&lt;/span&gt;1&lt;span class="o"&gt;])&lt;/span&gt; &lt;span class="c"&gt;# 1&lt;/span&gt;
+3
+&amp;gt;&amp;gt;&amp;gt; add&lt;span class="o"&gt;(&lt;/span&gt;*lst&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 2&lt;/span&gt;
+3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O código no ponto #1 faz exatamente a mesma coisa que o código no ponto #2 - Python está fazendo isso automaticamente pra nós no ponto #2 o que poderíamos fazer manualmente. Isso não é nada mal - &lt;code&gt;*args&lt;/code&gt; tanto extrair variáveis posicionais a partir de um iterável na &lt;em&gt;chamada de uma função&lt;/em&gt; quanto na &lt;em&gt;definição de uma função&lt;/em&gt; aceitar qualquer quantidade de variáveis posicionais.&lt;/p&gt;
+&lt;p&gt;As coisas ficam um pouco mais complicadas ao introduzirmos o &lt;code&gt;**&lt;/code&gt; que faz em dicionários e pares chave/valor exatamente a mesma coisa que &lt;code&gt;*&lt;/code&gt; em iteráveis e parâmetros posicionais. Simples, né?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def foo&lt;span class="o"&gt;(&lt;/span&gt;**kwargs&lt;span class="o"&gt;)&lt;/span&gt;:
+...     print kwargs
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;{}&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; foo&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1, &lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;2&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;: 2, &lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: 1&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Quando definimos uma função, podemos usar &lt;code&gt;**kwargs&lt;/code&gt; para indicar que todos os argumentos nomeados não capturados devem ser armazenados em um dicionário chamado &lt;code&gt;kwargs&lt;/code&gt;. Da mesma forma que antes, nem a variável &lt;code&gt;args&lt;/code&gt; ou &lt;code&gt;kwargs&lt;/code&gt; fazem parte da sintaxe do Python, mas é uma convenção usar esse nome para essas variáveis ao declarar funções. Assim como &lt;code&gt;*&lt;/code&gt;, podemos usar &lt;code&gt;**&lt;/code&gt; ao chamar uma função bem como quando definí-la.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; &lt;span class="nv"&gt;dct&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;: 1, &lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;: 2&lt;span class="o"&gt;}&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; def bar&lt;span class="o"&gt;(&lt;/span&gt;x, y&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; x + y
+&amp;gt;&amp;gt;&amp;gt; bar&lt;span class="o"&gt;(&lt;/span&gt;**dct&lt;span class="o"&gt;)&lt;/span&gt;
+3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;12. Decorators mais genéricos&lt;/h3&gt;
+&lt;p&gt;Dado nosso novo poder, podemos criar um decorator que "registra" os argumentos para funções. Vamos apenas imprimir, por questões de simplicidade:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def logger&lt;span class="o"&gt;(&lt;/span&gt;func&lt;span class="o"&gt;)&lt;/span&gt;:
+...     def inner&lt;span class="o"&gt;(&lt;/span&gt;*args, **kwargs&lt;span class="o"&gt;)&lt;/span&gt;: &lt;span class="c"&gt;#1&lt;/span&gt;
+...         print &lt;span class="s2"&gt;&amp;quot;Arguments were: %s, %s&amp;quot;&lt;/span&gt; % &lt;span class="o"&gt;(&lt;/span&gt;args, kwargs&lt;span class="o"&gt;)&lt;/span&gt;
+...         &lt;span class="k"&gt;return&lt;/span&gt; func&lt;span class="o"&gt;(&lt;/span&gt;*args, **kwargs&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c"&gt;#2&lt;/span&gt;
+...     &lt;span class="k"&gt;return&lt;/span&gt; inner
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Perceba que nossa função &lt;code&gt;inner&lt;/code&gt; recebe qualquer quantidade de parâmetros, independente de tipo no ponto #1 e os passa como argumentos para a função que foi decorada, no ponto #2. Isso nos permite envolver/decorar qualquer função, não importando sua assinatura.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; @logger
+... def foo1&lt;span class="o"&gt;(&lt;/span&gt;x, &lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="o"&gt;)&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; x * y
+&amp;gt;&amp;gt;&amp;gt; @logger
+... def foo2&lt;span class="o"&gt;()&lt;/span&gt;:
+...     &lt;span class="k"&gt;return&lt;/span&gt; 2
+&amp;gt;&amp;gt;&amp;gt; foo1&lt;span class="o"&gt;(&lt;/span&gt;5, 4&lt;span class="o"&gt;)&lt;/span&gt;
+Arguments were: &lt;span class="o"&gt;(&lt;/span&gt;5, 4&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="o"&gt;{}&lt;/span&gt;
+20
+&amp;gt;&amp;gt;&amp;gt; foo1&lt;span class="o"&gt;(&lt;/span&gt;1&lt;span class="o"&gt;)&lt;/span&gt;
+Arguments were: &lt;span class="o"&gt;(&lt;/span&gt;1,&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="o"&gt;{}&lt;/span&gt;
+1
+&amp;gt;&amp;gt;&amp;gt; foo2&lt;span class="o"&gt;()&lt;/span&gt;
+Arguments were: &lt;span class="o"&gt;()&lt;/span&gt;, &lt;span class="o"&gt;{}&lt;/span&gt;
+2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Chamar nossas funções resulta eu um "log" de saída, bem como o retorno do valor esperado de cada função.&lt;/p&gt;
+&lt;h3&gt;Mais sobre decorators&lt;/h3&gt;
+&lt;p&gt;Se você conseguiu acompanhar o último exemplo, você entendeu decorators! Parabéns - Siga em frente e use seus novos poderes para o bem!&lt;/p&gt;
+&lt;p&gt;Se você estiver interessado em um estudo mais aprofundado: &lt;a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808"&gt;Bruce Eckel tem um excelente artigo sobre decorators&lt;/a&gt; e implementa eles em Python com objetos ao invés de funções. Pode ser que você ache que o código na sua versão orientada a objetos mais fácil de ler do que nossa versão puramente funcional. Bruce também tem um artigo após esse primeiro sobre &lt;a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240845"&gt;fornecer argumentos para decorators&lt;/a&gt; que pode também ser mais fácil de implementar com objetos do que com funções. E por fim - você também pode estudar a função built-ing &lt;code&gt;wraps&lt;/code&gt; do módulo &lt;a href="https://docs.python.org/3/library/functools.html"&gt;functools&lt;/a&gt;, que (talvez de uma maneira confusa inicialmente) é um decorator que pode ser usado em nossos decorators para modificar a assinatura das nossas funções substitutas, para que elas se pareçam mais com a função decorada.&lt;/p&gt;
+&lt;p&gt;[1] Eu também li recentemente um artigo sobre &lt;a href=""&gt;decorators&lt;/a&gt; que me fez refletir...
+[2] "global" é uma grande mentira no Python que dizem ser uma coisa maravilhosa, mas é uma discussão para outro dia...&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; Graças ao Nick eu atualizei minha terminologia no artigo para deixar mais claro que "parâmetros" são as variáveis nomeadas na assinatura da função, enquanto "argumentos" são os valores que são passados para a função.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Viu algum trecho que poderia ficar com uma tradução melhor? Manda lá nos comentários mais abaixo. Valeu pessoal, e até a próxima!&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Referências:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/"&gt;Post original&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="python"></category><category term="python decorators"></category><category term="decorators"></category><category term="translations"></category></entry><entry><title>Wat's up, doc?</title><link href="https://dunderlabs.github.io/wats-up-doc.html" rel="alternate"></link><updated>2016-02-15T10:48:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2016-02-15:wats-up-doc.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos para a imagem" src="https://dunderlabs.github.io/images/posts/wat.jpg" /&gt;&lt;/p&gt;
 &lt;p&gt;Créditos para a imagem: &lt;a href="http://www.b-list.org/weblog/2015/nov/15/real-python-wat/"&gt;http://www.b-list.org/weblog/2015/nov/15/real-python-wat/&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Wat's up, doc?&lt;/h3&gt;
 &lt;p&gt;No mesmo rumo da &lt;a href="https://www.destroyallsoftware.com/talks/wat"&gt;maravilhosa palestra do Gary Bernhardt sobre JavaScript&lt;/a&gt;, há também uma &lt;a href="https://github.com/cosmologicon/pywat"&gt;coleção de momentos de Python "wat"&lt;/a&gt; que muitas vezes aparecem por aí. Há também um questionário relacionado na página deste último link (que não vou dar spoiler; você pode ler ele e checar suas respostas). Toda linguagem tem algumas partes não intuitivas — ou, no mínimo, aparentemente não. Mas se você está trabalhando com Python, entender &lt;em&gt;porque&lt;/em&gt; esses pedaços de código se comportam dessa maneira é interessante, e potencialmente útil (OK, provavelmente não útil, mas no mínimo interessante). Então vamos dar uma olhada neles e ver o que realmente está acontecendo.&lt;/p&gt;

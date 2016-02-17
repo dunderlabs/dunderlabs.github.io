@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Python decorators em 12 passos fáceis"/>
+    <meta property="og:url" content="https://dunderlabs.github.io/decorators-python-em-doze-passos.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Já usou decorators mas ainda não sabe o que é? Neste artigo que traduzimos Simeon Franklin explica sobre o que são e como criá-los em 12 passos ..."/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/posts/decorator2.jpg"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@ericleribertson"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Python decorators em 12 passos fáceis"/>
+    <meta name="twitter:description" content="Já usou decorators mas ainda não sabe o que é? Neste artigo que traduzimos Simeon Franklin explica sobre o que são e como criá-los em 12 passos ..."/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/posts/decorator2.jpg"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Patrick Mazulo"/>
+    <meta property="article:section" content="python"/>
+    <meta property="article:tag" content="python, python decorators, decorators, translations"/>
+    <meta property="article:published_time" content="2016-02-17T12:06:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Python decorators em 12 passos fáceis"/>
+    <meta itemprop="description" content="Já usou decorators mas ainda não sabe o que é? Neste artigo que traduzimos Simeon Franklin explica sobre o que são e como criá-los em 12 passos ..."/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/posts/decorator2.jpg"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Já usou decorators mas ainda não sabe o que é? Neste artigo que traduzimos Simeon Franklin explica sobre o que são e como criá-los em 12 passos ..."/>
+    <meta name="keywords" content="python, python decorators, decorators, translations"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Python decorators em 12 passos fáceis // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Publicado</h5>
+                <p>Wed 17 February 2016</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Python decorators em 12 passos fáceis</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/python.html">python</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/python-decorators.html">python decorators</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/decorators.html">decorators</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/translations.html">translations</a>
+                        </p>
+                </header>
+            </section>
+            <p><img alt="Créditos para a imagem" src="https://dunderlabs.github.io/images/posts/decorator2.jpg" /></p>
+<p>Créditos para a imagem: <a href="http://slideplayer.com.br/slide/4928758/">http://slideplayer.com.br/slide/4928758/</a></p>
+<h2>Entendendo Python decorators em 12 passos fáceis!</h2>
+<p>Ok, talvez eu esteja brincando. Como um instrutor Python, entender decorators é um tópico onde acho estudantes lutando constantemente após a primeira exposição ao assunto. O motivo é que decorators são difíceis de entender! Entendê-los requer compreender vários conceitos de programação funcional bem como se sentir confortável com algumas funcionalidades únicas da definição de função do Python e sintaxe de chamada de função. <em>Usar</em> decorators é fácil (veja na Seção 10)! Mas escrevê-los pode ser complicado.</p>
+<p>Eu não posso tornar os decorators fáceis - mas talvez ao caminharmos por cada pedaço desse puzzle, um passo de cada vez, eu possa ajudar você a se sentir mais confiante em entender decorators. Pelo motivo de decorators ser um assunto complexo, esse artigo vai ser longo - mas desista dele! Eu prometo fazer cada pedaço tão simples quanto possível - e se você entender cada pedaço, vai entender como decorators funcionam! Estou tentando assumir mínimo conhecimento de Python mas esse artigo provavelmente vai ser mais útils para pessoas que já tenha tido pelo menos um trabalho ocasional com Python.</p>
+<p>Eu gostaria também de salientar que eu usei o módulo de doctest do Python para rodar os exemplos de código neste artigo. O código parece com uma sessão no console interativo do Python (<code>&gt;&gt;&gt;</code> e <code>...</code> indicam comandos Python enquanto a saída tem sua própria linha). Eventualmente podem haver comentários enigmáticos que começam com "doctest" - eles são apenas diretivas para o doctest e podem ser ignorados.</p>
+<h3>1. Funções</h3>
+<p>Funções em Python são criadas com a palavra chave <code>def</code> e recebe um nome e uma lista opcional de parâmetros. Elas podem retornar valores com a palavra chave <code>return</code>. Vamos fazer e chamar uma função bem simples.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def foo<span class="o">()</span>:
+...     <span class="k">return</span> 1
+&gt;&gt;&gt; foo<span class="o">()</span>
+1
+</pre></div>
+
+
+<p>O corpo da função (assim como todas as declarações multi-linhas em Python) é obrigatório e indicado por indentação. Podemos chamar funções acrescentando parênteses ao nome da função.</p>
+<h3>2. Escopo</h3>
+<p>Em Python, funções criam um novo escopo. Pythonistas também podem dizer que funções têm seu próprio namespace. Isso significa que Python olha primeiro no namespace da função para procurar nomes de variáveis que encontra no corpo da função. Python inclui algumas funções que nos deixam olhar no nosso namespace. Vamos escrever uma função simples para investigar a diferença entre escopo local e global.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">a_string</span> <span class="o">=</span> <span class="s2">&quot;This is a global variable&quot;</span>
+&gt;&gt;&gt; def foo<span class="o">()</span>:
+...     print locals<span class="o">()</span>
+&gt;&gt;&gt; print globals<span class="o">()</span> <span class="c"># doctest: +ELLIPSIS</span>
+<span class="o">{</span>..., <span class="s1">&#39;a_string&#39;</span>: <span class="s1">&#39;This is a global variable&#39;</span><span class="o">}</span>
+&gt;&gt;&gt; foo<span class="o">()</span> <span class="c"># 2</span>
+<span class="o">{}</span>
+</pre></div>
+
+
+<p>A função builtin <code>globals</code> retorna um dicionário contendo todas os nomes de variáveis que o Python conhece. (Por uma questão de clareza, eu omiti na saída algumas variáveis que o Python cria automaticamente.) No ponto #2 eu chamei minha função <code>foo</code> que mostra o conteúdo do namespace local de dentro da função. Como nós podemos ver, a função <code>foo</code> tem seu próprio e separado namespace que está atualmente vazio.</p>
+<h3>3. Regras de resolução de variáveis</h3>
+<p>Claro que isso não significa que não podemos acessar variáveis globais dentro de nossas funções. A regra do escopo do Python é que a criação de variáveis sempre cria uma nova variável local, mas acesso de variável (incluindo modificação) verificano escopo local e então procura por todo o escopo envolvido para procurar uma que bata com a busca. Então se nós modificarmos nossa função <code>foo</code> para mostrar nossa variável global, tudo vai funcionar como esperado:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">a_string</span> <span class="o">=</span> <span class="s2">&quot;This is a global variable&quot;</span>
+&gt;&gt;&gt; def foo<span class="o">()</span>:
+...     print a_string <span class="c"># 1</span>
+&gt;&gt;&gt; foo<span class="o">()</span>
+This is a global variable
+</pre></div>
+
+
+<p>No ponto #1 Python procura por uma variável local na nossa função e não a encontra, então ele vai em busca de uma variável global com o mesmo nome.</p>
+<p>Por outro lado, se nós tentarmos fazer uma atribuição na variável global dentro da nossa função, isso não vai fazer o que nós pensamos:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">a_string</span> <span class="o">=</span> <span class="s2">&quot;This is a global variable&quot;</span>
+&gt;&gt;&gt; def foo<span class="o">()</span>:
+...     <span class="nv">a_string</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span> <span class="c"># 1</span>
+...     print locals<span class="o">()</span>
+&gt;&gt;&gt; foo<span class="o">()</span>
+<span class="o">{</span><span class="s1">&#39;a_string&#39;</span>: <span class="s1">&#39;test&#39;</span><span class="o">}</span>
+&gt;&gt;&gt; a_string <span class="c"># 2</span>
+<span class="s1">&#39;This is a global variable&#39;</span>
+</pre></div>
+
+
+<p>Como podemos ver, variáveis globais pode ser acessadas (mesmo se elas são  de tipos mutáveis) mas não podem (por padrão) receber atribuição. No ponto #1 dentro da nossa função, na realidade estamos criando uma nova variável local que "cobre" a variável global com o mesmo nome. Podemos ver isso ao dar <code>print</code> no namespace <code>local</code> dentro da nossa função <code>foo</code> e perceber que agora ele tem uma entrada. Podemos também ver novamente o namespace global no ponto #2 que ao checarmos o valor da variável <code>a_string</code> que esta não foi de fato alterada.</p>
+<h3>4. Tempo de vida da variável</h3>
+<p>É importante também notar que não apenas as variáveis "vivem" dentro de um namespace, elas também tem um tempo de vida.
+Considere:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def foo<span class="o">()</span>:
+...     <span class="nv">x</span> <span class="o">=</span> 1
+&gt;&gt;&gt; foo<span class="o">()</span>
+&gt;&gt;&gt; print x <span class="c"># 1</span>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  ...
+NameError: name <span class="s1">&#39;x&#39;</span> is not defined
+</pre></div>
+
+
+<p>Não é apenas uma questão de regra de escopo no ponto #1 que causa o problema (embora esse é o porque de nós termos um <code>NameError</code>) isso também tem a ver com a forma que as chamadas de função são implementadas em Python e muitas outras linguagens. Não existe nenhuma sintaxe que possamos usar para pegar o valor da variável <code>x</code> nesse ponto - ela literalmente não existe! O namespace criado para nossa função <code>foo</code> é criado do zero toda vez que a função é chamada, e é destruído quando a função termina.</p>
+<h3>5. Argumentos e parâmetros de função</h3>
+<p>Python nos permite passar argumentos para funções. O nome do parâmetro se torna uma variável local na nossa função.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def foo<span class="o">(</span>x<span class="o">)</span>:
+...     print locals<span class="o">()</span>
+&gt;&gt;&gt; foo<span class="o">(</span>1<span class="o">)</span>
+<span class="o">{</span><span class="s1">&#39;x&#39;</span>: 1<span class="o">}</span>
+</pre></div>
+
+
+<p>Python tem uma variedade de maneiras para definir parâmetros de função e passar argumentos para eles. Você poderá ver uma lista completa e detalhada na <a href="https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions">documentação oficial do Python sobre definição de funções</a>. Vou mostrar aqui a versão resumida: parâmetros de função podem ser tanto <strong>posicionais</strong> quanto podem ser <strong>obrigatórios</strong> ou <strong>nomeados</strong>, parâmetros que tem <strong>valor padrão</strong> são <strong>opcionais</strong>.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def foo<span class="o">(</span>x, <span class="nv">y</span><span class="o">=</span>0<span class="o">)</span>: <span class="c"># 1</span>
+...     <span class="k">return</span> x - y
+&gt;&gt;&gt; foo<span class="o">(</span>3, 1<span class="o">)</span> <span class="c"># 2</span>
+2
+&gt;&gt;&gt; foo<span class="o">(</span>3<span class="o">)</span> <span class="c"># 3</span>
+3
+&gt;&gt;&gt; foo<span class="o">()</span> <span class="c"># 4</span>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  ...
+TypeError: foo<span class="o">()</span> takes at least <span class="m">1</span> argument <span class="o">(</span><span class="m">0</span> given<span class="o">)</span>
+&gt;&gt;&gt; foo<span class="o">(</span><span class="nv">y</span><span class="o">=</span>1, <span class="nv">x</span><span class="o">=</span>3<span class="o">)</span> <span class="c"># 5</span>
+2
+</pre></div>
+
+
+<p>No ponto #1 estamos definindo uma função que tem um parâmetro posicional <code>x</code> e um parâmetro nomeado <code>y</code>. Como vemos no ponto #2 podemos chamar essa função passando argumentos normalmente - os valores são passados para os parâmetros de <code>foo</code> pela posição embora um dele está definido na definição da função como um parâmetro nomeado. Também podemos chamar a função sem passar nenhum argumento para o parâmetro nomeado, como você pode ver no ponto #3 - Python usa o valor padrão de <code>0</code> que declaramos se ele não receber um valor para o parâmetro nomeado <code>y</code>. Claro que não podemos deixar de passar valores para o primeiro (obrigatório, posicional) parâmetro - ponto #4 mostra que o resultado disso é uma exceção.</p>
+<p>Tudo simples e claro? Agora vai começar a ficar um pouco confuso - Python suporta argumentos nomeados na chamada da função. Olhe no ponto #5 - aqui estamos chamando a função com dois argumentos nomeados embora ela esteja definida com um parâmetro nomeado e outro sendo posicional. Desde que tenhamos nomes para nossos parâmetros, a ordem em que passamos eles não importa.</p>
+<p>O caso contrário é verdadeiro, claro. Um dos parâmetros para nossa função está definido como um parâmetro nomeado, mas passamos um argumento para ele pela posição - a chamada <code>foo(3,1)</code> no ponto #2 passa o <code>3</code> como o argumento para o nosso parâmetro obrigatório <code>x</code> e passa o segundo (o inteiro <code>1</code>) para o segundo parâmetro embora ele já estivesse definido como um parâmetro nomeado.</p>
+<p>Wooow! Parecem ser muitas palavras para explicar um conceito bem simples: parâmetros de função podem ser nomes ou posições. Isso significa coisas ligeiramente diferentes dependendo se estamos na definição de função ou na hora da chamada de função, e podemos usar argumentos nomeados para funções definidas apenas com paramêtros posicionais e vice-versa! Novamente - se tudo isso foi muito rápido, dê uma olhada nas <a href="https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions">documentações</a></p>
+<h3>6. Funções aninhadas</h3>
+<p>Python permite a criação de funções aninhadas. Isso significa que podemos declarar funções dentro de funções e as regras sobre escopo e tempo de vida continuam valendo normalmente.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def outer<span class="o">()</span>:
+...     <span class="nv">x</span> <span class="o">=</span> 1
+...     def inner<span class="o">()</span>:
+...         print x <span class="c"># 1</span>
+...     inner<span class="o">()</span> <span class="c"># 2</span>
+...
+&gt;&gt;&gt; outer<span class="o">()</span>
+1
+</pre></div>
+
+
+<p>Parece um pouco complicado, mas ainda continua se comportando de uma maneira bem sensata. Considere o que acontece no ponto #1 - Python procura por uma variável local de nome <code>x</code>, não achando ele então procura no escopo em volta que é outra função! A variável <code>x</code> é uma variável local para nossa função <code>outer</code> mas como antes nossa função <code>inner</code> tem acesso ao escopo em que está envolta (pelo menos ler e modificar o acesso). No ponto #2 nós chamamos a função <code>inner</code>. É importante lembrar que <code>inner</code> também é apenas um nome de variável que segue as regras de busca de variáveis do Python - Python procura no escopo de <code>outer</code> primeiro e encontra uma variável local de nome <code>inner</code>.</p>
+<h3>7. Funções são objetos de primeira classe em Python</h3>
+<p>Esta é uma simples observação de que, em Python, funções são objetos como qualquer outro. Ah, função contendo variável, você não é tão especial!</p>
+<div class="highlight"><pre>&gt;&gt;&gt; issubclass<span class="o">(</span>int, object<span class="o">)</span> <span class="c"># all objects in Python inherit from a common baseclass</span>
+True
+&gt;&gt;&gt; def foo<span class="o">()</span>:
+...     pass
+&gt;&gt;&gt; foo.__class__ <span class="c"># 1</span>
+&lt;<span class="nb">type</span> <span class="s1">&#39;function&#39;</span>&gt;
+&gt;&gt;&gt; issubclass<span class="o">(</span>foo.__class__, object<span class="o">)</span>
+True
+</pre></div>
+
+
+<p>Você pode nunca ter pensando em suas funções tendo atributos - mas funções são objetos em Python, assim como qualquer outro. (E se você achou isso confuso, espere até ver que classes são objetos em Python, assim como qualquer outro objeto!) Talvez isso esteja tornando o ponto em uma maneira acadêmica - funções são apenas valores normais como qualquer outro valor em Python. Isso significa que você pode passar funções para outras funções como argumentos, ou retornar funções em uma função como seu valor de retorno! Se você nunca pensou nesse tipo de coisa, considere o seguinte código Python que funciona perfeitamente:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def add<span class="o">(</span>x, y<span class="o">)</span>:
+...     <span class="k">return</span> x + y
+&gt;&gt;&gt; def sub<span class="o">(</span>x, y<span class="o">)</span>:
+...     <span class="k">return</span> x - y
+&gt;&gt;&gt; def apply<span class="o">(</span>func, x, y<span class="o">)</span>: <span class="c"># 1</span>
+...     <span class="k">return</span> func<span class="o">(</span>x, y<span class="o">)</span> <span class="c"># 2</span>
+&gt;&gt;&gt; apply<span class="o">(</span>add, 2, 1<span class="o">)</span> <span class="c"># 3</span>
+3
+&gt;&gt;&gt; apply<span class="o">(</span>sub, 2, 1<span class="o">)</span>
+1
+</pre></div>
+
+
+<p>Esse exemplo pode não parecer tão estranho pra você - <code>add</code> e <code>sub</code> são funções Python normais que recebem dois valores e retornam um valor calculado. No ponto #1 pode ver que a variável espera receber uma função é uma variável como qualquer outra. No ponto #2 chamamos a função passamos para <code>apply</code> - parêntesis em Python são o operador de chamada, e eles chamam o valor que o nome daquela variável contém. E no ponto #3 você pode ver que passar funções como valores não tem nenhuma sintaxe especial em Python - nomes de função são apenas rótulos/nomes de variáveis como qualquer outra variável.</p>
+<p>Você pode ver esse tipo de comportamento antes - Python usa funções como argumentos para operações frequentemente usadas como personalização da função built-in <code>sorted</code>, ao fornever uma função para o parâmetro <code>key</code>. Mas e sobre retornar funções como valores? Veja:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def outer<span class="o">()</span>:
+...     def inner<span class="o">()</span>:
+...         print <span class="s2">&quot;Inside inner&quot;</span>
+...     <span class="k">return</span> inner <span class="c"># 1</span>
+...
+&gt;&gt;&gt; <span class="nv">foo</span> <span class="o">=</span> outer<span class="o">()</span> <span class="c">#2</span>
+&gt;&gt;&gt; foo <span class="c"># doctest:+ELLIPSIS</span>
+&lt;<span class="k">function</span> inner at 0x...&gt;
+&gt;&gt;&gt; foo<span class="o">()</span>
+Inside inner
+</pre></div>
+
+
+<p>Isso pode parecer um pouco bizarro. No ponto #1 retornamos a variável <code>inner</code> que passa a ser um rótulo/nome de função. Não há sintaxe especial aqui - nossa função está retornando a função <code>inner</code> que de outra forma não poderia ser chamada. Lembra do tempo de vida da variável? A função <code>inner</code> é sempre redefinida toda vez que a função <code>outer</code> é chamada, mas se <code>inner</code> não fosse retornada pela função, ela iria simplesmente deixar de existir quando o escopo se fosse.</p>
+<p>No ponto #2 podemos pegar o valor de retorno que é nossa função <code>inner</code> e armazená-la em uma nova variável <code>foo</code>. Podemos ver que se nós avaliarmos <code>foo</code>, veremos que ela realmente contém nossa função <code>inner</code> e que podemos chamá-la ao usar o operador de chamada (parêntesis, lembra?). Isso pode parecer um pouco estranho, mas nada difícil de entender, né? Mas calma, porque as coisas estão prestes a ficar realmente estranhas!</p>
+<h3>8. Closures</h3>
+<p>Não vamos começar com uma definição, mas sim com outro exemplo de código. Vamos dar uma copiada no nosso último exemplo:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def outer<span class="o">()</span>:
+...     <span class="nv">x</span> <span class="o">=</span> 1
+...     def inner<span class="o">()</span>:
+...         print x <span class="c"># 1</span>
+...     <span class="k">return</span> inner
+&gt;&gt;&gt; <span class="nv">foo</span> <span class="o">=</span> outer<span class="o">()</span>
+&gt;&gt;&gt; foo.func_closure <span class="c"># doctest: +ELLIPSIS</span>
+<span class="o">(</span>&lt;cell at 0x...: int object at 0x...&gt;,<span class="o">)</span>
+</pre></div>
+
+
+<p>A partir do nosso último exemplo, podemos ver que <code>inner</code> é uma função retornada por <code>outer</code> em uma variável chamada <code>foo</code>, e que poderíamos chamar ela com <code>foo()</code>. Mas ela vai rodar? Vamos considerar primeiro as regras de escopo.</p>
+<p>Tudo funciona de acordo com as regras de escopo do Python - <code>x</code> é uma variável local na nossa função <code>outer</code>. Quando <code>inner</code> imprime <code>x</code> no ponto #1 Python procura por uma variável local em <code>inner</code>, e ao não encontrar, procura no escopo que está envolta, que é a função <code>outer</code>, encontrando a variável lá.</p>
+<p>Mas o que acontece do ponto de vista do tempo de vida da variável? Nossa variável <code>x</code> é local para a função <code>outer</code>, o que significa que ela existe apenas enquanto a função <code>outer</code> está sendo executada. Não somos capazes de chamar a função <code>inner</code> até depois do retorno de <code>outer</code>, então de acordo com o nosso modelo de como Python funciona, <code>x</code> não deveria existir mais na hora que chamamos <code>inner</code>, e talvez um erro de runtime ou algo do tipo deveria acontecer.</p>
+<p>Acontece que, contra nossas expectativas, nossa função retornada <code>inner</code> funciona. Python tem suporte para uma funcionalidade chamada <strong>function closures</strong> que significa que funções internas (isso é, uma função que está dentro de outra função) definidas em escopo não global lembram como era o namespace em que estava envolto em tempo de definição. Isso pode ser visto ao acessar o atributo <code>func_closure</code> da nossa função <code>inner</code> que contém as variáveis no escopo envolto.</p>
+<p>Lembre - a função interna está sendo definida novamente cada vezes que a função <code>outer</code> é chamada. Agora o valor de <code>x</code> não muda, então cada função <code>inner</code> faz a mesma coisa como outra função <code>inner</code> - mas e se mexermos nela um pouco mais?</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def outer<span class="o">(</span>x<span class="o">)</span>:
+...     def inner<span class="o">()</span>:
+...         print x <span class="c"># 1</span>
+...     <span class="k">return</span> inner
+&gt;&gt;&gt; <span class="nv">print1</span> <span class="o">=</span> outer<span class="o">(</span>1<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">print2</span> <span class="o">=</span> outer<span class="o">(</span>2<span class="o">)</span>
+&gt;&gt;&gt; print1<span class="o">()</span>
+1
+&gt;&gt;&gt; print2<span class="o">()</span>
+2
+</pre></div>
+
+
+<p>A partir desse exemplo, você pode ver que <strong>closures</strong> - o fato que funções lembram seus escopo - podem ser usadas para construir funções customizadas que têm, essencialmente, um argumento explicito. Não estamos passando os números 1 ou 2 para nossa função <code>inner</code>, mas estamos construindo versões customizadas da nossa função <code>inner</code> que "se lembram" que números elas devem imprimir.</p>
+<p>Isso por si só é uma técnica poderosa - você pode até pensar dele como similar a técnicas de orientação de objeto em algumas maneiras: <code>outer</code> é um construtor para <code>inner</code> com <code>x</code> agindo como uma variável privada. E os usos são numerosos - se você está familiarizado com o parâmetro <code>key</code> da função <code>sorted</code>, provavelmente escreveu uma função lambda para ordenar uma lista de listas pelo segundo item ao invés do primeiro. Você pode agora estar capacitado a escrever uma função <code>itemgetter</code> que recebe o índice para recuperar e retornar uma função que poderia adequadamente ser passada ao parâmetro key.</p>
+<p>Mas não vamos fazer nada tão mundano com closures! Ao invés disso, vamos em frente mais uma vez e escrever um decorator!</p>
+<h3>9. Decorator!</h3>
+<p>Um decorator é apenas um objeto chamável que recebe uma função uma função substituta. Vamos começar de forma simples e trabalhar nosso caminho até úteis decorators.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def outer<span class="o">(</span>some_func<span class="o">)</span>:
+...     def inner<span class="o">()</span>:
+...         print <span class="s2">&quot;before some_func&quot;</span>
+...         <span class="nv">ret</span> <span class="o">=</span> some_func<span class="o">()</span> <span class="c"># 1</span>
+...         <span class="k">return</span> ret + 1
+...     <span class="k">return</span> inner
+&gt;&gt;&gt; def foo<span class="o">()</span>:
+...     <span class="k">return</span> 1
+&gt;&gt;&gt; <span class="nv">decorated</span> <span class="o">=</span> outer<span class="o">(</span>foo<span class="o">)</span> <span class="c"># 2</span>
+&gt;&gt;&gt; decorated<span class="o">()</span>
+before some_func
+2
+</pre></div>
+
+
+<p>Veja cuidadosamente nosso exemplo de decorator. Definimos uma função chamada <code>outer</code> que tem um único parâmetro <code>some_func</code>. Dentro de <code>outer</code> definimos uma função aninhada chamada <code>inner</code>. A função <code>inner</code> vai imprimir uma string e então chamar <code>some_func</code>, pegando seu valor de retorno no ponto #1. O valor de <code>some_func</code> pode ser diferente em cada vez que <code>outer</code> é chamada, mas não importa que função seja, nós vamos chamá-la. Finalmente <code>inner</code> retorna o valor de retorno de <code>some_func()</code> + 1 - e podemos ver que quando chamamos nossa função retornada armazenada em <code>decorated</code> no ponto #2 temos os resultados do print e também retorna o valor 2 ao invés do valor original 1 que nós poderíamos estar esperando receber ao chamar <code>foo</code>.</p>
+<p>Poderíamos dizer que a variável <code>decorated</code> é uma versão decorada de <code>foo</code> - é <code>foo</code> mais alguma coisa. De fato se nós escrevemos um decorator útil podemos querer substituir completamente <code>foo</code> com a versão decorada, então sempre vamos ter nossa versão "mais alguma coisa" de <code>foo</code>. Podemos fazer isso sem aprender uma nova sintaxe, simplesmente reatribuindo a variável que contém nossa função:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def outer<span class="o">(</span>some_func<span class="o">)</span>:
+&gt;&gt;&gt; <span class="nv">foo</span> <span class="o">=</span> outer<span class="o">(</span>foo<span class="o">)</span>
+&gt;&gt;&gt; foo <span class="c"># doctest: +ELLIPSIS</span>
+&lt;<span class="k">function</span> inner at 0x...&gt;
+</pre></div>
+
+
+<p>Agora todas as chamadas de <code>foo()</code> não vão ter o resultado original de antes, terão a nossa versão decorada! Pegou a ideia? Vamos escrever um decorator mais útil.</p>
+<p>Imagine que nós temos uma biblioteca que nos dá objetos de coordenadas. Talvez eles sejam primariamente compostos de pares de coordenadas <code>x</code> e <code>y</code>. Infelizmente os objetos de coordenadas não suportam operações matemáticas e não podemos modificar o código fonte, então não podemos adicionar esse suporte. No entanto, vamos estar fazendo muita matemática então queremos fazer funções <code>add</code> e <code>sub</code> para receberem dois objetos de coordenada e fazerem a operação matemática apropriada. Esas funções seriam fácil de escrever (vou fornecer um exemplo da classe Coordenada para ilustrar)</p>
+<div class="highlight"><pre>&gt;&gt;&gt; class Coordinate<span class="o">(</span>object<span class="o">)</span>:
+...     def __init__<span class="o">(</span>self, x, y<span class="o">)</span>:
+...         self.x <span class="o">=</span> x
+...         self.y <span class="o">=</span> y
+...     def __repr__<span class="o">(</span>self<span class="o">)</span>:
+...         <span class="k">return</span> <span class="s2">&quot;Coord: &quot;</span> + str<span class="o">(</span>self.__dict__<span class="o">)</span>
+&gt;&gt;&gt; def add<span class="o">(</span>a, b<span class="o">)</span>:
+...     <span class="k">return</span> Coordinate<span class="o">(</span>a.x + b.x, a.y + b.y<span class="o">)</span>
+&gt;&gt;&gt; def sub<span class="o">(</span>a, b<span class="o">)</span>:
+...     <span class="k">return</span> Coordinate<span class="o">(</span>a.x - b.x, a.y - b.y<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">one</span> <span class="o">=</span> Coordinate<span class="o">(</span>100, 200<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">two</span> <span class="o">=</span> Coordinate<span class="o">(</span>300, 200<span class="o">)</span>
+&gt;&gt;&gt; add<span class="o">(</span>one, two<span class="o">)</span>
+Coord: <span class="o">{</span><span class="s1">&#39;y&#39;</span>: 400, <span class="s1">&#39;x&#39;</span>: 400<span class="o">}</span>
+</pre></div>
+
+
+<p>Mas e se nossas funções de adição e subtração tivessem que também ter um comportamento de verificação de limites? Talvez você possa apenas somar ou subtrair baseado em coordenadas positivas e qualquer resultado deveria ser limitado a coordenadas positivas. Então atualmente:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">one</span> <span class="o">=</span> Coordinate<span class="o">(</span>100, 200<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">two</span> <span class="o">=</span> Coordinate<span class="o">(</span>300, 200<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">three</span> <span class="o">=</span> Coordinate<span class="o">(</span>-100, -100<span class="o">)</span>
+&gt;&gt;&gt; sub<span class="o">(</span>one, two<span class="o">)</span>
+Coord: <span class="o">{</span><span class="s1">&#39;y&#39;</span>: 0, <span class="s1">&#39;x&#39;</span>: -200<span class="o">}</span>
+&gt;&gt;&gt; add<span class="o">(</span>one, three<span class="o">)</span>
+Coord: <span class="o">{</span><span class="s1">&#39;y&#39;</span>: 100, <span class="s1">&#39;x&#39;</span>: 0<span class="o">}</span>
+</pre></div>
+
+
+<p>mas preferimos ter a diferença de <code>one</code> e <code>two</code> sendo <code>{x: 0, y: 0}</code> e a soma de <code>one</code> e <code>three</code> sendo <code>{x: 100, y: 200}</code> sem modificar <code>one</code>, <code>two</code> ou <code>three</code>. Invés de adicionar verificação de limites na entrada de argumentos de cada função e o valor de retorno de cada função, vamos escrever um decorator de verificação de limites!</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def wrapper<span class="o">(</span>func<span class="o">)</span>:
+...     def checker<span class="o">(</span>a, b<span class="o">)</span>: <span class="c"># 1</span>
+...         <span class="k">if</span> a.x &lt; <span class="m">0</span> or a.y &lt; 0:
+...             <span class="nv">a</span> <span class="o">=</span> Coordinate<span class="o">(</span>a.x <span class="k">if</span> a.x &gt; <span class="m">0</span> <span class="k">else</span> 0, a.y <span class="k">if</span> a.y &gt; <span class="m">0</span> <span class="k">else</span> 0<span class="o">)</span>
+...         <span class="k">if</span> b.x &lt; <span class="m">0</span> or b.y &lt; 0:
+...             <span class="nv">b</span> <span class="o">=</span> Coordinate<span class="o">(</span>b.x <span class="k">if</span> b.x &gt; <span class="m">0</span> <span class="k">else</span> 0, b.y <span class="k">if</span> b.y &gt; <span class="m">0</span> <span class="k">else</span> 0<span class="o">)</span>
+...         <span class="nv">ret</span> <span class="o">=</span> func<span class="o">(</span>a, b<span class="o">)</span>
+...         <span class="k">if</span> ret.x &lt; <span class="m">0</span> or ret.y &lt; 0:
+...             <span class="nv">ret</span> <span class="o">=</span> Coordinate<span class="o">(</span>ret.x <span class="k">if</span> ret.x &gt; <span class="m">0</span> <span class="k">else</span> 0, ret.y <span class="k">if</span> ret.y &gt; <span class="m">0</span> <span class="k">else</span> 0<span class="o">)</span>
+...         <span class="k">return</span> ret
+...     <span class="k">return</span> checker
+&gt;&gt;&gt; <span class="nv">add</span> <span class="o">=</span> wrapper<span class="o">(</span>add<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">sub</span> <span class="o">=</span> wrapper<span class="o">(</span>sub<span class="o">)</span>
+&gt;&gt;&gt; sub<span class="o">(</span>one, two<span class="o">)</span>
+Coord: <span class="o">{</span><span class="s1">&#39;y&#39;</span>: 0, <span class="s1">&#39;x&#39;</span>: 0<span class="o">}</span>
+&gt;&gt;&gt; add<span class="o">(</span>one, three<span class="o">)</span>
+Coord: <span class="o">{</span><span class="s1">&#39;y&#39;</span>: 200, <span class="s1">&#39;x&#39;</span>: 100<span class="o">}</span>
+</pre></div>
+
+
+<p>O decorator funciona do mesmo jeito que antes - retorna uma versão modificada de uma função, mas neste caso ela faz algo útil ao checar e normalizar a entrada de parâmetros e o valor de retorno, substituindo qualquer valor negativo de <code>x</code> ou <code>y</code> por 0.</p>
+<p>É uma questão de opinião quanto ao fazer isso torna nosso código mais limpo: isolar a checagem de limites na sua própria função e aplicá-la para todas as funções que nos interessam envolvendo-as com um decorator. A alternativa seria uma chamada de função em cada argumento de entrada e na saída resultante antes de retornar dentro de cada função matemática, e é inegável que usar o decorator é, pelo menos, menos repetitivo em termos de quantidade de código necessário para aplicar checagem de limites para uma função.</p>
+<h3>10. O símbolo @ aplica um decorator a uma função</h3>
+<p>A versão 2.4 do Python nos trouxe suporte para envolver uma função em um decorator ao adicionar antes da definição da função o nome do decorator e o símbolo <code>@</code>. Nos exemplos de código acima, nós usamos decorators nas nossas funções ao substituir a variável contendo a função com a versão decorada.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">add</span> <span class="o">=</span> wrapper<span class="o">(</span>add<span class="o">)</span>
+</pre></div>
+
+
+<p>Esse padrão pode ser usado em qualquer momento, para envolver qualquer função. Mas se estamos definindo uma função, podemos "decorá-la" com o símbolo <code>@</code> dessa maneira:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; @wrapper
+... def add<span class="o">(</span>a, b<span class="o">)</span>:
+...     <span class="k">return</span> Coordinate<span class="o">(</span>a.x + b.x, a.y + b.y<span class="o">)</span>
+</pre></div>
+
+
+<p>É importante notar que essa maneira não é diferente do que simplesmente substituir a variável original <code>add</code> com o retorno da função <code>wrapper</code> - Python apenas adiciona um <code>syntatic sugar</code> para fazer aquilo que acontece de maneira explícita.</p>
+<p>Novamente - usar decorators é fácil! Ainda que escrever decorators úteis como <code>staticmethod</code> ou <code>classmethod</code> seja difícil, usá-los é apenas uma questão de adicionar à sua função o <code>@nomedodecorator</code>!</p>
+<h3>11. <em>args e </em>*kwargs</h3>
+<p>Fizemos um decorator bem útil, mas ele está codificado para funcionar em apenas um tipo particular de função - uma que recebe dois argumentos. Nossa função interna <code>checker</code> aceita dois argumentos e passa os argumentos para a função que foi capturada na closure. E se nós quiséssemos um decorator que fizesse alguma coisa para qualquer função possível? Vamos fazer um decorator que incrementa o contador para cada chamada de função de cada função decorada sem mudar nenhuma das funções decoradas. Isso significa que o decorator teria que aceitar a assinatura de chamada de qualquer função que ele decora e também chamar as funções decoradas passando quaisquer argumentos que foram passados pra ele.</p>
+<p>Acontece que Python tem um suporte sintático para essa funcionalidade. Certifique-se de ter lido o <a href="https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists">Tutorial Python</a> para mais detalhes, mas o operador <code>*</code> usado ao definir uma função significa que qualquer argumento posicional extra passado para a função vão ficar na variável antecedida por <code>*</code>. Então:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def one<span class="o">(</span>*args<span class="o">)</span>:
+...     print args <span class="c"># 1</span>
+&gt;&gt;&gt; one<span class="o">()</span>
+<span class="o">()</span>
+&gt;&gt;&gt; one<span class="o">(</span>1, 2, 3<span class="o">)</span>
+<span class="o">(</span>1, 2, 3<span class="o">)</span>
+&gt;&gt;&gt; def two<span class="o">(</span>x, y, *args<span class="o">)</span>: <span class="c"># 2</span>
+...     print x, y, args
+&gt;&gt;&gt; two<span class="o">(</span><span class="s1">&#39;a&#39;</span>, <span class="s1">&#39;b&#39;</span>, <span class="s1">&#39;c&#39;</span><span class="o">)</span>
+a b <span class="o">(</span><span class="s1">&#39;c&#39;</span>,<span class="o">)</span>
+</pre></div>
+
+
+<p>A primeira função <code>one</code> simplesmente mostra quaisquer (se houver) argumentos posicionais que foram passados pra ela. Como você pode ver no ponto #1, nos referimos a variável <code>args</code> dentro da função - <code>*args</code> é usado apenas na definição da função para indicar que argumentos posicionais devem ser armazenados na variável <code>args</code>. Python também nos permite especificar algumas variáveis e pegar os parâmetros adicionais em <code>args</code>, como podemos ver no ponto #2.</p>
+<p>O operador <code>*</code> também pode ser usado ao chamar funções, e aqui ele tem um significado semelhante ao anterior. Uma variável antecedida por <code>*</code> ao <strong>chamar</strong> uma função significa que o conteúdo da variável deve ser extraído e usado como argumentos posicionais. Um exemplo para entender melhor:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def add<span class="o">(</span>x, y<span class="o">)</span>:
+...     <span class="k">return</span> x + y
+&gt;&gt;&gt; <span class="nv">lst</span> <span class="o">=</span> <span class="o">[</span>1,2<span class="o">]</span>
+&gt;&gt;&gt; add<span class="o">(</span>lst<span class="o">[</span>0<span class="o">]</span>, lst<span class="o">[</span>1<span class="o">])</span> <span class="c"># 1</span>
+3
+&gt;&gt;&gt; add<span class="o">(</span>*lst<span class="o">)</span> <span class="c"># 2</span>
+3
+</pre></div>
+
+
+<p>O código no ponto #1 faz exatamente a mesma coisa que o código no ponto #2 - Python está fazendo isso automaticamente pra nós no ponto #2 o que poderíamos fazer manualmente. Isso não é nada mal - <code>*args</code> tanto extrair variáveis posicionais a partir de um iterável na <em>chamada de uma função</em> quanto na <em>definição de uma função</em> aceitar qualquer quantidade de variáveis posicionais.</p>
+<p>As coisas ficam um pouco mais complicadas ao introduzirmos o <code>**</code> que faz em dicionários e pares chave/valor exatamente a mesma coisa que <code>*</code> em iteráveis e parâmetros posicionais. Simples, né?</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def foo<span class="o">(</span>**kwargs<span class="o">)</span>:
+...     print kwargs
+&gt;&gt;&gt; foo<span class="o">()</span>
+<span class="o">{}</span>
+&gt;&gt;&gt; foo<span class="o">(</span><span class="nv">x</span><span class="o">=</span>1, <span class="nv">y</span><span class="o">=</span>2<span class="o">)</span>
+<span class="o">{</span><span class="s1">&#39;y&#39;</span>: 2, <span class="s1">&#39;x&#39;</span>: 1<span class="o">}</span>
+</pre></div>
+
+
+<p>Quando definimos uma função, podemos usar <code>**kwargs</code> para indicar que todos os argumentos nomeados não capturados devem ser armazenados em um dicionário chamado <code>kwargs</code>. Da mesma forma que antes, nem a variável <code>args</code> ou <code>kwargs</code> fazem parte da sintaxe do Python, mas é uma convenção usar esse nome para essas variáveis ao declarar funções. Assim como <code>*</code>, podemos usar <code>**</code> ao chamar uma função bem como quando definí-la.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; <span class="nv">dct</span> <span class="o">=</span> <span class="o">{</span><span class="s1">&#39;x&#39;</span>: 1, <span class="s1">&#39;y&#39;</span>: 2<span class="o">}</span>
+&gt;&gt;&gt; def bar<span class="o">(</span>x, y<span class="o">)</span>:
+...     <span class="k">return</span> x + y
+&gt;&gt;&gt; bar<span class="o">(</span>**dct<span class="o">)</span>
+3
+</pre></div>
+
+
+<h3>12. Decorators mais genéricos</h3>
+<p>Dado nosso novo poder, podemos criar um decorator que "registra" os argumentos para funções. Vamos apenas imprimir, por questões de simplicidade:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; def logger<span class="o">(</span>func<span class="o">)</span>:
+...     def inner<span class="o">(</span>*args, **kwargs<span class="o">)</span>: <span class="c">#1</span>
+...         print <span class="s2">&quot;Arguments were: %s, %s&quot;</span> % <span class="o">(</span>args, kwargs<span class="o">)</span>
+...         <span class="k">return</span> func<span class="o">(</span>*args, **kwargs<span class="o">)</span> <span class="c">#2</span>
+...     <span class="k">return</span> inner
+</pre></div>
+
+
+<p>Perceba que nossa função <code>inner</code> recebe qualquer quantidade de parâmetros, independente de tipo no ponto #1 e os passa como argumentos para a função que foi decorada, no ponto #2. Isso nos permite envolver/decorar qualquer função, não importando sua assinatura.</p>
+<div class="highlight"><pre>&gt;&gt;&gt; @logger
+... def foo1<span class="o">(</span>x, <span class="nv">y</span><span class="o">=</span>1<span class="o">)</span>:
+...     <span class="k">return</span> x * y
+&gt;&gt;&gt; @logger
+... def foo2<span class="o">()</span>:
+...     <span class="k">return</span> 2
+&gt;&gt;&gt; foo1<span class="o">(</span>5, 4<span class="o">)</span>
+Arguments were: <span class="o">(</span>5, 4<span class="o">)</span>, <span class="o">{}</span>
+20
+&gt;&gt;&gt; foo1<span class="o">(</span>1<span class="o">)</span>
+Arguments were: <span class="o">(</span>1,<span class="o">)</span>, <span class="o">{}</span>
+1
+&gt;&gt;&gt; foo2<span class="o">()</span>
+Arguments were: <span class="o">()</span>, <span class="o">{}</span>
+2
+</pre></div>
+
+
+<p>Chamar nossas funções resulta eu um "log" de saída, bem como o retorno do valor esperado de cada função.</p>
+<h3>Mais sobre decorators</h3>
+<p>Se você conseguiu acompanhar o último exemplo, você entendeu decorators! Parabéns - Siga em frente e use seus novos poderes para o bem!</p>
+<p>Se você estiver interessado em um estudo mais aprofundado: <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">Bruce Eckel tem um excelente artigo sobre decorators</a> e implementa eles em Python com objetos ao invés de funções. Pode ser que você ache que o código na sua versão orientada a objetos mais fácil de ler do que nossa versão puramente funcional. Bruce também tem um artigo após esse primeiro sobre <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240845">fornecer argumentos para decorators</a> que pode também ser mais fácil de implementar com objetos do que com funções. E por fim - você também pode estudar a função built-ing <code>wraps</code> do módulo <a href="https://docs.python.org/3/library/functools.html">functools</a>, que (talvez de uma maneira confusa inicialmente) é um decorator que pode ser usado em nossos decorators para modificar a assinatura das nossas funções substitutas, para que elas se pareçam mais com a função decorada.</p>
+<p>[1] Eu também li recentemente um artigo sobre <a href="">decorators</a> que me fez refletir...
+[2] "global" é uma grande mentira no Python que dizem ser uma coisa maravilhosa, mas é uma discussão para outro dia...</p>
+<p><strong>Update:</strong> Graças ao Nick eu atualizei minha terminologia no artigo para deixar mais claro que "parâmetros" são as variáveis nomeadas na assinatura da função, enquanto "argumentos" são os valores que são passados para a função.</p>
+<p><strong><em>Viu algum trecho que poderia ficar com uma tradução melhor? Manda lá nos comentários mais abaixo. Valeu pessoal, e até a próxima!</em></strong></p>
+<p>Referências:</p>
+<ul>
+<li><a href="http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/">Post original</a></li>
+</ul>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>
