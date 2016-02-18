@@ -15,9 +15,9 @@ Créditos para a imagem: <http://slideplayer.com.br/slide/4928758/>
 
 ## Entendendo Python decorators em 12 passos fáceis!
 
-Ok, talvez eu esteja brincando. Como um instrutor Python, entender decorators é um tópico onde acho estudantes lutando constantemente após a primeira exposição ao assunto. O motivo é que decorators são difíceis de entender! Entendê-los requer compreender vários conceitos de programação funcional bem como se sentir confortável com algumas funcionalidades únicas da definição de função do Python e sintaxe de chamada de função. *Usar* decorators é fácil (veja na Seção 10)! Mas escrevê-los pode ser complicado.
+Ok, talvez eu esteja brincando. Como um instrutor Python, entender decorators é um tópico onde encontro estudantes lutando bastante para entender após a primeira exposição ao assunto. O motivo é que decorators realmente são difíceis de entender! Entendê-los requer compreender vários conceitos de programação funcional bem como se sentir confortável com algumas funcionalidades únicas sobre definição de função do Python e sintaxe de chamada de função. *Usar* decorators é fácil (veja na Seção 10)! Mas escrevê-los pode ser complicado.
 
-Eu não posso tornar os decorators fáceis - mas talvez ao caminharmos por cada pedaço desse puzzle, um passo de cada vez, eu possa ajudar você a se sentir mais confiante em entender decorators. Pelo motivo de decorators ser um assunto complexo, esse artigo vai ser longo - mas desista dele! Eu prometo fazer cada pedaço tão simples quanto possível - e se você entender cada pedaço, vai entender como decorators funcionam! Estou tentando assumir mínimo conhecimento de Python mas esse artigo provavelmente vai ser mais útils para pessoas que já tenha tido pelo menos um trabalho ocasional com Python.
+Não posso tornar os decorators fáceis - mas talvez ao caminharmos por cada pedaço desse puzzle, um passo de cada vez, eu possa ajudar você a se sentir mais confiante em entender decorators. Pelo fato de decorators ser um assunto complexo, esse artigo vai ser longo - mas não desista dele! Eu prometo fazer cada pedaço tão simples quanto possível - e se você entender cada pedaço, vai entender como decorators funcionam! Estou tentando assumir mínimo conhecimento de Python mas esse artigo provavelmente vai ser mais útil para pessoas que já tenha tido pelo menos um trabalho ocasional com Python.
 
 Eu gostaria também de salientar que eu usei o módulo de doctest do Python para rodar os exemplos de código neste artigo. O código parece com uma sessão no console interativo do Python (`>>>` e `...` indicam comandos Python enquanto a saída tem sua própria linha). Eventualmente podem haver comentários enigmáticos que começam com "doctest" - eles são apenas diretivas para o doctest e podem ser ignorados.
 
@@ -34,7 +34,7 @@ Funções em Python são criadas com a palavra chave `def` e recebe um nome e um
 O corpo da função (assim como todas as declarações multi-linhas em Python) é obrigatório e indicado por indentação. Podemos chamar funções acrescentando parênteses ao nome da função.
 
 ### 2. Escopo
-Em Python, funções criam um novo escopo. Pythonistas também podem dizer que funções têm seu próprio namespace. Isso significa que Python olha primeiro no namespace da função para procurar nomes de variáveis que encontra no corpo da função. Python inclui algumas funções que nos deixam olhar no nosso namespace. Vamos escrever uma função simples para investigar a diferença entre escopo local e global.
+Em Python, funções criam um novo escopo. Pythonistas também podem dizer que funções têm seu próprio namespace. Isso significa que Python olha primeiro no namespace da função para procurar nomes de variáveis que ele encontra no corpo da função. Python inclui algumas funções que nos deixam olhar nosso namespace. Vamos escrever uma função simples para investigar a diferença entre escopo local e global.
 
 ````shell
 >>> a_string = "This is a global variable"
@@ -46,10 +46,10 @@ Em Python, funções criam um novo escopo. Pythonistas também podem dizer que f
 {}
 ````
 
-A função builtin `globals` retorna um dicionário contendo todas os nomes de variáveis que o Python conhece. (Por uma questão de clareza, eu omiti na saída algumas variáveis que o Python cria automaticamente.) No ponto #2 eu chamei minha função `foo` que mostra o conteúdo do namespace local de dentro da função. Como nós podemos ver, a função `foo` tem seu próprio e separado namespace que está atualmente vazio.
+A função builtin `globals` retorna um dicionário contendo todos os nomes de variáveis que o Python conhece. (Por uma questão de clareza, eu omiti na saída algumas variáveis que o Python cria automaticamente.) No ponto #2 eu chamei minha função `foo` que mostra o conteúdo do namespace local de dentro da função. Como nós podemos ver, a função `foo` tem seu próprio e separado namespace que está atualmente vazio.
 
 ### 3. Regras de resolução de variáveis
-Claro que isso não significa que não podemos acessar variáveis globais dentro de nossas funções. A regra do escopo do Python é que a criação de variáveis sempre cria uma nova variável local, mas acesso de variável (incluindo modificação) verificano escopo local e então procura por todo o escopo envolvido para procurar uma que bata com a busca. Então se nós modificarmos nossa função `foo` para mostrar nossa variável global, tudo vai funcionar como esperado:
+Claro que isso não significa que não podemos acessar variáveis globais dentro de nossas funções. A regra do escopo do Python é que a criação de variáveis sempre cria uma nova variável local, mas acesso de variável (incluindo modificação) verifica no escopo local e então procura por todo o escopo em que está envolvido para procurar uma que bata com a busca. Então se nós modificarmos nossa função `foo` para mostrar nossa variável global, tudo vai funcionar como esperado:
 
 ````shell
 >>> a_string = "This is a global variable"
@@ -74,7 +74,7 @@ Por outro lado, se nós tentarmos fazer uma atribuição na variável global den
 'This is a global variable'
 ````
 
-Como podemos ver, variáveis globais pode ser acessadas (mesmo se elas são  de tipos mutáveis) mas não podem (por padrão) receber atribuição. No ponto #1 dentro da nossa função, na realidade estamos criando uma nova variável local que "cobre" a variável global com o mesmo nome. Podemos ver isso ao dar `print` no namespace `local` dentro da nossa função `foo` e perceber que agora ele tem uma entrada. Podemos também ver novamente o namespace global no ponto #2 que ao checarmos o valor da variável `a_string` que esta não foi de fato alterada.
+Como podemos ver, variáveis globais pode ser acessadas (mesmo se elas são  de tipos mutáveis) mas não podem (por padrão) receber atribuição. No ponto #1 dentro da nossa função, na realidade estamos criando uma nova variável local que "cobre" a variável global com o mesmo nome. Podemos ver isso ao dar `print` no namespace `locals` dentro da nossa função `foo` e perceber que agora ele tem uma entrada. Podemos também ver novamente o namespace global no ponto #2 que ao checarmos o valor da variável `a_string` que esta não foi de fato alterada.
 
 ### 4. Tempo de vida da variável
 É importante também notar que não apenas as variáveis "vivem" dentro de um namespace, elas também tem um tempo de vida.
@@ -119,13 +119,13 @@ TypeError: foo() takes at least 1 argument (0 given)
 2
 ````
 
-No ponto #1 estamos definindo uma função que tem um parâmetro posicional `x` e um parâmetro nomeado `y`. Como vemos no ponto #2 podemos chamar essa função passando argumentos normalmente - os valores são passados para os parâmetros de `foo` pela posição embora um dele está definido na definição da função como um parâmetro nomeado. Também podemos chamar a função sem passar nenhum argumento para o parâmetro nomeado, como você pode ver no ponto #3 - Python usa o valor padrão de `0` que declaramos se ele não receber um valor para o parâmetro nomeado `y`. Claro que não podemos deixar de passar valores para o primeiro (obrigatório, posicional) parâmetro - ponto #4 mostra que o resultado disso é uma exceção.
+No ponto #1 estamos definindo uma função que tem um parâmetro posicional `x` e um parâmetro nomeado `y`. Como vemos no ponto #2 podemos chamar essa função passando argumentos normalmente - os valores são passados para os parâmetros de `foo` pela posição embora um deles está definido na definição da função como um parâmetro nomeado. Também podemos chamar a função sem passar nenhum argumento para o parâmetro nomeado, como você pode ver no ponto #3 - Python usa o valor padrão de `0` que declaramos se ele não receber um valor para o parâmetro nomeado `y`. Claro que não podemos deixar de passar valores para o primeiro (obrigatório, posicional) parâmetro - ponto #4 mostra que o resultado disso é uma exceção.
 
 Tudo simples e claro? Agora vai começar a ficar um pouco confuso - Python suporta argumentos nomeados na chamada da função. Olhe no ponto #5 - aqui estamos chamando a função com dois argumentos nomeados embora ela esteja definida com um parâmetro nomeado e outro sendo posicional. Desde que tenhamos nomes para nossos parâmetros, a ordem em que passamos eles não importa.
 
 O caso contrário é verdadeiro, claro. Um dos parâmetros para nossa função está definido como um parâmetro nomeado, mas passamos um argumento para ele pela posição - a chamada `foo(3,1)` no ponto #2 passa o `3` como o argumento para o nosso parâmetro obrigatório `x` e passa o segundo (o inteiro `1`) para o segundo parâmetro embora ele já estivesse definido como um parâmetro nomeado.
 
-Wooow! Parecem ser muitas palavras para explicar um conceito bem simples: parâmetros de função podem ser nomes ou posições. Isso significa coisas ligeiramente diferentes dependendo se estamos na definição de função ou na hora da chamada de função, e podemos usar argumentos nomeados para funções definidas apenas com paramêtros posicionais e vice-versa! Novamente - se tudo isso foi muito rápido, dê uma olhada nas [documentações](https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions)
+Wooow! Parecem ser muitas palavras para explicar um conceito bem simples: parâmetros de função podem ter nomes ou posições. Isso significa coisas ligeiramente diferentes dependendo se estamos na definição de função ou na hora da chamada de função, e podemos usar argumentos nomeados para funções definidas apenas com paramêtros posicionais e vice-versa! Novamente - se tudo isso foi muito rápido, dê uma olhada nas [documentações](https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions)
 
 ### 6. Funções aninhadas
 Python permite a criação de funções aninhadas. Isso significa que podemos declarar funções dentro de funções e as regras sobre escopo e tempo de vida continuam valendo normalmente.
@@ -141,7 +141,7 @@ Python permite a criação de funções aninhadas. Isso significa que podemos de
 1
 ````
 
-Parece um pouco complicado, mas ainda continua se comportando de uma maneira bem sensata. Considere o que acontece no ponto #1 - Python procura por uma variável local de nome `x`, não achando ele então procura no escopo em volta que é outra função! A variável `x` é uma variável local para nossa função `outer` mas como antes nossa função `inner` tem acesso ao escopo em que está envolta (pelo menos ler e modificar o acesso). No ponto #2 nós chamamos a função `inner`. É importante lembrar que `inner` também é apenas um nome de variável que segue as regras de busca de variáveis do Python - Python procura no escopo de `outer` primeiro e encontra uma variável local de nome `inner`.
+Parece um pouco complicado, mas ainda continua se comportando de uma maneira bem sensata. Considere o que acontece no ponto #1 - Python procura por uma variável local de nome `x`, não achando ele então procura no escopo em volta que é outra função! A variável `x` é uma variável local para nossa função `outer` mas como antes nossa função `inner` tem acesso ao escopo que está em sua volta (pelo menos ler e modificar o acesso). No ponto #2 nós chamamos a função `inner`. É importante lembrar que `inner` também é apenas um nome de variável que segue as regras de busca de variáveis do Python - Python procura no escopo de `outer` primeiro e encontra uma variável local de nome `inner`.
 
 ### 7. Funções são objetos de primeira classe em Python
 Esta é uma simples observação de que, em Python, funções são objetos como qualquer outro. Ah, função contendo variável, você não é tão especial!
@@ -209,13 +209,13 @@ Não vamos começar com uma definição, mas sim com outro exemplo de código. V
 
 A partir do nosso último exemplo, podemos ver que `inner` é uma função retornada por `outer` em uma variável chamada `foo`, e que poderíamos chamar ela com `foo()`. Mas ela vai rodar? Vamos considerar primeiro as regras de escopo.
 
-Tudo funciona de acordo com as regras de escopo do Python - `x` é uma variável local na nossa função `outer`. Quando `inner` imprime `x` no ponto #1 Python procura por uma variável local em `inner`, e ao não encontrar, procura no escopo que está envolta, que é a função `outer`, encontrando a variável lá.
+Tudo funciona de acordo com as regras de escopo do Python - `x` é uma variável local na nossa função `outer`. Quando `inner` imprime `x` no ponto #1 Python procura por uma variável local em `inner`, e ao não encontrar, procura no escopo que está em sua volta, que é a função `outer`, encontrando a variável lá.
 
 Mas o que acontece do ponto de vista do tempo de vida da variável? Nossa variável `x` é local para a função `outer`, o que significa que ela existe apenas enquanto a função `outer` está sendo executada. Não somos capazes de chamar a função `inner` até depois do retorno de `outer`, então de acordo com o nosso modelo de como Python funciona, `x` não deveria existir mais na hora que chamamos `inner`, e talvez um erro de runtime ou algo do tipo deveria acontecer.
 
-Acontece que, contra nossas expectativas, nossa função retornada `inner` funciona. Python tem suporte para uma funcionalidade chamada **function closures** que significa que funções internas (isso é, uma função que está dentro de outra função) definidas em escopo não global lembram como era o namespace em que estava envolto em tempo de definição. Isso pode ser visto ao acessar o atributo `func_closure` da nossa função `inner` que contém as variáveis no escopo envolto.
+Acontece que, contra nossas expectativas, nossa função retornada `inner` funciona. Python tem suporte para uma funcionalidade chamada **function closures** que significa que funções internas (isso é, uma função que está dentro de outra função) definidas em escopo não global lembram como era o seu namespace em tempo de definição. Isso pode ser visto ao acessar o atributo `func_closure` da nossa função `inner` que contém as variáveis no escopo envolto.
 
-Lembre - a função interna está sendo definida novamente cada vezes que a função `outer` é chamada. Agora o valor de `x` não muda, então cada função `inner` faz a mesma coisa como outra função `inner` - mas e se mexermos nela um pouco mais?
+Lembre - a função interna está sendo definida novamente toda vez que a função `outer` é chamada. Agora o valor de `x` não muda, então cada função `inner` faz a mesma coisa como outra função `inner` - mas e se mexermos nela um pouco mais?
 
 ````shell
 >>> def outer(x):
@@ -237,7 +237,7 @@ Isso por si só é uma técnica poderosa - você pode até pensar dele como simi
 Mas não vamos fazer nada tão mundano com closures! Ao invés disso, vamos em frente mais uma vez e escrever um decorator!
 
 ### 9. Decorator!
-Um decorator é apenas um objeto chamável que recebe uma função uma função substituta. Vamos começar de forma simples e trabalhar nosso caminho até úteis decorators.
+Um decorator é apenas um objeto chamável que recebe uma função como parâmetro e retorna uma função substituta. Vamos começar de forma simples e trabalhar nosso caminho até úteis decorators.
 
 ````shell
 >>> def outer(some_func):
@@ -256,7 +256,7 @@ before some_func
 
 Veja cuidadosamente nosso exemplo de decorator. Definimos uma função chamada `outer` que tem um único parâmetro `some_func`. Dentro de `outer` definimos uma função aninhada chamada `inner`. A função `inner` vai imprimir uma string e então chamar `some_func`, pegando seu valor de retorno no ponto #1. O valor de `some_func` pode ser diferente em cada vez que `outer` é chamada, mas não importa que função seja, nós vamos chamá-la. Finalmente `inner` retorna o valor de retorno de `some_func()` + 1 - e podemos ver que quando chamamos nossa função retornada armazenada em `decorated` no ponto #2 temos os resultados do print e também retorna o valor 2 ao invés do valor original 1 que nós poderíamos estar esperando receber ao chamar `foo`.
 
-Poderíamos dizer que a variável `decorated` é uma versão decorada de `foo` - é `foo` mais alguma coisa. De fato se nós escrevemos um decorator útil podemos querer substituir completamente `foo` com a versão decorada, então sempre vamos ter nossa versão "mais alguma coisa" de `foo`. Podemos fazer isso sem aprender uma nova sintaxe, simplesmente reatribuindo a variável que contém nossa função:
+Poderíamos dizer que a variável `decorated` é uma versão decorada de `foo` - ela é `foo` mais alguma coisa. De fato se nós escrevemos um decorator útil podemos querer substituir completamente `foo` com a versão decorada, então sempre vamos ter nossa versão "mais alguma coisa" de `foo`. Podemos fazer isso sem aprender uma nova sintaxe, simplesmente reatribuindo a variável que contém nossa função:
 
 ````shell
 >>> def outer(some_func):
@@ -325,7 +325,7 @@ O decorator funciona do mesmo jeito que antes - retorna uma versão modificada d
 É uma questão de opinião quanto ao fazer isso torna nosso código mais limpo: isolar a checagem de limites na sua própria função e aplicá-la para todas as funções que nos interessam envolvendo-as com um decorator. A alternativa seria uma chamada de função em cada argumento de entrada e na saída resultante antes de retornar dentro de cada função matemática, e é inegável que usar o decorator é, pelo menos, menos repetitivo em termos de quantidade de código necessário para aplicar checagem de limites para uma função.
 
 ### 10. O símbolo @ aplica um decorator a uma função
-A versão 2.4 do Python nos trouxe suporte para envolver uma função em um decorator ao adicionar antes da definição da função o nome do decorator e o símbolo `@`. Nos exemplos de código acima, nós usamos decorators nas nossas funções ao substituir a variável contendo a função com a versão decorada.
+A versão 2.4 do Python nos trouxe suporte para envolver uma função em um decorator ao adicionar antes da definição da função o símbolo `@` e o nome do decorator. Nos exemplos de código acima, nós usamos decorators nas nossas funções ao substituir a variável contendo a função com a versão decorada.
 
 ````shell
 >>> add = wrapper(add)
