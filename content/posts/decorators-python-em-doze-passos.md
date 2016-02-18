@@ -1,7 +1,7 @@
 title: Python decorators em 12 passos fáceis
 date: 2016-02-17 12:06
 author: Patrick Mazulo
-slug: decorators-python-em-doze-passos
+slug: python-decorators-em-doze-passos
 category: python
 tags: python, python decorators, decorators, translations
 summary: Já usou decorators mas ainda não sabe o que é? Neste artigo que traduzimos Simeon Franklin explica sobre o que são e como criá-los em 12 passos bem fáceis.
