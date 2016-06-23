@@ -202,8 +202,8 @@ pre {
 .post-category {
     margin: 0 0.1em;
     padding: 0.2em 0.6em;
-    color: #fff;
-    background: #999;
+    color: #999;
+    text-decoration: underline;
     font-size: 90%;
 }
 
