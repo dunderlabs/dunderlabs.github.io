@@ -7,7 +7,7 @@ category: git
 tags: git, good practices, translations
 summary: Existem alguns flows no uso do git. Aqui você vai encontrar um que segue uma abordagem quase atômica, que pode resolver grandes problemas.
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
-image: /images/posts/criando_ambiente_django.png
+image: /images/posts/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png
 
 ![Créditos da imagem]({filename}/images/posts/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png)
 
