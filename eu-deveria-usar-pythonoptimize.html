@@ -107,7 +107,7 @@
 
 <p>Não me levou a crer que seria uma boa ideia depender do <code>assert</code> porque quando Python é executado usando a flag <strong>PYTHONOPTIMIZE</strong>, que você pode ativar com o variável de ambiente de mesmo nome ou com <code>-O</code> ou <code>-OO</code>, todas as declarações de <code>assert</code> são retiradas do código.</p>
 <p>Para minha surpresa, muitas pessoas estão ignorando <code>-O</code> e <code>-OO</code> dizendo que ninguém usa essas flags em produção, e que o código que contém asserts é bom.</p>
-<p><strong>PYTHONOPTIMIZE</strong> tem três valores possíveis: <strong>0</strong>, <strong>1</strong> (-O) or <strong>2</strong> (-OO). <strong>0</strong> é o default, onde nada acontece.</p>
+<p><strong>PYTHONOPTIMIZE</strong> tem três valores possíveis: <strong>0</strong>, <strong>1</strong> (-O) ou <strong>2</strong> (-OO). <strong>0</strong> é o default, onde nada acontece.</p>
 <p>Quando o valor é <strong>1</strong>, é isso o que acontece:</p>
 <ul>
 <li>asserts são removidos</li>

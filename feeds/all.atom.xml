@@ -13,7 +13,7 @@
 
 &lt;p&gt;Não me levou a crer que seria uma boa ideia depender do &lt;code&gt;assert&lt;/code&gt; porque quando Python é executado usando a flag &lt;strong&gt;PYTHONOPTIMIZE&lt;/strong&gt;, que você pode ativar com o variável de ambiente de mesmo nome ou com &lt;code&gt;-O&lt;/code&gt; ou &lt;code&gt;-OO&lt;/code&gt;, todas as declarações de &lt;code&gt;assert&lt;/code&gt; são retiradas do código.&lt;/p&gt;
 &lt;p&gt;Para minha surpresa, muitas pessoas estão ignorando &lt;code&gt;-O&lt;/code&gt; e &lt;code&gt;-OO&lt;/code&gt; dizendo que ninguém usa essas flags em produção, e que o código que contém asserts é bom.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;PYTHONOPTIMIZE&lt;/strong&gt; tem três valores possíveis: &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;1&lt;/strong&gt; (-O) or &lt;strong&gt;2&lt;/strong&gt; (-OO). &lt;strong&gt;0&lt;/strong&gt; é o default, onde nada acontece.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PYTHONOPTIMIZE&lt;/strong&gt; tem três valores possíveis: &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;1&lt;/strong&gt; (-O) ou &lt;strong&gt;2&lt;/strong&gt; (-OO). &lt;strong&gt;0&lt;/strong&gt; é o default, onde nada acontece.&lt;/p&gt;
 &lt;p&gt;Quando o valor é &lt;strong&gt;1&lt;/strong&gt;, é isso o que acontece:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;asserts são removidos&lt;/li&gt;
