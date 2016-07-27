@@ -29,7 +29,7 @@ Não me levou a crer que seria uma boa ideia depender do `assert` porque quando 
 
 Para minha surpresa, muitas pessoas estão ignorando `-O` e `-OO` dizendo que ninguém usa essas flags em produção, e que o código que contém asserts é bom.
 
-**PYTHONOPTIMIZE** tem três valores possíveis: **0**, **1** (-O) or **2** (-OO). **0** é o default, onde nada acontece.
+**PYTHONOPTIMIZE** tem três valores possíveis: **0**, **1** (-O) ou **2** (-OO). **0** é o default, onde nada acontece.
 
 Quando o valor é **1**, é isso o que acontece:
 
