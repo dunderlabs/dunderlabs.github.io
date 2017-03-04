@@ -55,9 +55,7 @@ Até agora imagino que tá tudo de boa, eu acho.&lt;/p&gt;
 
 &lt;p&gt;Aqui, adicionamos mais um método à &lt;code&gt;o&lt;/code&gt;, &lt;code&gt;n&lt;/code&gt;, que loga o &lt;code&gt;this&lt;/code&gt; duas vezes: uma diretamente no método e outra dentro de uma função que está &lt;em&gt;dentro&lt;/em&gt; desse método. Se você executar &lt;code&gt;o.n()&lt;/code&gt;, sua reação pode ser das mais variadas: "whatta fuck" "Q" "BÉ ISSO, MAH" e por aí vai.&lt;/p&gt;
 &lt;p&gt;O primeiro &lt;code&gt;this&lt;/code&gt; se refere ao objeto &lt;code&gt;o&lt;/code&gt;, como anteriormente, porém sendo chamado dentro da função &lt;code&gt;inside&lt;/code&gt; ele mostra &lt;code&gt;window&lt;/code&gt;! Isso acontece porque, ao criar uma nova função com &lt;code&gt;function&lt;/code&gt;, o &lt;code&gt;this&lt;/code&gt; (e até &lt;code&gt;arguments&lt;/code&gt;) não é trazido do contexto da função mais externa para o função interna, e então ele se refere ao próprio &lt;code&gt;window&lt;/code&gt;.&lt;/p&gt;
-&lt;p style="text-align: center"&gt;
-    ![mindblowing](https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif "mindblowing")
-&lt;/p&gt;
+&lt;p style="text-align: center"&gt;![mindblowing](https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif "mindblowing")&lt;/p&gt;
 
 &lt;p&gt;Mas então, como diabos eu acessaria o &lt;code&gt;this&lt;/code&gt; da função externa? Quando eu tiver definindo uma função construtora e seus metódos, como é que eu ia referenciar o &lt;code&gt;this&lt;/code&gt;, que é o objeto criado?&lt;/p&gt;
 &lt;h3&gt;1/2: arrow function&lt;/h3&gt;

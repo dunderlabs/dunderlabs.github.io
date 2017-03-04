@@ -150,9 +150,7 @@ Até agora imagino que tá tudo de boa, eu acho.</p>
 
 <p>Aqui, adicionamos mais um método à <code>o</code>, <code>n</code>, que loga o <code>this</code> duas vezes: uma diretamente no método e outra dentro de uma função que está <em>dentro</em> desse método. Se você executar <code>o.n()</code>, sua reação pode ser das mais variadas: "whatta fuck" "Q" "BÉ ISSO, MAH" e por aí vai.</p>
 <p>O primeiro <code>this</code> se refere ao objeto <code>o</code>, como anteriormente, porém sendo chamado dentro da função <code>inside</code> ele mostra <code>window</code>! Isso acontece porque, ao criar uma nova função com <code>function</code>, o <code>this</code> (e até <code>arguments</code>) não é trazido do contexto da função mais externa para o função interna, e então ele se refere ao próprio <code>window</code>.</p>
-<p style="text-align: center">
-    ![mindblowing](https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif "mindblowing")
-</p>
+<p style="text-align: center">![mindblowing](https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif "mindblowing")</p>
 
 <p>Mas então, como diabos eu acessaria o <code>this</code> da função externa? Quando eu tiver definindo uma função construtora e seus metódos, como é que eu ia referenciar o <code>this</code>, que é o objeto criado?</p>
 <h3>1/2: arrow function</h3>
