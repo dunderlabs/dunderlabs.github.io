@@ -96,6 +96,11 @@ MEMBROS = OrderedDict((
         'twitter': '@ericleribertson',
         'github': 'mazulo'
     }),
+    ('Nilton Cesar', {
+        'email': 'niltoncms@gmail.com',
+        'twitter': '@niltoncsr',
+        'github': 'niltoncsr'
+    })
 ))
 
 SITEMAP = {
