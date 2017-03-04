@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://dunderlabs.github.io/</loc>
-<lastmod>2017-03-04T06:24:50-00:00</lastmod>
+<lastmod>2017-03-04T06:37:17-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://dunderlabs.github.io/archives.html</loc>
-<lastmod>2017-03-04T06:24:50-00:00</lastmod>
+<lastmod>2017-03-04T06:37:17-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://dunderlabs.github.io/tags.html</loc>
-<lastmod>2017-03-04T06:24:50-00:00</lastmod>
+<lastmod>2017-03-04T06:37:17-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://dunderlabs.github.io/categories.html</loc>
-<lastmod>2017-03-04T06:24:50-00:00</lastmod>
+<lastmod>2017-03-04T06:37:17-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -39,6 +39,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>https://dunderlabs.github.io/this-or-how-i-learned-to-stop-worrying-and-love-javascript.html</loc>
+<lastmod>2017-03-03T15:00:00-03:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>1</priority>
+</url>
+
+<url>
 <loc>https://dunderlabs.github.io/eu-deveria-usar-pythonoptimize.html</loc>
 <lastmod>2016-07-26T22:09:00-03:00</lastmod>
 <changefreq>monthly</changefreq>
@@ -48,13 +55,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://dunderlabs.github.io/porque-eu-commito-tanto.html</loc>
 <lastmod>2016-06-27T18:12:00-03:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>1</priority>
-</url>
-
-<url>
-<loc>https://dunderlabs.github.io/this-or-how-i-learned-to-stop-worrying-and-love-javascript.html</loc>
-<lastmod>2016-03-03T15:00:00-03:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1</priority>
 </url>
@@ -159,7 +159,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://dunderlabs.github.io/category/javascript.html</loc>
-<lastmod>2016-03-03T15:00:00-02:34</lastmod>
+<lastmod>2017-03-03T15:00:00-02:34</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -180,7 +180,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://dunderlabs.github.io/author/nilton-cesar.html</loc>
-<lastmod>2016-03-03T15:00:00-02:34</lastmod>
+<lastmod>2017-03-03T15:00:00-02:34</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
