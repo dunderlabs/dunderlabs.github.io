@@ -148,9 +148,12 @@ Até agora imagino que tá tudo de boa, eu acho.</p>
 </pre></div>
 
 
-<p>Aqui, adicionamos mais um método à <code>o</code>, <code>n</code>, que loga o <code>this</code> duas vezes: uma diretamente no método e outra dentro de uma função que está <em>dentro</em> desse método. Se você executar <code>o.n()</code>, sua reação pode ser das mais variadas: "whatta fuck" "Q" "BÉ ISSO, MAH" e por aí vai.
-O primeiro <code>this</code> se refere ao objeto <code>o</code>, como anteriormente, porém sendo chamado dentro da função <code>inside</code> ele mostra <code>window</code>! Isso acontece porque, ao criar uma nova função com <code>function</code>, o <code>this</code> (e até <code>arguments</code>) não é trazido do contexto da função mais externa para o função interna, e então ele se refere ao próprio <code>window</code>.</p>
-<p><img alt="mindblowing" src="https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif" title="mindblowing" /></p>
+<p>Aqui, adicionamos mais um método à <code>o</code>, <code>n</code>, que loga o <code>this</code> duas vezes: uma diretamente no método e outra dentro de uma função que está <em>dentro</em> desse método. Se você executar <code>o.n()</code>, sua reação pode ser das mais variadas: "whatta fuck" "Q" "BÉ ISSO, MAH" e por aí vai.</p>
+<p>O primeiro <code>this</code> se refere ao objeto <code>o</code>, como anteriormente, porém sendo chamado dentro da função <code>inside</code> ele mostra <code>window</code>! Isso acontece porque, ao criar uma nova função com <code>function</code>, o <code>this</code> (e até <code>arguments</code>) não é trazido do contexto da função mais externa para o função interna, e então ele se refere ao próprio <code>window</code>.</p>
+<p style="text-align: center">
+    ![mindblowing](https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif "mindblowing")
+</p>
+
 <p>Mas então, como diabos eu acessaria o <code>this</code> da função externa? Quando eu tiver definindo uma função construtora e seus metódos, como é que eu ia referenciar o <code>this</code>, que é o objeto criado?</p>
 <h3>1/2: arrow function</h3>
 <p>Se você é descolado(a) e quer usar as novas features da linguagem e dizer que tá por dentro, pode usar as queridinhas arrow functions. Mais do que uma forma curta de escrever funções anônimas (<code>() =&gt; console.log(this)</code>), as arrow functions fazem o contexto permanecer o mesmo para o <code>this</code>, ficando o código assim</p>
