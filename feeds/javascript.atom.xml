@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/javascript.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2016-03-03T15:00:00-03:00</updated><entry><title>this or: How I Learned to Stop Worrying and Love JavaScript</title><link href="https://dunderlabs.github.io/this-or-how-i-learned-to-stop-worrying-and-love-javascript.html" rel="alternate"></link><updated>2016-03-03T15:00:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2016-03-03:this-or-how-i-learned-to-stop-worrying-and-love-javascript.html</id><summary type="html">&lt;p&gt;Vou tentar fazer uma rápida porém merecida explicação sobre o uso do &lt;code&gt;this&lt;/code&gt; na execução de funções, tópico que tira a paciência de muita gente que tá começando na linguagem ou vem ~viciado de libs e frameworks.
+Os exemplos aqui são executados no browser, mas podem ser executados no Node sem problema algum, mudando só o objeto &lt;code&gt;window&lt;/code&gt; para &lt;code&gt;global&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;O que é &lt;em&gt;isto&lt;/em&gt;?&lt;/h2&gt;
+&lt;p&gt;Bom, você deve tentar adivinhar pela tradução que &lt;code&gt;this&lt;/code&gt; se refere a "isto". Não está totalmente errado, o ponto chave é o que é o "isto". Tente executar o &lt;code&gt;this&lt;/code&gt; no console, só ele e nada mais, e você vai receber o objeto &lt;code&gt;window&lt;/code&gt;. Esses são os objetos que, nos seus ambientes, guardam as referências pros outros objetos, funções, classes, etc, definidos pelo desenvolvedor. Ou seja, quando você define e atribui &lt;code&gt;var a = 7&lt;/code&gt; fora de escopo de funções ou fora de objetos, na verdade é criada uma referência para essa variável em &lt;code&gt;window&lt;/code&gt;, significando que dá pra acessar essa mesma variável tanto fazendo &lt;code&gt;a&lt;/code&gt; como &lt;code&gt;window.a&lt;/code&gt;.
+Ok, mas e se eu definir uma função assim&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;outerScope&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;quando eu chamá-la eu vou rebecer a própria função? (??) Não.&lt;/p&gt;
+&lt;p&gt;Quando você chama &lt;code&gt;outerScope()&lt;/code&gt; na verdade é a mesma coisa de estar chamando &lt;code&gt;window.outerScope()&lt;/code&gt; e o &lt;code&gt;this&lt;/code&gt; vai mostrar &lt;code&gt;window&lt;/code&gt;. O que acontece é que o &lt;code&gt;this&lt;/code&gt; se refere justamente ao contexto de invocação, ou seja, como e onde ela é &lt;em&gt;chamada&lt;/em&gt;. No exemplo, quem está chamando a função &lt;code&gt;outerScope&lt;/code&gt; implicitamente é o objeto &lt;code&gt;window&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;&lt;code&gt;this&lt;/code&gt; em métodos&lt;/h2&gt;
+&lt;p&gt;Ainda no mesmo ambiente, suponha que você agora defina um objeto &lt;code&gt;o&lt;/code&gt; assim:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;o&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;outerScope&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A chave &lt;code&gt;m&lt;/code&gt; tem como valor a função definida anteriormente, o que faz com que &lt;code&gt;m&lt;/code&gt; seja um método do objeto &lt;code&gt;o&lt;/code&gt;. Pra executar, basta &lt;code&gt;o.m()&lt;/code&gt;.
+TCHARAN! O que foi mostrado foi o próprio objeto &lt;code&gt;o&lt;/code&gt;, porque agora ele é quem executa essa função que agora foi atribuída a ele.
+Percebe como nesse caso, mesmo a função sendo definida fora do objeto, quando é atribuída e trazida pra dentro do objeto,e a partir daí não tem mais relação com o que acontece externamente com a função, o &lt;code&gt;this&lt;/code&gt; muda? ;)&lt;/p&gt;
+&lt;p&gt;O mesmo comportamento acontece se tratando de eventos:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;el&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;querySelector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#submit-form&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;No código acima, atribuímos um elemento HTML à variável &lt;code&gt;el&lt;/code&gt;, e depois definimos que o evento de click executa uma função que loga o &lt;code&gt;this&lt;/code&gt;. Nesse caso, também o &lt;code&gt;this&lt;/code&gt; se refere ao próprio elemento que disparou o evento, no caso &lt;code&gt;el&lt;/code&gt;.
+Até agora imagino que tá tudo de boa, eu acho.&lt;/p&gt;
+&lt;h2&gt;&lt;code&gt;function&lt;/code&gt;s criam escopo, e não preservam o &lt;code&gt;this&lt;/code&gt; do contexto&lt;/h2&gt;
+&lt;p&gt;Voltemos ao exemplo do objeto, mas vamos criar mais um método:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;o&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;outerScope&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+    &lt;span class="nx"&gt;n&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;inside&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;};&lt;/span&gt;
+
+        &lt;span class="nx"&gt;inside&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Aqui, adicionamos mais um método à &lt;code&gt;o&lt;/code&gt;, &lt;code&gt;n&lt;/code&gt;, que loga o &lt;code&gt;this&lt;/code&gt; duas vezes: uma diretamente no método e outra dentro de uma função que está &lt;em&gt;dentro&lt;/em&gt; desse método. Se você executar &lt;code&gt;o.n()&lt;/code&gt;, sua reação pode ser das mais variadas: "whatta fuck" "Q" "BÉ ISSO, MAH" e por aí vai.
+O primeiro &lt;code&gt;this&lt;/code&gt; se refere ao objeto &lt;code&gt;o&lt;/code&gt;, como anteriormente, porém sendo chamado dentro da função &lt;code&gt;inside&lt;/code&gt; ele mostra &lt;code&gt;window&lt;/code&gt;! Isso acontece porque, ao criar uma nova função com &lt;code&gt;function&lt;/code&gt;, o &lt;code&gt;this&lt;/code&gt; (e até &lt;code&gt;arguments&lt;/code&gt;) não é trazido do contexto da função mais externa para o função interna, e então ele se refere ao próprio &lt;code&gt;window&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="mindblowing" src="https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif" title="mindblowing" /&gt;&lt;/p&gt;
+&lt;p&gt;Mas então, como diabos eu acessaria o &lt;code&gt;this&lt;/code&gt; da função externa? Quando eu tiver definindo uma função construtora e seus metódos, como é que eu ia referenciar o &lt;code&gt;this&lt;/code&gt;, que é o objeto criado?&lt;/p&gt;
+&lt;h3&gt;1/2: arrow function&lt;/h3&gt;
+&lt;p&gt;Se você é descolado(a) e quer usar as novas features da linguagem e dizer que tá por dentro, pode usar as queridinhas arrow functions. Mais do que uma forma curta de escrever funções anônimas (&lt;code&gt;() =&amp;gt; console.log(this)&lt;/code&gt;), as arrow functions fazem o contexto permanecer o mesmo para o &lt;code&gt;this&lt;/code&gt;, ficando o código assim&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;o&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;outerScope&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+    &lt;span class="nx"&gt;n&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Tenho que autoexecutá-la já que é uma função anônima&lt;/span&gt;
+        &lt;span class="p"&gt;(()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;)();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;e mostrando duas vezes o objeto &lt;code&gt;o&lt;/code&gt;. Simples e elegante.&lt;/p&gt;
+&lt;h2&gt;2/2: "that" pra quem te quer&lt;/h2&gt;
+&lt;p&gt;Se você não quer usar arrow function, ou melhor, quando NÃO HAVIA ISSO NA LINGUAGEM, o que era feito era atribuir o valor de &lt;code&gt;this&lt;/code&gt; a outra variável no escopo acima, geralmente com o nome "that" ou "self" e aí sim através dela estaria disponível no escopo mais interno. Ficaria assim:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;o&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;outerScope&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+    &lt;span class="nx"&gt;n&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// TAH-DAH ;)&lt;/span&gt;
+        &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;that&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;inside&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;that&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;};&lt;/span&gt;
+
+        &lt;span class="nx"&gt;inside&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Conclusão&lt;/h2&gt;
+&lt;p&gt;Acho que consegui cobrir os principais casos do &lt;code&gt;this&lt;/code&gt; na invocação de funções. Se faltou alguma coisa (e faltou), comenta aí embaixo pra gente trocar uma ideia sobre :D
+Pra um texto bem mais aprofundado e completo, recomendo demais a leitura do EXCELENTE &lt;a href="https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes"&gt;You Don't Know: &lt;em&gt;this&lt;/em&gt; &amp;amp; Object Prototypes JS&lt;/a&gt;, especialmente os capitulos 1 e 2 tratam desse tema.&lt;/p&gt;
+&lt;p&gt;Durante muito tempo eu &lt;em&gt;só&lt;/em&gt; usei jQuery nas minhas páginas, pelos motivos óbvios: mais rapidez no desenvolvimento, segurança ao fazer uma página que vai funcionar na maior quantidade de navegadores possível, biblioteca que faz de tudo um pouco, etc. E longe de mim condenar a lib, eu acho que o que merece atenção é a &lt;em&gt;atitude&lt;/em&gt; dos desenvolvedores que a utilizam sem conhecer a linguagem em si, porque você acaba ficando viciado nela sem realmente entender como a liguagem funciona e não  sabe o que fazer quando você não tem ela à mão. Recomendo botar a mão na massa.&lt;/p&gt;</summary><category term="javascript"></category><category term="lexical scope"></category><category term="dynamic scope"></category><category term="arrow function"></category></entry></feed>
