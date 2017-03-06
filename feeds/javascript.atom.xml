@@ -68,7 +68,7 @@ Até agora imagino que tá tudo de boa, eu acho.&lt;/p&gt;
         &lt;span class="c1"&gt;// Tenho que autoexecutá-la já que é uma função anônima&lt;/span&gt;
         &lt;span class="p"&gt;(()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
             &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-        &lt;span class="p"&gt;)();&lt;/span&gt;
+        &lt;span class="p"&gt;})();&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -97,5 +97,5 @@ Até agora imagino que tá tudo de boa, eu acho.&lt;/p&gt;
 
 &lt;h2&gt;Conclusão&lt;/h2&gt;
 &lt;p&gt;Acho que consegui cobrir os principais casos do &lt;code&gt;this&lt;/code&gt; na invocação de funções. Se faltou alguma coisa (e faltou), comenta aí embaixo pra gente trocar uma ideia sobre :D
-Pra um texto bem mais aprofundado e completo, recomendo demais a leitura do EXCELENTE &lt;a href="https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes"&gt;You Don't Know: &lt;em&gt;this&lt;/em&gt; &amp;amp; Object Prototypes JS&lt;/a&gt;, especialmente os capitulos 1 e 2 tratam desse tema.&lt;/p&gt;
+Pra um texto bem mais aprofundado e completo, recomendo demais a leitura do EXCELENTE &lt;a href="https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes"&gt;You Don't Know JS: &lt;em&gt;this&lt;/em&gt; &amp;amp; Object Prototypes&lt;/a&gt;, especialmente os capitulos 1 e 2 tratam desse tema.&lt;/p&gt;
 &lt;p&gt;Durante muito tempo eu &lt;em&gt;só&lt;/em&gt; usei jQuery nas minhas páginas, pelos motivos óbvios: mais rapidez no desenvolvimento, segurança ao fazer uma página que vai funcionar na maior quantidade de navegadores possível, biblioteca que faz de tudo um pouco, etc. E longe de mim condenar a lib, eu acho que o que merece atenção é a &lt;em&gt;atitude&lt;/em&gt; dos desenvolvedores que a utilizam sem conhecer a linguagem em si, porque você acaba ficando viciado nela sem realmente entender como a liguagem funciona e não  sabe o que fazer quando você não tem ela à mão. Recomendo botar a mão na massa.&lt;/p&gt;</summary><category term="javascript"></category><category term="lexical scope"></category><category term="dynamic scope"></category><category term="arrow function"></category></entry></feed>
