@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Entendendo ordenação de arrays em JavaScript, sort of."/>
+    <meta property="og:url" content="https://dunderlabs.github.io/entendendo-ordenação-de-arrays-em-javascript-sort-of.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Ordenar valores em JavaScript pode parecer estranho mas é uma funcionalidade bastante poderosa."/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/logo1.jpg"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@niltoncsr"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Entendendo ordenação de arrays em JavaScript, sort of."/>
+    <meta name="twitter:description" content="Ordenar valores em JavaScript pode parecer estranho mas é uma funcionalidade bastante poderosa."/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/logo1.jpg"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Nilton Cesar"/>
+    <meta property="article:section" content="javascript"/>
+    <meta property="article:tag" content="javascript, array, sort, number, ordering"/>
+    <meta property="article:published_time" content="2017-03-10T15:15:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Entendendo ordenação de arrays em JavaScript, sort of."/>
+    <meta itemprop="description" content="Ordenar valores em JavaScript pode parecer estranho mas é uma funcionalidade bastante poderosa."/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/logo1.jpg"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Ordenar valores em JavaScript pode parecer estranho mas é uma funcionalidade bastante poderosa."/>
+    <meta name="keywords" content="javascript, array, sort, number, ordering"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Entendendo ordenação de arrays em JavaScript, sort of. // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/nilton-cesar.html" title="See posts by Nilton Cesar">
+                        <img class="avatar" alt="Nilton Cesar" src="https://www.gravatar.com/avatar/e1f8672236bde4309ecfa8cebf6b1e6a">
+                </a>
+                <h2 class="article-info">Nilton Cesar</h2>
+                <small class="about-author"></small>
+                <h5>Publicado</h5>
+                <p>Fri 10 March 2017</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Entendendo ordenação de arrays em JavaScript, sort of.</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/javascript.html">javascript</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/array.html">array</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/sort.html">sort</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/number.html">number</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/ordering.html">ordering</a>
+                        </p>
+                </header>
+            </section>
+            <p>E aí, meus queridos devs, tudo ok com vocês? :D
+Depois de uma conversinha com <a href="https://twitter.com/ericleribertson">Patrick Mazulo</a> sobre JavaScript, ele me veio com o seguinte cenário na ordenação de valores de um array:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">].</span><span class="nx">sort</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Parece bem simples e direto, porém o resultado é:</p>
+<blockquote>
+<p>1, 10, 2, 3, 4, 5, 6, 7, 8, 9</p>
+</blockquote>
+<p><img alt="WHAT" src="http://i.giphy.com/EsmlrgWNx5v0Y.gif" title="ÉOQ" /></p>
+<p>Eu tive exatamente a mesma reação na primeira vez que  vi isso.</p>
+<p>Na verdade, o que acontece ali é que o método <code>.sort()</code> ordena em ordem crescente através do caracteres da tabela Unicode quando convertidos para string. Então nesse caso, "10" vem antes do "2" porque "1", que é o primeiro caractere de "10", vem antes do "2".</p>
+<p>De acordo com a implementação da <a href="http://unicode.org/charts/">tabela Unicode</a>, <a href="http://unicode.org/charts/PDF/U0000.pdf">é possível perceber, pelo menos no nosso subset</a>, que a ordem é: alguns símbolos, números, letras maiúsculas, letras minúsculas, mais alguns outros símbolos. O que quer dizer que deverão também obedecer a essa ordem, ou seja, "a" antes do "b", "ab" depois do "a" e antes de "b", "a0" entre "a" e "ab", "Ab" antes de "a", e por aí vai.</p>
+<h2>"mas como eu ordeno números pelo valor"?</h2>
+<p>Mas voltando ao nosso problema inicial, o objetivo era ordenar os números pelo seu valor, não pelo ~código Unicode, certo?</p>
+<p>Bom, pra isso o JavaScript aceita um parâmetro opcional no método <code>sort</code>: uma função que determina como seriam as regras da ordenação. Essa função recebe dois argumentos, por convenção chamados de <em>a</em> e <em>b</em>, que representam dois itens do array que estão sendo comparados.</p>
+<p><img alt="hm" src="https://media.giphy.com/media/sBl8Fowq0ErFC/giphy.gif" /></p>
+<p>A vantagem disso é que, na função, você tem controle de qual critério da ordenação utilizar, de acordo com algumas regras.</p>
+<p>Funciona assim: são comparados <code>a</code> e <code>b</code>, e caso:
+- a comparação seja menor que zero, <code>a</code> é posicionado antes de <code>b</code>
+- a comparação seja maior que zero, <code>a</code> é posicionado depois de <code>b</code>
+- a comparação seja igual a zero, <code>a</code> e <code>b</code> permancem com as posições inalteradas</p>
+<p>"Bom, mas como comparar? Não entendi como essas regras se aplicam"</p>
+<h3>~~deadline chegando~~ explicação curta</h3>
+<p>O que você pode fazer é diminuir os dois valores entre si, e o resultado vai decidir se <code>a</code> ou <code>b</code> avança, recua, ou ambos permanecem nas posições atuais.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Array original:&#39;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">);</span>
+
+<span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Array ordenado:&#39;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o <code>a - b</code> que faz o array ser ordenado de forma <em>crescente</em>. O contrário, <code>b - a</code> o ordena de forma <em>decrescente</em>.</p>
+<p><img alt="wow" src="http://i.giphy.com/vLq5FWMjfN47S.gif" /></p>
+<h3>aprofundando a explicação ~~para nerds~~</h3>
+<p>O que acontece é que o <code>sort()</code> pega o array original, compara dois valores e os <em>muda de posição de acordo com essa comparação</em>, logo em seguida ele pega novamente dois valores e os compara pra <em>rearranjá-los de novo</em>, e faz isso até que todo o array esteja ordenado.</p>
+<p>Pegando o primeiro exemplo, onde usamos <code>a - b</code>, a ordenação acontece da seguinte forma: se o primeiro elemento comparado, no caso <code>a</code>, for maior que <code>b</code>, a subtração <code>a - b</code> resulta em um valor maior que zero, então <code>a</code> é posicionado depois de <code>b</code> (de acordo com as regras). Essa mesma lógica aplicada repetidamente no array, que está sendo modificado, faz que com que os valores maiores sejam posicionados mais ao fim do array, ou seja, faz a ordenação em ordem crescente!</p>
+<p>A mesma lógica se aplica para ordenação decrescente, <code>b - a</code>, só que agora com os valores trocados de lugar faz com que a ordenação seja ao contrário da anterior :). Se você ficou confuso ou quer ver isso passo-a-passo, você pode visualizar os valores de <code>a</code> e <code>b</code> mudando:</p>
+<div class="highlight"><pre><span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p><img alt="mindblowing" src="https://media.tenor.co/images/c7eac59fb909510e714e85de277ca81a/raw" /></p>
+<p>Não encontrei na <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">especificação</a>, mas você pode observar que a lógica por trás disso é semelhante a alguns algoritmos de ordenação conhecidos, como o BubbleSort. <a href="https://blog.rodneyrehm.de/archives/14-sorting-were-doing-it-wrong.html">Aparentemente, cada engine implementa esse algoritmo de uma maneira</a></p>
+<h2>Indo um pouco além</h2>
+<p>Já que <code>a</code> e <code>b</code> são, de fato, elementos do array, é possível acessá-los e expandir um pouco as possiblidades do uso do método <code>sort</code>.</p>
+<p>Digamos que você tenha um array de objetos com o nome de um álbum e o ano de lançamento em cada um:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">beatlesTopFour</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nx">album</span><span class="o">:</span> <span class="s1">&#39;Abbey Road&#39;</span><span class="p">,</span>
+        <span class="nx">releaseYear</span><span class="o">:</span> <span class="mi">1969</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">album</span><span class="o">:</span> <span class="s1">&#39;Revolver&#39;</span><span class="p">,</span>
+        <span class="nx">releaseYear</span><span class="o">:</span> <span class="mi">1966</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">album</span><span class="o">:</span> <span class="s1">&#39;The Beatles (White Album)&#39;</span><span class="p">,</span>
+        <span class="nx">releaseYear</span><span class="o">:</span> <span class="mi">1968</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">album</span><span class="o">:</span> <span class="s1">&#39;Rubber Soul&#39;</span><span class="p">,</span>
+        <span class="nx">releaseYear</span><span class="o">:</span> <span class="mi">1965</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+
+
+<p>Pra ordenar esses objetos de acordo com o ano de lançamento, você pode comparar a propriedade <code>releaseYear</code> de cada objeto, sem ter que manipular mais nada :)</p>
+<div class="highlight"><pre><span class="nx">beatlesTopFour</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">releaseYear</span> <span class="o">-</span> <span class="nx">b</span><span class="p">.</span><span class="nx">releaseYear</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>e TCHARAM: ordenados em ordem crescente pelo ano</p>
+<p><img alt="awesome" src="https://media.giphy.com/media/aLdiZJmmx4OVW/giphy.gif" /></p>
+<p><em>Pro-tip</em>: fique atento com a utilização do método <code>sort</code> pois ele altera o array original. Se você está aplicando uma abordagem funcional, pode não ser interessante utilizá-lo em escopos mais externos.</p>
+<p>Espero que esse artigo tenha sido útil, e não deixem de olhar o que tem na <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">MDN</a>, por exemplo, caso algo não tenha ficado claro. OU é só gritar aqui embaixo que a gente responde ;)</p>
+<p>Sempre disponível praquele feedback maroto de vocês. Até logo!</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>

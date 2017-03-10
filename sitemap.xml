@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://dunderlabs.github.io/</loc>
-<lastmod>2017-03-06T15:11:47-00:00</lastmod>
+<lastmod>2017-03-10T18:27:13-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://dunderlabs.github.io/archives.html</loc>
-<lastmod>2017-03-06T15:11:47-00:00</lastmod>
+<lastmod>2017-03-10T18:27:13-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://dunderlabs.github.io/tags.html</loc>
-<lastmod>2017-03-06T15:11:47-00:00</lastmod>
+<lastmod>2017-03-10T18:27:13-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://dunderlabs.github.io/categories.html</loc>
-<lastmod>2017-03-06T15:11:47-00:00</lastmod>
+<lastmod>2017-03-10T18:27:13-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -36,6 +36,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <lastmod>2015-01-30T14:15:00-03:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://dunderlabs.github.io/entendendo-ordenação-de-arrays-em-javascript-sort-of.html</loc>
+<lastmod>2017-03-10T15:15:00-03:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>1</priority>
 </url>
 
 <url>
@@ -159,7 +166,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://dunderlabs.github.io/category/javascript.html</loc>
-<lastmod>2017-03-03T15:00:00-02:34</lastmod>
+<lastmod>2017-03-10T15:15:00-02:34</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -180,7 +187,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://dunderlabs.github.io/author/nilton-cesar.html</loc>
-<lastmod>2017-03-03T15:00:00-02:34</lastmod>
+<lastmod>2017-03-10T15:15:00-02:34</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>

@@ -1,5 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/javascript.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-03-03T15:00:00-03:00</updated><entry><title>this or: How I Learned to Stop Worrying and Love JavaScript</title><link href="https://dunderlabs.github.io/this-or-how-i-learned-to-stop-worrying-and-love-javascript.html" rel="alternate"></link><updated>2017-03-03T15:00:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-03-03:this-or-how-i-learned-to-stop-worrying-and-love-javascript.html</id><summary type="html">&lt;p&gt;Vou tentar fazer uma rápida porém merecida explicação sobre o uso do &lt;code&gt;this&lt;/code&gt; na execução de funções, tópico que tira a paciência de muita gente que tá começando na linguagem ou vem ~viciado de libs e frameworks.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/javascript.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-03-10T15:15:00-03:00</updated><entry><title>Entendendo ordenação de arrays em JavaScript, sort of.</title><link href="https://dunderlabs.github.io/entendendo-ordena%C3%A7%C3%A3o-de-arrays-em-javascript-sort-of.html" rel="alternate"></link><updated>2017-03-10T15:15:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-03-10:entendendo-ordenação-de-arrays-em-javascript-sort-of.html</id><summary type="html">&lt;p&gt;E aí, meus queridos devs, tudo ok com vocês? :D
+Depois de uma conversinha com &lt;a href="https://twitter.com/ericleribertson"&gt;Patrick Mazulo&lt;/a&gt; sobre JavaScript, ele me veio com o seguinte cenário na ordenação de valores de um array:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="nx"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Parece bem simples e direto, porém o resultado é:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1, 10, 2, 3, 4, 5, 6, 7, 8, 9&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img alt="WHAT" src="http://i.giphy.com/EsmlrgWNx5v0Y.gif" title="ÉOQ" /&gt;&lt;/p&gt;
+&lt;p&gt;Eu tive exatamente a mesma reação na primeira vez que  vi isso.&lt;/p&gt;
+&lt;p&gt;Na verdade, o que acontece ali é que o método &lt;code&gt;.sort()&lt;/code&gt; ordena em ordem crescente através do caracteres da tabela Unicode quando convertidos para string. Então nesse caso, "10" vem antes do "2" porque "1", que é o primeiro caractere de "10", vem antes do "2".&lt;/p&gt;
+&lt;p&gt;De acordo com a implementação da &lt;a href="http://unicode.org/charts/"&gt;tabela Unicode&lt;/a&gt;, &lt;a href="http://unicode.org/charts/PDF/U0000.pdf"&gt;é possível perceber, pelo menos no nosso subset&lt;/a&gt;, que a ordem é: alguns símbolos, números, letras maiúsculas, letras minúsculas, mais alguns outros símbolos. O que quer dizer que deverão também obedecer a essa ordem, ou seja, "a" antes do "b", "ab" depois do "a" e antes de "b", "a0" entre "a" e "ab", "Ab" antes de "a", e por aí vai.&lt;/p&gt;
+&lt;h2&gt;"mas como eu ordeno números pelo valor"?&lt;/h2&gt;
+&lt;p&gt;Mas voltando ao nosso problema inicial, o objetivo era ordenar os números pelo seu valor, não pelo ~código Unicode, certo?&lt;/p&gt;
+&lt;p&gt;Bom, pra isso o JavaScript aceita um parâmetro opcional no método &lt;code&gt;sort&lt;/code&gt;: uma função que determina como seriam as regras da ordenação. Essa função recebe dois argumentos, por convenção chamados de &lt;em&gt;a&lt;/em&gt; e &lt;em&gt;b&lt;/em&gt;, que representam dois itens do array que estão sendo comparados.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="hm" src="https://media.giphy.com/media/sBl8Fowq0ErFC/giphy.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;A vantagem disso é que, na função, você tem controle de qual critério da ordenação utilizar, de acordo com algumas regras.&lt;/p&gt;
+&lt;p&gt;Funciona assim: são comparados &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt;, e caso:
+- a comparação seja menor que zero, &lt;code&gt;a&lt;/code&gt; é posicionado antes de &lt;code&gt;b&lt;/code&gt;
+- a comparação seja maior que zero, &lt;code&gt;a&lt;/code&gt; é posicionado depois de &lt;code&gt;b&lt;/code&gt;
+- a comparação seja igual a zero, &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; permancem com as posições inalteradas&lt;/p&gt;
+&lt;p&gt;"Bom, mas como comparar? Não entendi como essas regras se aplicam"&lt;/p&gt;
+&lt;h3&gt;~~deadline chegando~~ explicação curta&lt;/h3&gt;
+&lt;p&gt;O que você pode fazer é diminuir os dois valores entre si, e o resultado vai decidir se &lt;code&gt;a&lt;/code&gt; ou &lt;code&gt;b&lt;/code&gt; avança, recua, ou ambos permanecem nas posições atuais.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Array original:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+
+&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Array ordenado:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o &lt;code&gt;a - b&lt;/code&gt; que faz o array ser ordenado de forma &lt;em&gt;crescente&lt;/em&gt;. O contrário, &lt;code&gt;b - a&lt;/code&gt; o ordena de forma &lt;em&gt;decrescente&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="wow" src="http://i.giphy.com/vLq5FWMjfN47S.gif" /&gt;&lt;/p&gt;
+&lt;h3&gt;aprofundando a explicação ~~para nerds~~&lt;/h3&gt;
+&lt;p&gt;O que acontece é que o &lt;code&gt;sort()&lt;/code&gt; pega o array original, compara dois valores e os &lt;em&gt;muda de posição de acordo com essa comparação&lt;/em&gt;, logo em seguida ele pega novamente dois valores e os compara pra &lt;em&gt;rearranjá-los de novo&lt;/em&gt;, e faz isso até que todo o array esteja ordenado.&lt;/p&gt;
+&lt;p&gt;Pegando o primeiro exemplo, onde usamos &lt;code&gt;a - b&lt;/code&gt;, a ordenação acontece da seguinte forma: se o primeiro elemento comparado, no caso &lt;code&gt;a&lt;/code&gt;, for maior que &lt;code&gt;b&lt;/code&gt;, a subtração &lt;code&gt;a - b&lt;/code&gt; resulta em um valor maior que zero, então &lt;code&gt;a&lt;/code&gt; é posicionado depois de &lt;code&gt;b&lt;/code&gt; (de acordo com as regras). Essa mesma lógica aplicada repetidamente no array, que está sendo modificado, faz que com que os valores maiores sejam posicionados mais ao fim do array, ou seja, faz a ordenação em ordem crescente!&lt;/p&gt;
+&lt;p&gt;A mesma lógica se aplica para ordenação decrescente, &lt;code&gt;b - a&lt;/code&gt;, só que agora com os valores trocados de lugar faz com que a ordenação seja ao contrário da anterior :). Se você ficou confuso ou quer ver isso passo-a-passo, você pode visualizar os valores de &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; mudando:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="mindblowing" src="https://media.tenor.co/images/c7eac59fb909510e714e85de277ca81a/raw" /&gt;&lt;/p&gt;
+&lt;p&gt;Não encontrei na &lt;a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf"&gt;especificação&lt;/a&gt;, mas você pode observar que a lógica por trás disso é semelhante a alguns algoritmos de ordenação conhecidos, como o BubbleSort. &lt;a href="https://blog.rodneyrehm.de/archives/14-sorting-were-doing-it-wrong.html"&gt;Aparentemente, cada engine implementa esse algoritmo de uma maneira&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Indo um pouco além&lt;/h2&gt;
+&lt;p&gt;Já que &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; são, de fato, elementos do array, é possível acessá-los e expandir um pouco as possiblidades do uso do método &lt;code&gt;sort&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Digamos que você tenha um array de objetos com o nome de um álbum e o ano de lançamento em cada um:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;beatlesTopFour&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;album&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Abbey Road&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;releaseYear&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1969&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;album&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Revolver&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;releaseYear&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1966&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;album&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;The Beatles (White Album)&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;releaseYear&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1968&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;album&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Rubber Soul&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;releaseYear&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1965&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pra ordenar esses objetos de acordo com o ano de lançamento, você pode comparar a propriedade &lt;code&gt;releaseYear&lt;/code&gt; de cada objeto, sem ter que manipular mais nada :)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;beatlesTopFour&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;releaseYear&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;releaseYear&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;e TCHARAM: ordenados em ordem crescente pelo ano&lt;/p&gt;
+&lt;p&gt;&lt;img alt="awesome" src="https://media.giphy.com/media/aLdiZJmmx4OVW/giphy.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Pro-tip&lt;/em&gt;: fique atento com a utilização do método &lt;code&gt;sort&lt;/code&gt; pois ele altera o array original. Se você está aplicando uma abordagem funcional, pode não ser interessante utilizá-lo em escopos mais externos.&lt;/p&gt;
+&lt;p&gt;Espero que esse artigo tenha sido útil, e não deixem de olhar o que tem na &lt;a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"&gt;MDN&lt;/a&gt;, por exemplo, caso algo não tenha ficado claro. OU é só gritar aqui embaixo que a gente responde ;)&lt;/p&gt;
+&lt;p&gt;Sempre disponível praquele feedback maroto de vocês. Até logo!&lt;/p&gt;</summary><category term="javascript"></category><category term="array"></category><category term="sort"></category><category term="number"></category><category term="ordering"></category></entry><entry><title>this or: How I Learned to Stop Worrying and Love JavaScript</title><link href="https://dunderlabs.github.io/this-or-how-i-learned-to-stop-worrying-and-love-javascript.html" rel="alternate"></link><updated>2017-03-03T15:00:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-03-03:this-or-how-i-learned-to-stop-worrying-and-love-javascript.html</id><summary type="html">&lt;p&gt;Vou tentar fazer uma rápida porém merecida explicação sobre o uso do &lt;code&gt;this&lt;/code&gt; na execução de funções, tópico que tira a paciência de muita gente que tá começando na linguagem ou vem ~viciado de libs e frameworks.
 Os exemplos aqui são executados no browser, mas podem ser executados no Node sem problema algum, mudando só o objeto &lt;code&gt;window&lt;/code&gt; para &lt;code&gt;global&lt;/code&gt;.&lt;/p&gt;
 &lt;h2&gt;O que é &lt;em&gt;isto&lt;/em&gt;?&lt;/h2&gt;
 &lt;p&gt;Bom, você deve tentar adivinhar pela tradução que &lt;code&gt;this&lt;/code&gt; se refere a "isto". Não está totalmente errado, o ponto chave é o que é o "isto". Tente executar o &lt;code&gt;this&lt;/code&gt; no console, só ele e nada mais, e você vai receber o objeto &lt;code&gt;window&lt;/code&gt;. Esses são os objetos que, nos seus ambientes, guardam as referências pros outros objetos, funções, classes, etc, definidos pelo desenvolvedor. Ou seja, quando você define e atribui &lt;code&gt;var a = 7&lt;/code&gt; fora de escopo de funções ou fora de objetos, na verdade é criada uma referência para essa variável em &lt;code&gt;window&lt;/code&gt;, significando que dá pra acessar essa mesma variável tanto fazendo &lt;code&gt;a&lt;/code&gt; como &lt;code&gt;window.a&lt;/code&gt;.
