@@ -23,7 +23,7 @@ Depois de uma conversinha com &lt;a href="https://twitter.com/ericleribertson"&g
 - a comparação seja maior que zero, &lt;code&gt;a&lt;/code&gt; é posicionado depois de &lt;code&gt;b&lt;/code&gt;
 - a comparação seja igual a zero, &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; permancem com as posições inalteradas&lt;/p&gt;
 &lt;p&gt;"Bom, mas como comparar? Não entendi como essas regras se aplicam"&lt;/p&gt;
-&lt;h3&gt;~~deadline chegando~~ explicação curta&lt;/h3&gt;
+&lt;h3&gt;explicação curta (pois deadline chegando)&lt;/h3&gt;
 &lt;p&gt;O que você pode fazer é diminuir os dois valores entre si, e o resultado vai decidir se &lt;code&gt;a&lt;/code&gt; ou &lt;code&gt;b&lt;/code&gt; avança, recua, ou ambos permanecem nas posições atuais.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 
@@ -39,7 +39,7 @@ Depois de uma conversinha com &lt;a href="https://twitter.com/ericleribertson"&g
 
 &lt;p&gt;O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o &lt;code&gt;a - b&lt;/code&gt; que faz o array ser ordenado de forma &lt;em&gt;crescente&lt;/em&gt;. O contrário, &lt;code&gt;b - a&lt;/code&gt; o ordena de forma &lt;em&gt;decrescente&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="wow" src="http://i.giphy.com/vLq5FWMjfN47S.gif" /&gt;&lt;/p&gt;
-&lt;h3&gt;aprofundando a explicação ~~para nerds~~&lt;/h3&gt;
+&lt;h3&gt;aprofundando a explicação (para nerds)&lt;/h3&gt;
 &lt;p&gt;O que acontece é que o &lt;code&gt;sort()&lt;/code&gt; pega o array original, compara dois valores e os &lt;em&gt;muda de posição de acordo com essa comparação&lt;/em&gt;, logo em seguida ele pega novamente dois valores e os compara pra &lt;em&gt;rearranjá-los de novo&lt;/em&gt;, e faz isso até que todo o array esteja ordenado.&lt;/p&gt;
 &lt;p&gt;Pegando o primeiro exemplo, onde usamos &lt;code&gt;a - b&lt;/code&gt;, a ordenação acontece da seguinte forma: se o primeiro elemento comparado, no caso &lt;code&gt;a&lt;/code&gt;, for maior que &lt;code&gt;b&lt;/code&gt;, a subtração &lt;code&gt;a - b&lt;/code&gt; resulta em um valor maior que zero, então &lt;code&gt;a&lt;/code&gt; é posicionado depois de &lt;code&gt;b&lt;/code&gt; (de acordo com as regras). Essa mesma lógica aplicada repetidamente no array, que está sendo modificado, faz que com que os valores maiores sejam posicionados mais ao fim do array, ou seja, faz a ordenação em ordem crescente!&lt;/p&gt;
 &lt;p&gt;A mesma lógica se aplica para ordenação decrescente, &lt;code&gt;b - a&lt;/code&gt;, só que agora com os valores trocados de lugar faz com que a ordenação seja ao contrário da anterior :). Se você ficou confuso ou quer ver isso passo-a-passo, você pode visualizar os valores de &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; mudando:&lt;/p&gt;

@@ -119,7 +119,7 @@ Depois de uma conversinha com <a href="https://twitter.com/ericleribertson">Patr
 - a comparação seja maior que zero, <code>a</code> é posicionado depois de <code>b</code>
 - a comparação seja igual a zero, <code>a</code> e <code>b</code> permancem com as posições inalteradas</p>
 <p>"Bom, mas como comparar? Não entendi como essas regras se aplicam"</p>
-<h3>~~deadline chegando~~ explicação curta</h3>
+<h3>explicação curta (pois deadline chegando)</h3>
 <p>O que você pode fazer é diminuir os dois valores entre si, e o resultado vai decidir se <code>a</code> ou <code>b</code> avança, recua, ou ambos permanecem nas posições atuais.</p>
 <div class="highlight"><pre><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
 
@@ -135,7 +135,7 @@ Depois de uma conversinha com <a href="https://twitter.com/ericleribertson">Patr
 
 <p>O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o <code>a - b</code> que faz o array ser ordenado de forma <em>crescente</em>. O contrário, <code>b - a</code> o ordena de forma <em>decrescente</em>.</p>
 <p><img alt="wow" src="http://i.giphy.com/vLq5FWMjfN47S.gif" /></p>
-<h3>aprofundando a explicação ~~para nerds~~</h3>
+<h3>aprofundando a explicação (para nerds)</h3>
 <p>O que acontece é que o <code>sort()</code> pega o array original, compara dois valores e os <em>muda de posição de acordo com essa comparação</em>, logo em seguida ele pega novamente dois valores e os compara pra <em>rearranjá-los de novo</em>, e faz isso até que todo o array esteja ordenado.</p>
 <p>Pegando o primeiro exemplo, onde usamos <code>a - b</code>, a ordenação acontece da seguinte forma: se o primeiro elemento comparado, no caso <code>a</code>, for maior que <code>b</code>, a subtração <code>a - b</code> resulta em um valor maior que zero, então <code>a</code> é posicionado depois de <code>b</code> (de acordo com as regras). Essa mesma lógica aplicada repetidamente no array, que está sendo modificado, faz que com que os valores maiores sejam posicionados mais ao fim do array, ou seja, faz a ordenação em ordem crescente!</p>
 <p>A mesma lógica se aplica para ordenação decrescente, <code>b - a</code>, só que agora com os valores trocados de lugar faz com que a ordenação seja ao contrário da anterior :). Se você ficou confuso ou quer ver isso passo-a-passo, você pode visualizar os valores de <code>a</code> e <code>b</code> mudando:</p>
