@@ -111,13 +111,21 @@ Depois de uma conversinha com <a href="https://twitter.com/ericleribertson">Patr
 <p>De acordo com a implementação da <a href="http://unicode.org/charts/">tabela Unicode</a>, <a href="http://unicode.org/charts/PDF/U0000.pdf">é possível perceber, pelo menos no nosso subset</a>, que a ordem é: alguns símbolos, números, letras maiúsculas, letras minúsculas, mais alguns outros símbolos. O que quer dizer que deverão também obedecer a essa ordem, ou seja, "a" antes do "b", "ab" depois do "a" e antes de "b", "a0" entre "a" e "ab", "Ab" antes de "a", e por aí vai.</p>
 <h2>"mas como eu ordeno números pelo valor"?</h2>
 <p>Mas voltando ao nosso problema inicial, o objetivo era ordenar os números pelo seu valor, não pelo ~código Unicode, certo?</p>
-<p>Bom, pra isso o JavaScript aceita um parâmetro opcional no método <code>sort</code>: uma função que determina como seriam as regras da ordenação. Essa função recebe dois argumentos, por convenção chamados de <em>a</em> e <em>b</em>, que representam dois itens do array que estão sendo comparados.</p>
+<p>Bom, pra isso o JavaScript aceita um parâmetro opcional no método <code>sort</code>: uma função que determina como seriam as regras da ordenação. Essa função recebe dois argumentos, por convenção chamados de <strong>a</strong> e <strong>b</strong>, que representam dois itens do array que estão sendo comparados.</p>
 <p><img alt="hm" src="https://media.giphy.com/media/sBl8Fowq0ErFC/giphy.gif" /></p>
 <p>A vantagem disso é que, na função, você tem controle de qual critério da ordenação utilizar, de acordo com algumas regras.</p>
-<p>Funciona assim: são comparados <code>a</code> e <code>b</code>, e caso:
-- a comparação seja menor que zero, <code>a</code> é posicionado antes de <code>b</code>
-- a comparação seja maior que zero, <code>a</code> é posicionado depois de <code>b</code>
-- a comparação seja igual a zero, <code>a</code> e <code>b</code> permancem com as posições inalteradas</p>
+<p>Funciona assim: são comparados <code>a</code> e <code>b</code>, e caso:</p>
+<ul>
+<li>
+<p>a comparação seja menor que zero, <code>a</code> é posicionado antes de <code>b</code></p>
+</li>
+<li>
+<p>a comparação seja maior que zero, <code>a</code> é posicionado depois de <code>b</code></p>
+</li>
+<li>
+<p>a comparação seja igual a zero, <code>a</code> e <code>b</code> permancem com as posições inalteradas</p>
+</li>
+</ul>
 <p>"Bom, mas como comparar? Não entendi como essas regras se aplicam"</p>
 <h3>explicação curta (pois deadline chegando)</h3>
 <p>O que você pode fazer é diminuir os dois valores entre si, e o resultado vai decidir se <code>a</code> ou <code>b</code> avança, recua, ou ambos permanecem nas posições atuais.</p>
@@ -133,10 +141,10 @@ Depois de uma conversinha com <a href="https://twitter.com/ericleribertson">Patr
 </pre></div>
 
 
-<p>O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o <code>a - b</code> que faz o array ser ordenado de forma <em>crescente</em>. O contrário, <code>b - a</code> o ordena de forma <em>decrescente</em>.</p>
+<p>O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o <code>a - b</code> que faz o array ser ordenado de forma <strong>crescente</strong>. O contrário, <code>b - a</code> o ordena de forma <strong>decrescente</strong>.</p>
 <p><img alt="wow" src="http://i.giphy.com/vLq5FWMjfN47S.gif" /></p>
 <h3>aprofundando a explicação (para nerds)</h3>
-<p>O que acontece é que o <code>sort()</code> pega o array original, compara dois valores e os <em>muda de posição de acordo com essa comparação</em>, logo em seguida ele pega novamente dois valores e os compara pra <em>rearranjá-los de novo</em>, e faz isso até que todo o array esteja ordenado.</p>
+<p>O que acontece é que o <code>sort()</code> pega o array original, compara dois valores e os <strong>muda de posição de acordo com essa comparação</strong>, logo em seguida ele pega novamente dois valores e os compara pra <strong>rearranjá-los de novo</strong>, e faz isso até que todo o array esteja ordenado.</p>
 <p>Pegando o primeiro exemplo, onde usamos <code>a - b</code>, a ordenação acontece da seguinte forma: se o primeiro elemento comparado, no caso <code>a</code>, for maior que <code>b</code>, a subtração <code>a - b</code> resulta em um valor maior que zero, então <code>a</code> é posicionado depois de <code>b</code> (de acordo com as regras). Essa mesma lógica aplicada repetidamente no array, que está sendo modificado, faz que com que os valores maiores sejam posicionados mais ao fim do array, ou seja, faz a ordenação em ordem crescente!</p>
 <p>A mesma lógica se aplica para ordenação decrescente, <code>b - a</code>, só que agora com os valores trocados de lugar faz com que a ordenação seja ao contrário da anterior :). Se você ficou confuso ou quer ver isso passo-a-passo, você pode visualizar os valores de <code>a</code> e <code>b</code> mudando:</p>
 <div class="highlight"><pre><span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
@@ -181,7 +189,7 @@ Depois de uma conversinha com <a href="https://twitter.com/ericleribertson">Patr
 
 <p>e TCHARAM: ordenados em ordem crescente pelo ano</p>
 <p><img alt="awesome" src="https://media.giphy.com/media/aLdiZJmmx4OVW/giphy.gif" /></p>
-<p><em>Pro-tip</em>: fique atento com a utilização do método <code>sort</code> pois ele altera o array original. Se você está aplicando uma abordagem funcional, pode não ser interessante utilizá-lo em escopos mais externos.</p>
+<p><strong>Pro-tip</strong>: fique atento com a utilização do método <code>sort</code> pois ele altera o array original. Se você está aplicando uma abordagem funcional, pode não ser interessante utilizá-lo em escopos mais externos.</p>
 <p>Espero que esse artigo tenha sido útil, e não deixem de olhar o que tem na <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">MDN</a>, por exemplo, caso algo não tenha ficado claro. OU é só gritar aqui embaixo que a gente responde ;)</p>
 <p>Sempre disponível praquele feedback maroto de vocês. Até logo!</p>
             <div class="hr"></div>

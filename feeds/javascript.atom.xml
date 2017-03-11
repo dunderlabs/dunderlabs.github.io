@@ -15,13 +15,21 @@ Depois de uma conversinha com &lt;a href="https://twitter.com/ericleribertson"&g
 &lt;p&gt;De acordo com a implementação da &lt;a href="http://unicode.org/charts/"&gt;tabela Unicode&lt;/a&gt;, &lt;a href="http://unicode.org/charts/PDF/U0000.pdf"&gt;é possível perceber, pelo menos no nosso subset&lt;/a&gt;, que a ordem é: alguns símbolos, números, letras maiúsculas, letras minúsculas, mais alguns outros símbolos. O que quer dizer que deverão também obedecer a essa ordem, ou seja, "a" antes do "b", "ab" depois do "a" e antes de "b", "a0" entre "a" e "ab", "Ab" antes de "a", e por aí vai.&lt;/p&gt;
 &lt;h2&gt;"mas como eu ordeno números pelo valor"?&lt;/h2&gt;
 &lt;p&gt;Mas voltando ao nosso problema inicial, o objetivo era ordenar os números pelo seu valor, não pelo ~código Unicode, certo?&lt;/p&gt;
-&lt;p&gt;Bom, pra isso o JavaScript aceita um parâmetro opcional no método &lt;code&gt;sort&lt;/code&gt;: uma função que determina como seriam as regras da ordenação. Essa função recebe dois argumentos, por convenção chamados de &lt;em&gt;a&lt;/em&gt; e &lt;em&gt;b&lt;/em&gt;, que representam dois itens do array que estão sendo comparados.&lt;/p&gt;
+&lt;p&gt;Bom, pra isso o JavaScript aceita um parâmetro opcional no método &lt;code&gt;sort&lt;/code&gt;: uma função que determina como seriam as regras da ordenação. Essa função recebe dois argumentos, por convenção chamados de &lt;strong&gt;a&lt;/strong&gt; e &lt;strong&gt;b&lt;/strong&gt;, que representam dois itens do array que estão sendo comparados.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="hm" src="https://media.giphy.com/media/sBl8Fowq0ErFC/giphy.gif" /&gt;&lt;/p&gt;
 &lt;p&gt;A vantagem disso é que, na função, você tem controle de qual critério da ordenação utilizar, de acordo com algumas regras.&lt;/p&gt;
-&lt;p&gt;Funciona assim: são comparados &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt;, e caso:
-- a comparação seja menor que zero, &lt;code&gt;a&lt;/code&gt; é posicionado antes de &lt;code&gt;b&lt;/code&gt;
-- a comparação seja maior que zero, &lt;code&gt;a&lt;/code&gt; é posicionado depois de &lt;code&gt;b&lt;/code&gt;
-- a comparação seja igual a zero, &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; permancem com as posições inalteradas&lt;/p&gt;
+&lt;p&gt;Funciona assim: são comparados &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt;, e caso:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;a comparação seja menor que zero, &lt;code&gt;a&lt;/code&gt; é posicionado antes de &lt;code&gt;b&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;a comparação seja maior que zero, &lt;code&gt;a&lt;/code&gt; é posicionado depois de &lt;code&gt;b&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;a comparação seja igual a zero, &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; permancem com as posições inalteradas&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;"Bom, mas como comparar? Não entendi como essas regras se aplicam"&lt;/p&gt;
 &lt;h3&gt;explicação curta (pois deadline chegando)&lt;/h3&gt;
 &lt;p&gt;O que você pode fazer é diminuir os dois valores entre si, e o resultado vai decidir se &lt;code&gt;a&lt;/code&gt; ou &lt;code&gt;b&lt;/code&gt; avança, recua, ou ambos permanecem nas posições atuais.&lt;/p&gt;
@@ -37,10 +45,10 @@ Depois de uma conversinha com &lt;a href="https://twitter.com/ericleribertson"&g
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o &lt;code&gt;a - b&lt;/code&gt; que faz o array ser ordenado de forma &lt;em&gt;crescente&lt;/em&gt;. O contrário, &lt;code&gt;b - a&lt;/code&gt; o ordena de forma &lt;em&gt;decrescente&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;O código acima define um array, o ordena, e o mostra modificado. A parte-chave desse código é o &lt;code&gt;a - b&lt;/code&gt; que faz o array ser ordenado de forma &lt;strong&gt;crescente&lt;/strong&gt;. O contrário, &lt;code&gt;b - a&lt;/code&gt; o ordena de forma &lt;strong&gt;decrescente&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="wow" src="http://i.giphy.com/vLq5FWMjfN47S.gif" /&gt;&lt;/p&gt;
 &lt;h3&gt;aprofundando a explicação (para nerds)&lt;/h3&gt;
-&lt;p&gt;O que acontece é que o &lt;code&gt;sort()&lt;/code&gt; pega o array original, compara dois valores e os &lt;em&gt;muda de posição de acordo com essa comparação&lt;/em&gt;, logo em seguida ele pega novamente dois valores e os compara pra &lt;em&gt;rearranjá-los de novo&lt;/em&gt;, e faz isso até que todo o array esteja ordenado.&lt;/p&gt;
+&lt;p&gt;O que acontece é que o &lt;code&gt;sort()&lt;/code&gt; pega o array original, compara dois valores e os &lt;strong&gt;muda de posição de acordo com essa comparação&lt;/strong&gt;, logo em seguida ele pega novamente dois valores e os compara pra &lt;strong&gt;rearranjá-los de novo&lt;/strong&gt;, e faz isso até que todo o array esteja ordenado.&lt;/p&gt;
 &lt;p&gt;Pegando o primeiro exemplo, onde usamos &lt;code&gt;a - b&lt;/code&gt;, a ordenação acontece da seguinte forma: se o primeiro elemento comparado, no caso &lt;code&gt;a&lt;/code&gt;, for maior que &lt;code&gt;b&lt;/code&gt;, a subtração &lt;code&gt;a - b&lt;/code&gt; resulta em um valor maior que zero, então &lt;code&gt;a&lt;/code&gt; é posicionado depois de &lt;code&gt;b&lt;/code&gt; (de acordo com as regras). Essa mesma lógica aplicada repetidamente no array, que está sendo modificado, faz que com que os valores maiores sejam posicionados mais ao fim do array, ou seja, faz a ordenação em ordem crescente!&lt;/p&gt;
 &lt;p&gt;A mesma lógica se aplica para ordenação decrescente, &lt;code&gt;b - a&lt;/code&gt;, só que agora com os valores trocados de lugar faz com que a ordenação seja ao contrário da anterior :). Se você ficou confuso ou quer ver isso passo-a-passo, você pode visualizar os valores de &lt;code&gt;a&lt;/code&gt; e &lt;code&gt;b&lt;/code&gt; mudando:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -85,7 +93,7 @@ Depois de uma conversinha com &lt;a href="https://twitter.com/ericleribertson"&g
 
 &lt;p&gt;e TCHARAM: ordenados em ordem crescente pelo ano&lt;/p&gt;
 &lt;p&gt;&lt;img alt="awesome" src="https://media.giphy.com/media/aLdiZJmmx4OVW/giphy.gif" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Pro-tip&lt;/em&gt;: fique atento com a utilização do método &lt;code&gt;sort&lt;/code&gt; pois ele altera o array original. Se você está aplicando uma abordagem funcional, pode não ser interessante utilizá-lo em escopos mais externos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pro-tip&lt;/strong&gt;: fique atento com a utilização do método &lt;code&gt;sort&lt;/code&gt; pois ele altera o array original. Se você está aplicando uma abordagem funcional, pode não ser interessante utilizá-lo em escopos mais externos.&lt;/p&gt;
 &lt;p&gt;Espero que esse artigo tenha sido útil, e não deixem de olhar o que tem na &lt;a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"&gt;MDN&lt;/a&gt;, por exemplo, caso algo não tenha ficado claro. OU é só gritar aqui embaixo que a gente responde ;)&lt;/p&gt;
 &lt;p&gt;Sempre disponível praquele feedback maroto de vocês. Até logo!&lt;/p&gt;</summary><category term="javascript"></category><category term="array"></category><category term="sort"></category><category term="number"></category><category term="ordering"></category></entry><entry><title>this or: How I Learned to Stop Worrying and Love JavaScript</title><link href="https://dunderlabs.github.io/this-or-how-i-learned-to-stop-worrying-and-love-javascript.html" rel="alternate"></link><updated>2017-03-03T15:00:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-03-03:this-or-how-i-learned-to-stop-worrying-and-love-javascript.html</id><summary type="html">&lt;p&gt;Vou tentar fazer uma rápida porém merecida explicação sobre o uso do &lt;code&gt;this&lt;/code&gt; na execução de funções, tópico que tira a paciência de muita gente que tá começando na linguagem ou vem ~viciado de libs e frameworks.
 Os exemplos aqui são executados no browser, mas podem ser executados no Node sem problema algum, mudando só o objeto &lt;code&gt;window&lt;/code&gt; para &lt;code&gt;global&lt;/code&gt;.&lt;/p&gt;
