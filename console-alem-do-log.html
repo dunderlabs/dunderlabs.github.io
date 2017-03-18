@@ -14,7 +14,7 @@
 
     <!-- OpenGraph -->
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="console dos browsers além do `.log`"/>
+    <meta property="og:title" content="console dos browsers além do .log"/>
     <meta property="og:url" content="https://dunderlabs.github.io/console-alem-do-log.html"/>
     <meta property="og:site_name" content="__labs__"/>
     <meta property="og:description" content="Entenda alguns dos métodos do objeto console"/>
@@ -25,7 +25,7 @@
     <meta name="twitter:site" content="@dunderlabs"/>
     <meta name="twitter:creator" content="@niltoncsr"/>
     <meta name="twitter:domain" content="dunderlabs.github.io"/>
-    <meta name="twitter:title" content="console dos browsers além do `.log`"/>
+    <meta name="twitter:title" content="console dos browsers além do .log"/>
     <meta name="twitter:description" content="Entenda alguns dos métodos do objeto console"/>
     <meta name="twitter:image:src" content="https://dunderlabs.github.io{filename}/console-alem-do-log/post-cover.png"/>
 
@@ -36,7 +36,7 @@
     <meta property="article:published_time" content="2017-03-18T19:52:00-03:00"/>
 
     <!-- Google+ -->
-    <meta itemprop="name" content="console dos browsers além do `.log`"/>
+    <meta itemprop="name" content="console dos browsers além do .log"/>
     <meta itemprop="description" content="Entenda alguns dos métodos do objeto console"/>
     <meta itemprop="image" content="https://dunderlabs.github.io{filename}/console-alem-do-log/post-cover.png"/>
 
@@ -48,7 +48,7 @@
         <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
     <!-- END FEED STUFFS  -->
 
-        <title>console dos browsers além do `.log` // __labs__</title>
+        <title>console dos browsers além do .log // __labs__</title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -85,7 +85,7 @@
         <div class="content">
             <section class="post">
                 <header class="post-header">
-                    <h1>console dos browsers além do `.log`</h1>
+                    <h1>console dos browsers além do .log</h1>
                         <p class="post-meta">
                             // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/javascript.html">javascript</a>
                                 <a class="post-category" href="https://dunderlabs.github.io/tag/console.html">console</a>
@@ -95,7 +95,7 @@
                         </p>
                 </header>
             </section>
-            <p><img alt="Console e seus métodos" src="{filename}/console-alem-do-log/post-cover.png" /></p>
+            <p><img alt="Console e seus métodos" src="https://dunderlabs.github.io/images/posts/console-alem-do-log/post-cover.png" /></p>
 <p>E aí, meus queridos devs, tudo joia com vocês? ;D</p>
 <p>Vou falar de uma das ferramentas mais poderosas pra quem trabalha com JavaScript e no entanto pouco utilizada: o <code>console</code>. A <a href="https://console.spec.whatwg.org">especificação</a> ainda não é consistente entre os maiores browsers do mercado. Todos os exemplos aqui foram testados no Chrome 57.</p>
 <p>Bem, calma. <code>console</code> na verdade é um objeto JavaScript que tem uma série de métodos, incluindo o mais famoso (e acho que mais usado), <code>.log</code>. Quem nunca usou um <code>console.log('enter the function')</code> ou até <code>console.log('dados recebidos:', data)</code> pra verificar o que ia acontecendo no código? É bastante útil durante o desenvolvimento porque te dá um feedback rápido do que tá acontecendo direto ali, sem precisar de muito esforço pra entender o que tá acontecendo. Disclaimer: <em>não estou dizendo dizendo que isso deve substituir suas rotinas de testes, ou deixar de debugar quando necessário, ou até mesmo deixar de lado seu TDD ou BDD</em>. <strong>Nada disso</strong>.</p>
@@ -150,7 +150,7 @@
 <p><img alt="Alguns métodos aplicados" src="https://dunderlabs.github.io/images/posts/console-alem-do-log/all-together.png" /></p>
 <hr />
 <p>Ainda tem muito a ser explorado, como o <code>.dir()</code> que é útil para visualizar hierarquicamente grandes quantidades de dados (vida capa do post), trabalhar com grupos através dos métodos <code>group</code>, <code>groupCollapsed</code> e <code>groupEnd</code>, fazer marcações em Timeline, inicar um Profiler... muita coisa legal na <a href="https://developer.mozilla.org/en-US/docs/Web/API/Console">MDN</a> pra gente brincar ;D</p>
-<p>Queria deixar duas referências sensacionais, ambas do <a href="https://twitter.com/fdaciuk">Fernando Daciuk</a>: uma é sobre <a href="http://blog.da2k.com.br/2015/01/10/debugar-javascript-no-browser">como debugar JavaScript no browser</a> e a outra é sobre <a href="http://blog.da2k.com.br/2015/01/08/javascript-medindo-o-tempo-de-suas-instrucoes/">como usar o <code>.time()</code> para medir suas isntruções</a> que falei aqui :)</p>
+<p>Queria deixar duas referências sensacionais, ambas do <a href="https://twitter.com/fdaciuk">Fernando Daciuk</a>: uma é sobre <a href="http://blog.da2k.com.br/2015/01/10/debugar-javascript-no-browser">como debugar JavaScript no browser</a> e a outra é sobre <a href="http://blog.da2k.com.br/2015/01/08/javascript-medindo-o-tempo-de-suas-instrucoes/">como usar o <code>.time()</code> para medir suas instruções</a> que falei aqui :)</p>
 <p><strong>Atenção</strong>: esses métodos devem ser usados para fornecer feedback ao desenvolvedor, ou seja, se você estiver construindo uma API é interessante em alguns casos você o use. Caso o seu código vá pra produção e não interesse ao usuário essas mensagens, você deve removê-los do código. Recomendo utilizar o ESLint, que entre outras regras de avaliação do seu código, já tem uma <a href="http://blog.da2k.com.br/2015/01/08/javascript-medindo-o-tempo-de-suas-instrucoes/">regra específica</a> que retira todas as chamadas de <code>console</code> ;)</p>
 <p>Se faltou alguma coisa e vocês quiserem adicionar mais informações, ou deixar dúvidas, ou trocar alguma ideia sobre isso, o comentário é livre. Sinta-se à vontade, e vamos trocar uma ideia :DD</p>
             <div class="hr"></div>
