@@ -5,6 +5,7 @@ slug: entendendo-ordenacao-de-arrays-em-javascript-sort-of
 category: javascript
 tags: javascript, array, sort, number, ordering
 summary: Ordenar valores em JavaScript pode parecer estranho mas é uma funcionalidade bastante poderosa.
+image: /images/posts/entendendo-ordenacao-de-arrays-em-javascript-sort-of/post-cover.png
 email: niltoncms@gmail.com
 
 E aí, meus queridos devs, tudo ok com vocês? :D
