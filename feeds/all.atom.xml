@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-03-18T19:52:00-03:00</updated><entry><title>console dos browsers além do .log</title><link href="https://dunderlabs.github.io/console-alem-do-log.html" rel="alternate"></link><updated>2017-03-18T19:52:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-03-18:console-alem-do-log.html</id><summary type="html">&lt;p&gt;&lt;img alt="Console e seus métodos" src="https://dunderlabs.github.io/images/posts/console-alem-do-log/post-cover.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-04-04T02:15:00-03:00</updated><entry><title>Map e Set: objetos que você deve conhecer em JavaScript</title><link href="https://dunderlabs.github.io/map-e-set-objetos-que-voce-deve-conhecer-em-javascript.html" rel="alternate"></link><updated>2017-04-04T02:15:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-04-04:map-e-set-objetos-que-voce-deve-conhecer-em-javascript.html</id><summary type="html">&lt;p&gt;Olá, dev amados!!!
+Gostaria de abordar aqui alguns objetos desconhecidos pela maioria dos desenvolvedores JavaScript, mas que podem ser bastante úteis.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Mas porquê usá-los?!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Você não é obrigado a usá-los. Na verdade, os objetos mencionados são parecidos com objetos já conhecidos como &lt;code&gt;Object&lt;/code&gt; e &lt;code&gt;Array&lt;/code&gt;, porém de certa forma &lt;em&gt;melhorados&lt;/em&gt;. Cabe somente a você, desenvolvedor, decidir quando/se será sábio usá-los e onde.&lt;/p&gt;
+&lt;h2&gt;Map&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Map&lt;/code&gt; é muito semelhante a &lt;code&gt;Object&lt;/code&gt;: uma coleção de pares chave-valor, sendo possível adicionar novos pares, acessar, modificar e deletá-los. Porém, com duas fundamentais diferenças:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;qualquer objeto pode ser uma chave&lt;/li&gt;
+&lt;li&gt;um &lt;code&gt;Map&lt;/code&gt; guarda a ordem dos pares&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ok, talvez a primeira não seja tão interessante pois geralmente as chaves são usadas como referências para os valores, por isso são nomes ou números. Embora seja interessante pensar que é possível guardar, por exemplo, um &lt;code&gt;Array&lt;/code&gt; como chave para algum outro valor &lt;em&gt;because reasons&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Mas a segunda diferença, &lt;strong&gt;pra mim&lt;/strong&gt;, é a mais importante (leia-se aplicável, prática): ele guarda a ordem dos pares, ou seja, assim é possível por exemplo realizar um loop num &lt;code&gt;Map&lt;/code&gt; e confiar que a ordem da iteração será igual ao objeto internamente! O que não acontece com &lt;code&gt;Object&lt;/code&gt;, onde geralmente você percorreria cada propriedade do próprio objeto e armazenaria num novo &lt;code&gt;Array&lt;/code&gt;, ou algo do tipo dependendo do que deseja.&lt;/p&gt;
+&lt;p&gt;A forma de manipulação muda bastante também. Por exemplo, não é possível adicionar ou definir novos pares com a notação &lt;code&gt;.key = value&lt;/code&gt;/&lt;code&gt;[key] = value&lt;/code&gt;, e pegar novos valores só chamando &lt;code&gt;.key&lt;/code&gt;/&lt;code&gt;[key]&lt;/code&gt;, ao invés disso deve-se usar os métodos &lt;code&gt;.set&lt;/code&gt; e &lt;code&gt;.get&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Aqui criamos um objeto &lt;code&gt;Map&lt;/code&gt; através do construtor &lt;code&gt;new&lt;/code&gt;, setamos duas propriedades e mostramos o objeto recém-criado:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Novo Map criado" src="https://dunderlabs.github.io/images/posts/map-e-set-objetos-que-voce-deve-conhecer-em-javascript/new-map.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Por ter a ordem de inserção preservada, poderíamos percorrê-lo por alguma das estruturas &lt;code&gt;for&lt;/code&gt;, mas os objeto &lt;code&gt;Map&lt;/code&gt; já tem o método &lt;code&gt;forEach&lt;/code&gt;, com funcionamento quase igual aos objetos &lt;code&gt;Array&lt;/code&gt;: recebe uma função (&lt;em&gt;callback&lt;/em&gt;) que recebe dois argumentos, o primeiro sendo o valor da propriedade e o segundo o nome da propriedade (ordem inversa ao callback de &lt;code&gt;Array&lt;/code&gt;s):&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Método de iteração forEach em um objeto Map" src="https://dunderlabs.github.io/images/posts/map-e-set-objetos-que-voce-deve-conhecer-em-javascript/new-map.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Outras diferençãs legais são o método &lt;code&gt;has&lt;/code&gt; e a propriedade &lt;code&gt;size&lt;/code&gt;! Quem já teve que contar quantas propriedades um &lt;code&gt;Object&lt;/code&gt; tem, sabe como é penoso ter que fazer um loop no objeto, filtrar as propriedades usando &lt;code&gt;.hasOwnProperty()&lt;/code&gt; e adicionar à um contador, ou usar &lt;code&gt;Object.keys(obj).length&lt;/code&gt; pra quem usa ES6. Com o &lt;code&gt;Map&lt;/code&gt; você só tem que acessar a propriedade &lt;code&gt;size&lt;/code&gt; e TAH-DAH, é retornado o tamanho dele ;)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;obj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;objSize&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// ES5 approach&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;prop&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hasOwnProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;prop&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="nx"&gt;objSize&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;objSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// ES6 way&lt;/span&gt;
+&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;Object&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;keys&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;length&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Getting Map&amp;#39;s size&lt;/span&gt;
+&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Quando utilizá-los?&lt;/h3&gt;
+&lt;p&gt;Na MDN tem uma &lt;a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Map#Objetos_e_mapas_comparados"&gt;excelente lista&lt;/a&gt; de como identificar quando utilizar &lt;code&gt;Map&lt;/code&gt; ao invés de &lt;code&gt;Object&lt;/code&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;As keys são desconhecidas até o tempo de execução, você precisa procurá-las dinamicamente?&lt;/li&gt;
+&lt;li&gt;Todos os valores sempre serão do mesmo tipo, e podem ser usados de forma intercambiável?&lt;/li&gt;
+&lt;li&gt;Você precisa de keys que não são strings?&lt;/li&gt;
+&lt;li&gt;Os pares key-value são adicionados ou removidos frequentemente?&lt;/li&gt;
+&lt;li&gt;Você tem uma quantidade de pares key-value arbitrária (de troca fácil) ?
+A coleção é iterada?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href="https://jsperf.com/map-vs-object-as-hashes/2"&gt;Alguns&lt;/a&gt; &lt;a href="https://jsperf.com/es6-map-vs-object-properties/2"&gt;testes&lt;/a&gt; de performance apresentam diferenças entre as diversas formas de percorrer &lt;code&gt;Map&lt;/code&gt;s e &lt;code&gt;Object&lt;/code&gt;s. Então, be wise ao usá-los.&lt;/p&gt;
+&lt;h2&gt;Set&lt;/h2&gt;
+&lt;p&gt;Outro objeto bastante interessante é o &lt;code&gt;Set&lt;/code&gt;, muito parecido com o nosso velho conhecido &lt;code&gt;Array&lt;/code&gt;. Se &lt;code&gt;Map&lt;/code&gt; está para &lt;code&gt;Object&lt;/code&gt;, &lt;code&gt;Set&lt;/code&gt; está para &lt;code&gt;Array&lt;/code&gt; :D&lt;/p&gt;
+&lt;p&gt;A principal diferença conceitual entre objetos do tipo &lt;code&gt;Set&lt;/code&gt; e arrays é que &lt;code&gt;Set&lt;/code&gt; não aceita valores repetidos, ou seja, guarda &lt;strong&gt;somente somente valores únicos&lt;/strong&gt;. Isso pode oferecer mais segurança no código.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Set&lt;/code&gt; tem métodos de manipulação parecidos com &lt;code&gt;Map&lt;/code&gt;: &lt;code&gt;add()&lt;/code&gt; para adicionar novos itens, &lt;code&gt;delete()&lt;/code&gt; para retirar o item (através do item, não do índice), &lt;code&gt;has()&lt;/code&gt; pra verificar se o item existe, &lt;code&gt;forEach()&lt;/code&gt; pra percorrê-lo, e &lt;a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Set"&gt;muitos outros&lt;/a&gt;. A propriedade &lt;code&gt;size&lt;/code&gt; também está presente retornando o tamanho.&lt;/p&gt;
+&lt;p&gt;É possível também facilmente criar um &lt;code&gt;Set&lt;/code&gt; a partir de um Array passando ele dentro do construtor com &lt;code&gt;new&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Set sendo criado a partir de um Array" src="https://dunderlabs.github.io/images/posts/map-e-set-objetos-que-voce-deve-conhecer-em-javascript/new-set.png" /&gt;&lt;/p&gt;
+&lt;p&gt;O interessante desse exemplo é como ele trata os valores repetidos: ele simplesmente pula as repetições e as desconsidera ;)&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;O interessante desses dois tipos de objetos é que eles são como &lt;code&gt;Object&lt;/code&gt; e &lt;code&gt;Array&lt;/code&gt; porém ~ tunados ~ permitindo que se faça muita coisa facilmente, sem precisar brigar com a linguagem pra conseguir resolver o seu problema :D&lt;/p&gt;
+&lt;p&gt;Só fique atento com a compatibilidade! Eles vieram junto com o ES6, e caso você não esteja usando algum polyfill como o &lt;a href="https://babeljs.io/learn-es2015/#ecmascript-2015-features-map-set-weak-map-weak-set"&gt;Babel&lt;/a&gt; &lt;code&gt;babel-polyfill&lt;/code&gt; tem que verificar se os ambientes onde esse código vai rodar os suportam.&lt;/p&gt;
+&lt;p&gt;Recomendo também conhecer os objetos "irmãos" desses, o &lt;code&gt;WeakMap&lt;/code&gt; e o &lt;code&gt;WeakSet&lt;/code&gt;, que são chamados &lt;em&gt;fracos&lt;/em&gt; porque seus objetos internos podem ser coletados caso o &lt;em&gt;garbage collector&lt;/em&gt; da &lt;em&gt;engine&lt;/em&gt; decida que suas referências devem ser removidas. Talvez por isso eles não tenham tanto valor prático se você não estiver construindo uma grande aplicação ou digamos uma biblioteca, ou algo que exija bastante otimização de performance.&lt;/p&gt;
+&lt;p&gt;Você já conhecia esses objetos? Já o utlizou alguma vez? Se não, acredita que irá usar num próximo projeto? A melhor parte de escrever, além de aprender bastante pra poder explicar, é o feedback e o contato com a comunidade. Adoraria ouvir algo de vocês &amp;lt;3&lt;/p&gt;
+&lt;p&gt;Brigado pela leitura :*&lt;/p&gt;</summary><category term="javascript"></category><category term="es6"></category><category term="map"></category><category term="set"></category><category term="object"></category><category term="array"></category></entry><entry><title>console dos browsers além do .log</title><link href="https://dunderlabs.github.io/console-alem-do-log.html" rel="alternate"></link><updated>2017-03-18T19:52:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-03-18:console-alem-do-log.html</id><summary type="html">&lt;p&gt;&lt;img alt="Console e seus métodos" src="https://dunderlabs.github.io/images/posts/console-alem-do-log/post-cover.png" /&gt;&lt;/p&gt;
 &lt;p&gt;E aí, meus queridos devs, tudo joia com vocês? ;D&lt;/p&gt;
 &lt;p&gt;Vou falar de uma das ferramentas mais poderosas pra quem trabalha com JavaScript e no entanto pouco utilizada: o &lt;code&gt;console&lt;/code&gt;. A &lt;a href="https://console.spec.whatwg.org"&gt;especificação&lt;/a&gt; ainda não é consistente entre os maiores browsers do mercado. Todos os exemplos aqui foram testados no Chrome 57.&lt;/p&gt;
 &lt;p&gt;Bem, calma. &lt;code&gt;console&lt;/code&gt; na verdade é um objeto JavaScript que tem uma série de métodos, incluindo o mais famoso (e acho que mais usado), &lt;code&gt;.log&lt;/code&gt;. Quem nunca usou um &lt;code&gt;console.log('enter the function')&lt;/code&gt; ou até &lt;code&gt;console.log('dados recebidos:', data)&lt;/code&gt; pra verificar o que ia acontecendo no código? É bastante útil durante o desenvolvimento porque te dá um feedback rápido do que tá acontecendo direto ali, sem precisar de muito esforço pra entender o que tá acontecendo. Disclaimer: &lt;em&gt;não estou dizendo dizendo que isso deve substituir suas rotinas de testes, ou deixar de debugar quando necessário, ou até mesmo deixar de lado seu TDD ou BDD&lt;/em&gt;. &lt;strong&gt;Nada disso&lt;/strong&gt;.&lt;/p&gt;
