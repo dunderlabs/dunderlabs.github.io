@@ -17,6 +17,10 @@ TIMEZONE = 'America/Fortaleza'
 
 DEFAULT_LANG = 'pt'
 
+DATE_FORMATS = {
+    'pt': '%d/%m/%Y',
+}
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
