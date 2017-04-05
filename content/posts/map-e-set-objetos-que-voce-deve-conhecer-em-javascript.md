@@ -37,7 +37,7 @@ Aqui criamos um objeto `Map` através do construtor `new`, setamos duas propried
 
 Por ter a ordem de inserção preservada, poderíamos percorrê-lo por alguma das estruturas `for`, mas os objeto `Map` já tem o método `forEach`, com funcionamento quase igual aos objetos `Array`: recebe uma função (*callback*) que recebe dois argumentos, o primeiro sendo o valor da propriedade e o segundo o nome da propriedade (ordem inversa ao callback de `Array`s):
 
-![Método de iteração forEach em um objeto Map]({filename}/images/posts/map-e-set-objetos-que-voce-deve-conhecer-em-javascript/new-map.png)
+![Método de iteração forEach em um objeto Map]({filename}/images/posts/map-e-set-objetos-que-voce-deve-conhecer-em-javascript/map-foreach.png)
 
 Outras diferençãs legais são o método `has` e a propriedade `size`! Quem já teve que contar quantas propriedades um `Object` tem, sabe como é penoso ter que fazer um loop no objeto, filtrar as propriedades usando `.hasOwnProperty()` e adicionar à um contador, ou usar `Object.keys(obj).length` pra quem usa ES6. Com o `Map` você só tem que acessar a propriedade `size` e TAH-DAH, é retornado o tamanho dele ;)
 
@@ -79,7 +79,7 @@ A coleção é iterada?
 
 Outro objeto bastante interessante é o `Set`, muito parecido com o nosso velho conhecido `Array`. Se `Map` está para `Object`, `Set` está para `Array` :D
 
-A principal diferença conceitual entre objetos do tipo `Set` e arrays é que `Set` não aceita valores repetidos, ou seja, guarda **somente somente valores únicos**. Isso pode oferecer mais segurança no código.
+A principal diferença conceitual entre objetos do tipo `Set` e arrays é que `Set` não aceita valores repetidos, ou seja, guarda **somente valores únicos**. Isso pode oferecer mais segurança no código.
 
 `Set` tem métodos de manipulação parecidos com `Map`: `add()` para adicionar novos itens, `delete()` para retirar o item (através do item, não do índice), `has()` pra verificar se o item existe, `forEach()` pra percorrê-lo, e [muitos outros](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Set). A propriedade `size` também está presente retornando o tamanho.
 
