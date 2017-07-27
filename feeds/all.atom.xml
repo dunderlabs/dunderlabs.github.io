@@ -1,5 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-04-04T02:15:00-03:00</updated><entry><title>Map e Set: objetos que você deve conhecer em JavaScript</title><link href="https://dunderlabs.github.io/map-e-set-objetos-que-voce-deve-conhecer-em-javascript.html" rel="alternate"></link><updated>2017-04-04T02:15:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-04-04:map-e-set-objetos-que-voce-deve-conhecer-em-javascript.html</id><summary type="html">&lt;p&gt;&lt;img alt="Dentro de um objeto Map" src="https://dunderlabs.github.io/images/posts/map-e-set-objetos-que-voce-deve-conhecer-em-javascript/post-cover.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-07-27T01:11:00-03:00</updated><entry><title>Django Boilerplate: A estrutura de projeto Django que tenho usado</title><link href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html" rel="alternate"></link><updated>2017-07-27T01:11:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-07-27:django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-boilerplate.png" /&gt;&lt;/p&gt;
+&lt;h1&gt;Django Boilerplate: A estrutura de projeto Django que tenho usado&lt;/h1&gt;
+&lt;p&gt;Fala pessoal, tudo beleza? Finalmente eu &lt;s&gt;criei vergonha na cara&lt;/s&gt; vou iniciar uma série de posts sobre Django. YAY!&lt;/p&gt;
+&lt;p&gt;Vou falar sobre alguns quesitos interessantes e que a galera lá do grupo &lt;a href="https://t.me/djangobrasil"&gt;Django Brasil&lt;/a&gt; no Telegram pediram. Inclusive fica aí a deixa pra você participar do grupo, caso ainda não conheça :)&lt;/p&gt;
+&lt;p&gt;Antes de tudo, achei interessante começar falando sobre a estrutura de projeto. Nós já conhecemos o bom e velho &lt;code&gt;django-admin.py startproject myproject&lt;/code&gt;, que vai nos gerar uma estrutura parecida com essa:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;.
+└── myproject
+    ├── manage.py
+    └── myproject
+        ├── __init__.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
+
+&lt;span class="m"&gt;2&lt;/span&gt; directories, &lt;span class="m"&gt;6&lt;/span&gt; files
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Depois de algum tempo, você começa a se aventurar em querer testar outras estruturas que possam melhorar a sua produtividade, modularidade, segurança e outros pontos do seu projeto. Um ótimo guia que você pode adquirir, é o livro &lt;a href="https://www.twoscoopspress.com/products/two-scoops-of-django-1-11"&gt;Two Scoops of Django&lt;/a&gt; que recentemente foi atualizado para a versão 1.11 (LTS) do Django. Outra maneira é pesquisar outras estruturas por aí. GitHub é uma ótima fonte, lá cê encontra &lt;strong&gt;várias&lt;/strong&gt; opções. Daí uma ótima ideia é: ver cada um, estudar seu esqueleto, a abordagem pretendida, e se ela se encaixa bem nas suas necessidades/requisitos. Feito isso, você pode:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Adotar um desses boilerplates&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pegar o que viu de melhor nos pesquisados e fazer o seu&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Há um tempo atrás, eu e 2 amigos trabalhávamos numa certa empresa. Num dado momento resolvemos mudar a maneira como iniciaríamos os novos projetos. Um desses caras havia feito uma estrutura diferente em um projeto pessoal. A partir daí, resolvemos ir lapidando até chegarmos no que tornou-se nossa estrutura "oficial". A estrutura final é aquela da imagem no início do post, e que repito aqui abaixo (save your scroll):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;.
+├── backend
+│   └── core
+│       └── migrations
+├── bin
+├── frontend
+│   ├── bower_components
+│   │   ├── jquery
+│   │   ├── semantic
+│   │   └── susy
+│   ├── scripts
+│   ├── styles
+│   └── templates
+│       └── core
+├── requirements
+└── settings
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Como vocês podem ver, separamos tudo em módulos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;backend&lt;ul&gt;
+&lt;li&gt;Irá conter tudo diretamente relacionado ao backend, e com isso teremos: os módulos das apps, bem como o arquivo &lt;code&gt;urls.py&lt;/code&gt; principal e o &lt;code&gt;wsgi.py&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;frontend&lt;ul&gt;
+&lt;li&gt;Tudo relacionado ao frontend estará neste diretório, ou seja, isso inclui os arquivos de template e os arquivos estáticos.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;requirements&lt;ul&gt;
+&lt;li&gt;Estaremos utilizando o &lt;a href="https://github.com/jazzband/pip-tools"&gt;pip-tools&lt;/a&gt; que é uma ferramenta sensacional para ajudar a manter as versões dos seus pacotes sempre atualizadas e pinadas. Aqui você pode ler um &lt;a href="http://jamescooke.info/a-successful-pip-tools-workflow-for-managing-python-package-requirements.html"&gt;post sobre ele&lt;/a&gt; (EN). Então dentro desse diretório você vai encontrar os arquivos &lt;code&gt;.ini&lt;/code&gt; e &lt;code&gt;.txt&lt;/code&gt; dos requirements do projeto.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;settings&lt;ul&gt;
+&lt;li&gt;Como o nome já sugere, será o módulo de configuração do projeto. Nele nós quebramos o que antes era um único &lt;code&gt;settings.py&lt;/code&gt; em 4 arquivos diferentes (na verdade são 5, eu sei, mas não vamos contar com o &lt;code&gt;__init__.py&lt;/code&gt;), cada um contendo partes específicas do settings, sendo eles:&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;base.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;__init__.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mail.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;security.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;static.py&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Dessa maneira, cobrimos as principais partes desse boilerplate. Agora um ponto importante a ressaltar é: esse projeto foi estruturado e criado para integrar o &lt;a href="https://bower.io/"&gt;bower&lt;/a&gt;, bem como facilitar o deploy de uma aplicação diretamente no &lt;a href="https://www.heroku.com/"&gt;Heroku&lt;/a&gt;. Sendo assim você vai encontrar também os sequintes arquivos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;.bowerrc&lt;ul&gt;
+&lt;li&gt;É o arquivo de configuração do bower. Nele vamos encontrar, por exemplo, o diretório no qual o bower deve instalar as dependências&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Procfile&lt;ul&gt;
+&lt;li&gt;É o arquivo usado pelo ambiente do Heroku para declarar quais comandos vão ser executados pelos dynos da aplicação&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;app.json&lt;ul&gt;
+&lt;li&gt;Arquivo também utilizado pelo Heroku para "descrever" as aplicações web que vão ser "deployadas" lá. Nesse arquivo você pode declarar variáveis de ambiente, bem como o buildpack dessa aplicação&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;bower.json&lt;ul&gt;
+&lt;li&gt;Arquivo de dependências de frontend usadas pelo bower. Aqui você vai ter listado no formato JSON algumas informações, entre elas quais pacotes frontend o bower deve instalar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;package.json&lt;ul&gt;
+&lt;li&gt;Em resumo: é como se fosse o &lt;code&gt;bower.json&lt;/code&gt; só que utilizado pelo npm, no caso, para instalar o bower&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;runtime.txt&lt;ul&gt;
+&lt;li&gt;Usado pelo Heroku para especificar qual versão do Python vai ser usada na criação do seu ambiente lá&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pra facilitar nossa vida, você vai encontrar também um &lt;code&gt;Makefile&lt;/code&gt; que vai conter atalhos para executar os comandos principais. Vão ser eles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;pip-compile&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;Vai atualizar os &lt;code&gt;requirements/*.txt&lt;/code&gt; com as versões mais atuais dos pacotes listados em &lt;code&gt;`requirements/*.in&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;install-dev-requirements&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;Instala os requirements&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;setup-frontend&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;Instala as dependências frontend do projeto (não esqueça de rodar um &lt;code&gt;npm install&lt;/code&gt; caso não tenha ainda o bower na sua máquina)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Depois disso tudo, podemos agora ter uma visão geral de como ficou nosso boilerplate:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tree -L 3
+.
+├── app.json
+├── backend
+│   ├── core
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── forms.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   ├── utils.py
+│   │   └── views.py
+│   ├── urls.py
+│   └── wsgi.py
+├── bin
+│   └── post_compile
+├── bower.json
+├── example.env
+├── frontend
+│   ├── bower_components
+│   │   ├── jquery
+│   │   ├── semantic
+│   │   └── susy
+│   ├── scripts
+│   ├── styles
+│   │   └── main.scss
+│   └── templates
+│       ├── base.html
+│       └── core
+├── Makefile
+├── manage.py
+├── package.json
+├── Procfile
+├── README.md
+├── requirements
+│   ├── dev.in
+│   ├── dev.txt
+│   ├── heroku.in
+│   ├── heroku.txt
+│   ├── production.in
+│   ├── production.txt
+│   ├── test.in
+│   └── test.txt
+├── requirements.txt
+├── runtime.txt
+└── settings
+    ├── base.py
+    ├── __init__.py
+    ├── mail.py
+    ├── security.py
+    └── static.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Eu não vou entrar em mais detalhes (como o conteúdo dos arquivos do &lt;code&gt;settings&lt;/code&gt;) porque veremos isso nos posts seguintes, como no próximo onde vou usar esse boilerplate para criar um novo projeto. Inclusive, já dando uma palhinha, essa série de posts vai ser feita em cima de um projeto bem simples: uma app Django que envia e-mails para contatos. Simples, não é? Mas dá pra fazermos um trabalho bacana e ir aprendendo juntos :)&lt;/p&gt;
+&lt;p&gt;E é isso, pessoas. O link para o projeto desse boilerplate tá aqui: &lt;a href="https://github.com/dunderlabs/django-boilerplate"&gt;https://github.com/dunderlabs/django-boilerplate&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!&lt;/p&gt;</summary><category term="django"></category><category term="django-serie"></category></entry><entry><title>Map e Set: objetos que você deve conhecer em JavaScript</title><link href="https://dunderlabs.github.io/map-e-set-objetos-que-voce-deve-conhecer-em-javascript.html" rel="alternate"></link><updated>2017-04-04T02:15:00-03:00</updated><author><name>Nilton Cesar</name></author><id>tag:dunderlabs.github.io,2017-04-04:map-e-set-objetos-que-voce-deve-conhecer-em-javascript.html</id><summary type="html">&lt;p&gt;&lt;img alt="Dentro de um objeto Map" src="https://dunderlabs.github.io/images/posts/map-e-set-objetos-que-voce-deve-conhecer-em-javascript/post-cover.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Olá, dev amados!!!
 Gostaria de abordar aqui alguns objetos desconhecidos pela maioria dos desenvolvedores JavaScript, mas que podem ser bastante úteis.&lt;/p&gt;
 &lt;blockquote&gt;

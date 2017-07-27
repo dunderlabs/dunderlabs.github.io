@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Django Boilerplate: A estrutura de projeto Django que tenho usado"/>
+    <meta property="og:url" content="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Depois de algum tempo utilizando Django e o seu famoso &#34;startproject&#34;, você começa a se aventurar em novos caminhos testando novas ..."/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/posts/django-boilerplate.png"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@ericleribertson"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Django Boilerplate: A estrutura de projeto Django que tenho usado"/>
+    <meta name="twitter:description" content="Depois de algum tempo utilizando Django e o seu famoso &#34;startproject&#34;, você começa a se aventurar em novos caminhos testando novas ..."/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/posts/django-boilerplate.png"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Patrick Mazulo"/>
+    <meta property="article:section" content="django"/>
+    <meta property="article:tag" content="django, django-serie"/>
+    <meta property="article:published_time" content="2017-07-27T01:11:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Django Boilerplate: A estrutura de projeto Django que tenho usado"/>
+    <meta itemprop="description" content="Depois de algum tempo utilizando Django e o seu famoso &#34;startproject&#34;, você começa a se aventurar em novos caminhos testando novas ..."/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/posts/django-boilerplate.png"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Depois de algum tempo utilizando Django e o seu famoso &#34;startproject&#34;, você começa a se aventurar em novos caminhos testando novas ..."/>
+    <meta name="keywords" content="django, django-serie"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Django Boilerplate: A estrutura de projeto Django que tenho usado // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Publicado</h5>
+                <p>27/07/2017</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Django Boilerplate: A estrutura de projeto Django que tenho usado</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/django.html">django</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/django-serie.html">django-serie</a>
+                        </p>
+                </header>
+            </section>
+            <p><img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-boilerplate.png" /></p>
+<h1>Django Boilerplate: A estrutura de projeto Django que tenho usado</h1>
+<p>Fala pessoal, tudo beleza? Finalmente eu <s>criei vergonha na cara</s> vou iniciar uma série de posts sobre Django. YAY!</p>
+<p>Vou falar sobre alguns quesitos interessantes e que a galera lá do grupo <a href="https://t.me/djangobrasil">Django Brasil</a> no Telegram pediram. Inclusive fica aí a deixa pra você participar do grupo, caso ainda não conheça :)</p>
+<p>Antes de tudo, achei interessante começar falando sobre a estrutura de projeto. Nós já conhecemos o bom e velho <code>django-admin.py startproject myproject</code>, que vai nos gerar uma estrutura parecida com essa:</p>
+<div class="highlight"><pre>.
+└── myproject
+    ├── manage.py
+    └── myproject
+        ├── __init__.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
+
+<span class="m">2</span> directories, <span class="m">6</span> files
+</pre></div>
+
+
+<p>Depois de algum tempo, você começa a se aventurar em querer testar outras estruturas que possam melhorar a sua produtividade, modularidade, segurança e outros pontos do seu projeto. Um ótimo guia que você pode adquirir, é o livro <a href="https://www.twoscoopspress.com/products/two-scoops-of-django-1-11">Two Scoops of Django</a> que recentemente foi atualizado para a versão 1.11 (LTS) do Django. Outra maneira é pesquisar outras estruturas por aí. GitHub é uma ótima fonte, lá cê encontra <strong>várias</strong> opções. Daí uma ótima ideia é: ver cada um, estudar seu esqueleto, a abordagem pretendida, e se ela se encaixa bem nas suas necessidades/requisitos. Feito isso, você pode:</p>
+<ol>
+<li>
+<p>Adotar um desses boilerplates</p>
+</li>
+<li>
+<p>Pegar o que viu de melhor nos pesquisados e fazer o seu</p>
+</li>
+</ol>
+<p>Há um tempo atrás, eu e 2 amigos trabalhávamos numa certa empresa. Num dado momento resolvemos mudar a maneira como iniciaríamos os novos projetos. Um desses caras havia feito uma estrutura diferente em um projeto pessoal. A partir daí, resolvemos ir lapidando até chegarmos no que tornou-se nossa estrutura "oficial". A estrutura final é aquela da imagem no início do post, e que repito aqui abaixo (save your scroll):</p>
+<div class="highlight"><pre>.
+├── backend
+│   └── core
+│       └── migrations
+├── bin
+├── frontend
+│   ├── bower_components
+│   │   ├── jquery
+│   │   ├── semantic
+│   │   └── susy
+│   ├── scripts
+│   ├── styles
+│   └── templates
+│       └── core
+├── requirements
+└── settings
+</pre></div>
+
+
+<p>Como vocês podem ver, separamos tudo em módulos:</p>
+<ul>
+<li>backend<ul>
+<li>Irá conter tudo diretamente relacionado ao backend, e com isso teremos: os módulos das apps, bem como o arquivo <code>urls.py</code> principal e o <code>wsgi.py</code>.</li>
+</ul>
+</li>
+<li>frontend<ul>
+<li>Tudo relacionado ao frontend estará neste diretório, ou seja, isso inclui os arquivos de template e os arquivos estáticos.</li>
+</ul>
+</li>
+<li>requirements<ul>
+<li>Estaremos utilizando o <a href="https://github.com/jazzband/pip-tools">pip-tools</a> que é uma ferramenta sensacional para ajudar a manter as versões dos seus pacotes sempre atualizadas e pinadas. Aqui você pode ler um <a href="http://jamescooke.info/a-successful-pip-tools-workflow-for-managing-python-package-requirements.html">post sobre ele</a> (EN). Então dentro desse diretório você vai encontrar os arquivos <code>.ini</code> e <code>.txt</code> dos requirements do projeto.</li>
+</ul>
+</li>
+<li>settings<ul>
+<li>Como o nome já sugere, será o módulo de configuração do projeto. Nele nós quebramos o que antes era um único <code>settings.py</code> em 4 arquivos diferentes (na verdade são 5, eu sei, mas não vamos contar com o <code>__init__.py</code>), cada um contendo partes específicas do settings, sendo eles:<ul>
+<li><code>base.py</code></li>
+<li><code>__init__.py</code></li>
+<li><code>mail.py</code></li>
+<li><code>security.py</code></li>
+<li><code>static.py</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Dessa maneira, cobrimos as principais partes desse boilerplate. Agora um ponto importante a ressaltar é: esse projeto foi estruturado e criado para integrar o <a href="https://bower.io/">bower</a>, bem como facilitar o deploy de uma aplicação diretamente no <a href="https://www.heroku.com/">Heroku</a>. Sendo assim você vai encontrar também os sequintes arquivos:</p>
+<ul>
+<li>.bowerrc<ul>
+<li>É o arquivo de configuração do bower. Nele vamos encontrar, por exemplo, o diretório no qual o bower deve instalar as dependências</li>
+</ul>
+</li>
+<li>Procfile<ul>
+<li>É o arquivo usado pelo ambiente do Heroku para declarar quais comandos vão ser executados pelos dynos da aplicação</li>
+</ul>
+</li>
+<li>app.json<ul>
+<li>Arquivo também utilizado pelo Heroku para "descrever" as aplicações web que vão ser "deployadas" lá. Nesse arquivo você pode declarar variáveis de ambiente, bem como o buildpack dessa aplicação</li>
+</ul>
+</li>
+<li>bower.json<ul>
+<li>Arquivo de dependências de frontend usadas pelo bower. Aqui você vai ter listado no formato JSON algumas informações, entre elas quais pacotes frontend o bower deve instalar</li>
+</ul>
+</li>
+<li>package.json<ul>
+<li>Em resumo: é como se fosse o <code>bower.json</code> só que utilizado pelo npm, no caso, para instalar o bower</li>
+</ul>
+</li>
+<li>runtime.txt<ul>
+<li>Usado pelo Heroku para especificar qual versão do Python vai ser usada na criação do seu ambiente lá</li>
+</ul>
+</li>
+</ul>
+<p>Pra facilitar nossa vida, você vai encontrar também um <code>Makefile</code> que vai conter atalhos para executar os comandos principais. Vão ser eles:</p>
+<ul>
+<li><code>pip-compile</code><ul>
+<li>Vai atualizar os <code>requirements/*.txt</code> com as versões mais atuais dos pacotes listados em <code>`requirements/*.in</code></li>
+</ul>
+</li>
+<li><code>install-dev-requirements</code><ul>
+<li>Instala os requirements</li>
+</ul>
+</li>
+<li><code>setup-frontend</code><ul>
+<li>Instala as dependências frontend do projeto (não esqueça de rodar um <code>npm install</code> caso não tenha ainda o bower na sua máquina)</li>
+</ul>
+</li>
+</ul>
+<p>Depois disso tudo, podemos agora ter uma visão geral de como ficou nosso boilerplate:</p>
+<div class="highlight"><pre><span class="nv">$ </span>tree -L 3
+.
+├── app.json
+├── backend
+│   ├── core
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── forms.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   ├── utils.py
+│   │   └── views.py
+│   ├── urls.py
+│   └── wsgi.py
+├── bin
+│   └── post_compile
+├── bower.json
+├── example.env
+├── frontend
+│   ├── bower_components
+│   │   ├── jquery
+│   │   ├── semantic
+│   │   └── susy
+│   ├── scripts
+│   ├── styles
+│   │   └── main.scss
+│   └── templates
+│       ├── base.html
+│       └── core
+├── Makefile
+├── manage.py
+├── package.json
+├── Procfile
+├── README.md
+├── requirements
+│   ├── dev.in
+│   ├── dev.txt
+│   ├── heroku.in
+│   ├── heroku.txt
+│   ├── production.in
+│   ├── production.txt
+│   ├── test.in
+│   └── test.txt
+├── requirements.txt
+├── runtime.txt
+└── settings
+    ├── base.py
+    ├── __init__.py
+    ├── mail.py
+    ├── security.py
+    └── static.py
+</pre></div>
+
+
+<p>Eu não vou entrar em mais detalhes (como o conteúdo dos arquivos do <code>settings</code>) porque veremos isso nos posts seguintes, como no próximo onde vou usar esse boilerplate para criar um novo projeto. Inclusive, já dando uma palhinha, essa série de posts vai ser feita em cima de um projeto bem simples: uma app Django que envia e-mails para contatos. Simples, não é? Mas dá pra fazermos um trabalho bacana e ir aprendendo juntos :)</p>
+<p>E é isso, pessoas. O link para o projeto desse boilerplate tá aqui: <a href="https://github.com/dunderlabs/django-boilerplate">https://github.com/dunderlabs/django-boilerplate</a></p>
+<p>Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>
