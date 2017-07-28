@@ -206,3 +206,9 @@ Ao acessar [http://localhost:8001/](http://localhost:8001/) você verá uma pág
 No próximo post vamos começar a programar de verdade, com uns leves toques de testes automatizados. Fiquem ligados!
 
 Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!
+
+
+<br>
+Referências:
+
+- Documentação sobre o [django-admin](https://docs.djangoproject.com/en/1.11/ref/django-admin/)
