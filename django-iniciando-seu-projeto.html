@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Django startproject: Iniciando o seu projeto"/>
+    <meta property="og:url" content="https://dunderlabs.github.io/django-iniciando-seu-projeto.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Uma vez que temos a escolha da nossa estrutura, vamos iniciar um projeto Django novo usando esse boilerplate"/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/posts/django-startproject.png"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@ericleribertson"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Django startproject: Iniciando o seu projeto"/>
+    <meta name="twitter:description" content="Uma vez que temos a escolha da nossa estrutura, vamos iniciar um projeto Django novo usando esse boilerplate"/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/posts/django-startproject.png"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Patrick Mazulo"/>
+    <meta property="article:section" content="django"/>
+    <meta property="article:tag" content="django, django-serie"/>
+    <meta property="article:published_time" content="2017-07-27T19:21:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Django startproject: Iniciando o seu projeto"/>
+    <meta itemprop="description" content="Uma vez que temos a escolha da nossa estrutura, vamos iniciar um projeto Django novo usando esse boilerplate"/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/posts/django-startproject.png"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Uma vez que temos a escolha da nossa estrutura, vamos iniciar um projeto Django novo usando esse boilerplate"/>
+    <meta name="keywords" content="django, django-serie"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Django startproject: Iniciando o seu projeto // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Publicado</h5>
+                <p>27/07/2017</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Django startproject: Iniciando o seu projeto</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/django.html">django</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/django-serie.html">django-serie</a>
+                        </p>
+                </header>
+            </section>
+            <p><img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-startproject.png" /></p>
+<p>Fala pessoal, tudo beleza? Como prometido, vamos dar prosseguimento nesta série de posts. Agora que já temos o nosso boilerplate, vamos poder iniciar nosso projeto. Antes de tudo, você precisa ter configurado o seu ambiente de desenvolvimento. Se você não tiver feito isso ainda e/ou não souber muito sobre esse tema, aqui na casa temos <a href="https://dunderlabs.github.io/criando-seu-ambiente-para-desenvolvimento-web-com-django.html">outro post</a> onde você vai poder tirar suas dúvidas sobre o assunto :)</p>
+<p>Sem mais delongas, vou criar o meu ambiente virtual para o projeto usando o virtualenvwrapper. O output vai ser algo muito parecido com:</p>
+<div class="highlight"><pre><span class="nv">$ </span>mkvirtualenv turbo_send_mail
+Using base prefix <span class="s1">&#39;/usr&#39;</span>
+New python executable in /home/mazulo/.virtualenvs/turbo_send_mail/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/get_env_details
+Error: deactivate must be sourced. Run <span class="s1">&#39;source deactivate&#39;</span>
+instead of <span class="s1">&#39;deactivate&#39;</span>.
+</pre></div>
+
+
+<p>Feito isso, vamos instalar o Django para que possamos utilizar o <code>django-admin</code>. Basta um comando do <code>pip</code>:</p>
+<div class="highlight"><pre><span class="nv">$ </span>pip install django
+Collecting django
+  Downloading Django-1.11.3-py2.py3-none-any.whl <span class="o">(</span>6.9MB<span class="o">)</span>
+    100% <span class="p">|</span>████████████████████████████████<span class="p">|</span> 7.0MB 131kB/s 
+Collecting pytz <span class="o">(</span>from django<span class="o">)</span>
+  Using cached pytz-2017.2-py2.py3-none-any.whl
+Installing collected packages: pytz, django
+Successfully installed django-1.11.3 pytz-2017.2
+</pre></div>
+
+
+<p>Agora vamos usar alguns recursos do <code>django-admin</code> que podem passar despercebidos. Dentre eles:</p>
+<ul>
+<li><code>--template</code><ul>
+<li>Aqui você pode especificar um diretório ou uma URL de um template de projeto customizado. No caso de URL, vamos usar a do GitHub que nos dá o nosso projeto comprimido num <code>.zip</code>.</li>
+</ul>
+</li>
+<li><code>--verbosity</code><ul>
+<li>Especifica a quantidade de informação que aquele comando vai jogar na tela conforme ele é executado. Os níveis são:<ul>
+<li>0 significa sem output</li>
+<li>1 significa output normal (default)</li>
+<li>2 significa output verboso</li>
+<li>3 significa output muito verboso</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Vou usar o 3 que é pra termos o máximo de informação de como esse processo ocorre. Ah, como comentei no post anterior, o nosso projeto vai ser um simples sistema que envia e-mails para contatos que eu salvar, como em uma agenda. O nome deste <a href="https://media.giphy.com/media/aBDQ0bQ4b4sx2/giphy.gif">inovador</a> projeto será: <em>turbo_send_mail_project</em>. Nome escolhido, vamos enfim dar o start:</p>
+<div class="highlight"><pre><span class="nv">$ </span>django-admin startproject turbo_send_mail_project --template<span class="o">=</span>https://github.com/dunderlabs/django-boilerplate/archive/master.zip --verbosity 3
+Rendering project template files with extensions: .py
+Rendering project template files with filenames: 
+Downloading https://github.com/dunderlabs/django-boilerplate/archive/master.zip
+Extracting /tmp/django_project_template_6nafk1qd_download/django-boilerplate-master.zip
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/runtime.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/package.json
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/manage.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/example.env
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/bower.json
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/app.json
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/README.md
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/Procfile
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/Makefile
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/.gitignore
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/.bowerrc
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/static.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/security.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/mail.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/base.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/__init__.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/test.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/test.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/production.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/production.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/heroku.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/heroku.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/dev.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/dev.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/frontend/templates/base.html
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/frontend/templates/core/index.html
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/frontend/styles/main.scss
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/bin/post_compile
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/wsgi.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/urls.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/views.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/utils.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/urls.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/tests.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/models.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/forms.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/apps.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/admin.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/__init__.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/migrations/__init__.py
+Cleaning up temporary files.
+</pre></div>
+
+
+<p>Como você pode ver, ele faz o download do nosso projeto zipado em <code>/tmp/django_project_template_&lt;hash&gt;_download/</code>, um diretório que ele criou para extrair os arquivos do <code>.zip</code> e depois criar o nosso projeto usando esses arquivos dentro do diretório onde eu rodei o comando. Após isso, ele vai limpar os arquivos extraídos naquele diretório temporário criado anteriormente, deixando só o <code>master.zip</code>. Ao acessar o diretório do projeto que o <code>startproject</code> criou, você vai notar que a estrutura vai ser extamente a mesma mostrada no post anterior:</p>
+<div class="highlight"><pre><span class="nv">$ </span>tree -d -L <span class="m">4</span>               
+.
+├── backend
+│   └── core
+│       └── migrations
+├── bin
+├── frontend
+│   ├── styles
+│   └── templates
+│       └── core
+├── requirements
+└── settings
+</pre></div>
+
+
+<p>Finalizada essa parte, os próximos passos serão: atualizar os pacotes nos requirements, instalar eles e por fim instalar as dependências do front. Vou em cada um dos passos.</p>
+<p>Para o <code>make pip-compile</code> você vai ter uma saída parecida com essa para cada um dos arquivos <code>requirements/*.in</code>:</p>
+<div class="highlight"><pre><span class="nv">$ </span>make pip-compile 
+<span class="c"># Update requirements/*.txt with latest packages from requirements/*.in</span>
+&gt;&gt;&gt; Installing/upgrading pip-tools...
+pip install -qU pip-tools
+&gt;&gt;&gt; Upgrading <span class="nb">local </span>packages...
+pip-compile -U requirements/dev.in
+<span class="c">#</span>
+<span class="c"># This file is autogenerated by pip-compile</span>
+<span class="c"># To update, run:</span>
+<span class="c">#</span>
+<span class="c">#    pip-compile --output-file requirements/dev.txt requirements/dev.in</span>
+<span class="c">#</span>
+<span class="nv">click</span><span class="o">==</span>6.7                <span class="c"># via python-dotenv</span>
+dj-database-url<span class="o">==</span>0.4.2
+django-appconf<span class="o">==</span>1.0.2     <span class="c"># via django-compressor</span>
+django-compressor<span class="o">==</span>2.1.1
+<span class="nv">django</span><span class="o">==</span>1.11.3
+<span class="o">[</span>mais...<span class="o">]</span>
+</pre></div>
+
+
+<p>Após essa atualização, só nos resta instalar usando o comando <code>make install-dev-requirements</code>, que vai nos dar um output semelhante a esse:</p>
+<div class="highlight"><pre><span class="nv">$ </span>make install-dev-requirements 
+<span class="c"># Install requirements for a local development environment</span>
+&gt;&gt;&gt; Installing dev requirements...
+pip install -qU pip-tools
+pip-sync requirements/*.txt
+Collecting dj-database-url<span class="o">==</span>0.4.2
+  Using cached dj_database_url-0.4.2-py2.py3-none-any.whl
+Collecting django-appconf<span class="o">==</span>1.0.2
+  Using cached django_appconf-1.0.2-py2.py3-none-any.whl
+Collecting django-compressor<span class="o">==</span>2.1.1
+<span class="o">[</span>mais...<span class="o">]</span>
+</pre></div>
+
+
+<p>Agora só ficou faltando as dependências do front. Mas antes de rodar o comando, certifique-se que você tem o <a href="https://bower.io/">bower</a> instalado. Caso contrário, na página oficial você vai encontrar um guia de como instalar, de acordo com o seu sistema operacional. Feito isso, execute o comando <code>make setup-frontend</code>, que vai gerar um output como esse:</p>
+<div class="highlight"><pre><span class="nv">$ </span>make setup-frontend 
+bower install --allow-root
+bower semantic#^2.2.4           cached https://github.com/Semantic-Org/Semantic-UI.git#2.2.10
+bower semantic#^2.2.4         validate 2.2.10 against https://github.com/Semantic-Org/Semantic-UI.git#^2.2.4
+bower susy#^2.2.12              cached https://github.com/ericam/susy.git#2.2.12
+bower susy#^2.2.12            validate 2.2.12 against https://github.com/ericam/susy.git#^2.2.12
+bower jquery#^3.1.0             cached https://github.com/jquery/jquery-dist.git#3.2.1
+bower jquery#^3.1.0           validate 3.2.1 against https://github.com/jquery/jquery-dist.git#^3.1.0
+<span class="o">[</span>mais...<span class="o">]</span>
+susy#2.2.12 frontend/bower_components/susy
+
+jquery#3.2.1 frontend/bower_components/jquery
+
+semantic#2.2.11 frontend/bower_components/semantic
+└── jquery#3.2.1
+</pre></div>
+
+
+<p><strong>Agora estamos prontos!</strong> Para testar nossa aplicação, vamos rodar o famoso <code>runserver</code>. Ao executar esse comando, você verá uma saída como a debaixo, mas já avisando: não se preocupe com a mensagem que vai estar em vermelhos sobre <em>15 unapplied migrations</em> por enquanto. A saída vai ser algo assim:</p>
+<div class="highlight"><pre><span class="nv">$ </span>python manage.py runserver 8001
+Performing system checks...
+
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+
+You have <span class="m">15</span> unapplied migration<span class="o">(</span>s<span class="o">)</span>. Your project may not work properly <span class="k">until</span> you apply the migrations <span class="k">for</span> app<span class="o">(</span>s<span class="o">)</span>: admin, auth, contenttypes, sessions, sites.
+Run <span class="s1">&#39;python manage.py migrate&#39;</span> to apply them.
+
+July 27, <span class="m">2017</span> - 21:23:45
+Django version 1.11.3, using settings <span class="s1">&#39;settings&#39;</span>
+Starting development server at http://127.0.0.1:8001/
+Quit the server with CONTROL-C.
+</pre></div>
+
+
+<p>Ao acessar <a href="http://localhost:8001/">http://localhost:8001/</a> você verá uma página quase em branco. "Quase" porque se você abrir o arquivo <code>frontend/styles/main.scss</code> vai ver que o <code>body</code> vai estar com <code>background: #eee;</code>. O que significa que o carregamento dos arquivos estáticos, bem como o compilador e "compressor" de arquivos (ou seja, o django-compreesor) está funcionando muito bem. Bom, sobre eles eu vou falar em outro post, porque esse acaba por aqui ;)</p>
+<p>No próximo post vamos começar a programar de verdade, com uns leves toques de testes automatizados. Fiquem ligados!</p>
+<p>Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>

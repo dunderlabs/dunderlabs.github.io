@@ -1,5 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/django.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-07-27T01:11:00-03:00</updated><entry><title>Django Boilerplate: A estrutura de projeto Django que tenho usado</title><link href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html" rel="alternate"></link><updated>2017-07-27T01:11:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-07-27:django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-boilerplate.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/django.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-07-27T19:21:00-03:00</updated><entry><title>Django startproject: Iniciando o seu projeto</title><link href="https://dunderlabs.github.io/django-iniciando-seu-projeto.html" rel="alternate"></link><updated>2017-07-27T19:21:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-07-27:django-iniciando-seu-projeto.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-startproject.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Fala pessoal, tudo beleza? Como prometido, vamos dar prosseguimento nesta série de posts. Agora que já temos o nosso boilerplate, vamos poder iniciar nosso projeto. Antes de tudo, você precisa ter configurado o seu ambiente de desenvolvimento. Se você não tiver feito isso ainda e/ou não souber muito sobre esse tema, aqui na casa temos &lt;a href="https://dunderlabs.github.io/criando-seu-ambiente-para-desenvolvimento-web-com-django.html"&gt;outro post&lt;/a&gt; onde você vai poder tirar suas dúvidas sobre o assunto :)&lt;/p&gt;
+&lt;p&gt;Sem mais delongas, vou criar o meu ambiente virtual para o projeto usando o virtualenvwrapper. O output vai ser algo muito parecido com:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkvirtualenv turbo_send_mail
+Using base prefix &lt;span class="s1"&gt;&amp;#39;/usr&amp;#39;&lt;/span&gt;
+New python executable in /home/mazulo/.virtualenvs/turbo_send_mail/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/mazulo/.virtualenvs/turbo_send_mail/bin/get_env_details
+Error: deactivate must be sourced. Run &lt;span class="s1"&gt;&amp;#39;source deactivate&amp;#39;&lt;/span&gt;
+instead of &lt;span class="s1"&gt;&amp;#39;deactivate&amp;#39;&lt;/span&gt;.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Feito isso, vamos instalar o Django para que possamos utilizar o &lt;code&gt;django-admin&lt;/code&gt;. Basta um comando do &lt;code&gt;pip&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install django
+Collecting django
+  Downloading Django-1.11.3-py2.py3-none-any.whl &lt;span class="o"&gt;(&lt;/span&gt;6.9MB&lt;span class="o"&gt;)&lt;/span&gt;
+    100% &lt;span class="p"&gt;|&lt;/span&gt;████████████████████████████████&lt;span class="p"&gt;|&lt;/span&gt; 7.0MB 131kB/s 
+Collecting pytz &lt;span class="o"&gt;(&lt;/span&gt;from django&lt;span class="o"&gt;)&lt;/span&gt;
+  Using cached pytz-2017.2-py2.py3-none-any.whl
+Installing collected packages: pytz, django
+Successfully installed django-1.11.3 pytz-2017.2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora vamos usar alguns recursos do &lt;code&gt;django-admin&lt;/code&gt; que podem passar despercebidos. Dentre eles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--template&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;Aqui você pode especificar um diretório ou uma URL de um template de projeto customizado. No caso de URL, vamos usar a do GitHub que nos dá o nosso projeto comprimido num &lt;code&gt;.zip&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--verbosity&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;Especifica a quantidade de informação que aquele comando vai jogar na tela conforme ele é executado. Os níveis são:&lt;ul&gt;
+&lt;li&gt;0 significa sem output&lt;/li&gt;
+&lt;li&gt;1 significa output normal (default)&lt;/li&gt;
+&lt;li&gt;2 significa output verboso&lt;/li&gt;
+&lt;li&gt;3 significa output muito verboso&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vou usar o 3 que é pra termos o máximo de informação de como esse processo ocorre. Ah, como comentei no post anterior, o nosso projeto vai ser um simples sistema que envia e-mails para contatos que eu salvar, como em uma agenda. O nome deste &lt;a href="https://media.giphy.com/media/aBDQ0bQ4b4sx2/giphy.gif"&gt;inovador&lt;/a&gt; projeto será: &lt;em&gt;turbo_send_mail_project&lt;/em&gt;. Nome escolhido, vamos enfim dar o start:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;django-admin startproject turbo_send_mail_project --template&lt;span class="o"&gt;=&lt;/span&gt;https://github.com/dunderlabs/django-boilerplate/archive/master.zip --verbosity 3
+Rendering project template files with extensions: .py
+Rendering project template files with filenames: 
+Downloading https://github.com/dunderlabs/django-boilerplate/archive/master.zip
+Extracting /tmp/django_project_template_6nafk1qd_download/django-boilerplate-master.zip
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/runtime.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/package.json
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/manage.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/example.env
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/bower.json
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/app.json
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/README.md
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/Procfile
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/Makefile
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/.gitignore
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/.bowerrc
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/static.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/security.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/mail.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/base.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/settings/__init__.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/test.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/test.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/production.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/production.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/heroku.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/heroku.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/dev.txt
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/requirements/dev.in
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/frontend/templates/base.html
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/frontend/templates/core/index.html
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/frontend/styles/main.scss
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/bin/post_compile
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/wsgi.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/urls.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/views.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/utils.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/urls.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/tests.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/models.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/forms.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/apps.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/admin.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/__init__.py
+Creating /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/migrations/__init__.py
+Cleaning up temporary files.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Como você pode ver, ele faz o download do nosso projeto zipado em &lt;code&gt;/tmp/django_project_template_&amp;lt;hash&amp;gt;_download/&lt;/code&gt;, um diretório que ele criou para extrair os arquivos do &lt;code&gt;.zip&lt;/code&gt; e depois criar o nosso projeto usando esses arquivos dentro do diretório onde eu rodei o comando. Após isso, ele vai limpar os arquivos extraídos naquele diretório temporário criado anteriormente, deixando só o &lt;code&gt;master.zip&lt;/code&gt;. Ao acessar o diretório do projeto que o &lt;code&gt;startproject&lt;/code&gt; criou, você vai notar que a estrutura vai ser extamente a mesma mostrada no post anterior:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tree -d -L &lt;span class="m"&gt;4&lt;/span&gt;               
+.
+├── backend
+│   └── core
+│       └── migrations
+├── bin
+├── frontend
+│   ├── styles
+│   └── templates
+│       └── core
+├── requirements
+└── settings
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finalizada essa parte, os próximos passos serão: atualizar os pacotes nos requirements, instalar eles e por fim instalar as dependências do front. Vou em cada um dos passos.&lt;/p&gt;
+&lt;p&gt;Para o &lt;code&gt;make pip-compile&lt;/code&gt; você vai ter uma saída parecida com essa para cada um dos arquivos &lt;code&gt;requirements/*.in&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;make pip-compile 
+&lt;span class="c"&gt;# Update requirements/*.txt with latest packages from requirements/*.in&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; Installing/upgrading pip-tools...
+pip install -qU pip-tools
+&amp;gt;&amp;gt;&amp;gt; Upgrading &lt;span class="nb"&gt;local &lt;/span&gt;packages...
+pip-compile -U requirements/dev.in
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# This file is autogenerated by pip-compile&lt;/span&gt;
+&lt;span class="c"&gt;# To update, run:&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;#    pip-compile --output-file requirements/dev.txt requirements/dev.in&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="nv"&gt;click&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;6.7                &lt;span class="c"&gt;# via python-dotenv&lt;/span&gt;
+dj-database-url&lt;span class="o"&gt;==&lt;/span&gt;0.4.2
+django-appconf&lt;span class="o"&gt;==&lt;/span&gt;1.0.2     &lt;span class="c"&gt;# via django-compressor&lt;/span&gt;
+django-compressor&lt;span class="o"&gt;==&lt;/span&gt;2.1.1
+&lt;span class="nv"&gt;django&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;1.11.3
+&lt;span class="o"&gt;[&lt;/span&gt;mais...&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Após essa atualização, só nos resta instalar usando o comando &lt;code&gt;make install-dev-requirements&lt;/code&gt;, que vai nos dar um output semelhante a esse:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;make install-dev-requirements 
+&lt;span class="c"&gt;# Install requirements for a local development environment&lt;/span&gt;
+&amp;gt;&amp;gt;&amp;gt; Installing dev requirements...
+pip install -qU pip-tools
+pip-sync requirements/*.txt
+Collecting dj-database-url&lt;span class="o"&gt;==&lt;/span&gt;0.4.2
+  Using cached dj_database_url-0.4.2-py2.py3-none-any.whl
+Collecting django-appconf&lt;span class="o"&gt;==&lt;/span&gt;1.0.2
+  Using cached django_appconf-1.0.2-py2.py3-none-any.whl
+Collecting django-compressor&lt;span class="o"&gt;==&lt;/span&gt;2.1.1
+&lt;span class="o"&gt;[&lt;/span&gt;mais...&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora só ficou faltando as dependências do front. Mas antes de rodar o comando, certifique-se que você tem o &lt;a href="https://bower.io/"&gt;bower&lt;/a&gt; instalado. Caso contrário, na página oficial você vai encontrar um guia de como instalar, de acordo com o seu sistema operacional. Feito isso, execute o comando &lt;code&gt;make setup-frontend&lt;/code&gt;, que vai gerar um output como esse:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;make setup-frontend 
+bower install --allow-root
+bower semantic#^2.2.4           cached https://github.com/Semantic-Org/Semantic-UI.git#2.2.10
+bower semantic#^2.2.4         validate 2.2.10 against https://github.com/Semantic-Org/Semantic-UI.git#^2.2.4
+bower susy#^2.2.12              cached https://github.com/ericam/susy.git#2.2.12
+bower susy#^2.2.12            validate 2.2.12 against https://github.com/ericam/susy.git#^2.2.12
+bower jquery#^3.1.0             cached https://github.com/jquery/jquery-dist.git#3.2.1
+bower jquery#^3.1.0           validate 3.2.1 against https://github.com/jquery/jquery-dist.git#^3.1.0
+&lt;span class="o"&gt;[&lt;/span&gt;mais...&lt;span class="o"&gt;]&lt;/span&gt;
+susy#2.2.12 frontend/bower_components/susy
+
+jquery#3.2.1 frontend/bower_components/jquery
+
+semantic#2.2.11 frontend/bower_components/semantic
+└── jquery#3.2.1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Agora estamos prontos!&lt;/strong&gt; Para testar nossa aplicação, vamos rodar o famoso &lt;code&gt;runserver&lt;/code&gt;. Ao executar esse comando, você verá uma saída como a debaixo, mas já avisando: não se preocupe com a mensagem que vai estar em vermelhos sobre &lt;em&gt;15 unapplied migrations&lt;/em&gt; por enquanto. A saída vai ser algo assim:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python manage.py runserver 8001
+Performing system checks...
+
+System check identified no issues &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; silenced&lt;span class="o"&gt;)&lt;/span&gt;.
+
+You have &lt;span class="m"&gt;15&lt;/span&gt; unapplied migration&lt;span class="o"&gt;(&lt;/span&gt;s&lt;span class="o"&gt;)&lt;/span&gt;. Your project may not work properly &lt;span class="k"&gt;until&lt;/span&gt; you apply the migrations &lt;span class="k"&gt;for&lt;/span&gt; app&lt;span class="o"&gt;(&lt;/span&gt;s&lt;span class="o"&gt;)&lt;/span&gt;: admin, auth, contenttypes, sessions, sites.
+Run &lt;span class="s1"&gt;&amp;#39;python manage.py migrate&amp;#39;&lt;/span&gt; to apply them.
+
+July 27, &lt;span class="m"&gt;2017&lt;/span&gt; - 21:23:45
+Django version 1.11.3, using settings &lt;span class="s1"&gt;&amp;#39;settings&amp;#39;&lt;/span&gt;
+Starting development server at http://127.0.0.1:8001/
+Quit the server with CONTROL-C.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ao acessar &lt;a href="http://localhost:8001/"&gt;http://localhost:8001/&lt;/a&gt; você verá uma página quase em branco. "Quase" porque se você abrir o arquivo &lt;code&gt;frontend/styles/main.scss&lt;/code&gt; vai ver que o &lt;code&gt;body&lt;/code&gt; vai estar com &lt;code&gt;background: #eee;&lt;/code&gt;. O que significa que o carregamento dos arquivos estáticos, bem como o compilador e "compressor" de arquivos (ou seja, o django-compreesor) está funcionando muito bem. Bom, sobre eles eu vou falar em outro post, porque esse acaba por aqui ;)&lt;/p&gt;
+&lt;p&gt;No próximo post vamos começar a programar de verdade, com uns leves toques de testes automatizados. Fiquem ligados!&lt;/p&gt;
+&lt;p&gt;Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!&lt;/p&gt;</summary><category term="django"></category><category term="django-serie"></category></entry><entry><title>Django Boilerplate: A estrutura de projeto Django que tenho usado</title><link href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html" rel="alternate"></link><updated>2017-07-27T01:11:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-07-27:django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-boilerplate.png" /&gt;&lt;/p&gt;
 &lt;h1&gt;Django Boilerplate: A estrutura de projeto Django que tenho usado&lt;/h1&gt;
 &lt;p&gt;Fala pessoal, tudo beleza? Finalmente eu &lt;s&gt;criei vergonha na cara&lt;/s&gt; vou iniciar uma série de posts sobre Django. YAY!&lt;/p&gt;
 &lt;p&gt;Vou falar sobre alguns quesitos interessantes e que a galera lá do grupo &lt;a href="https://t.me/djangobrasil"&gt;Django Brasil&lt;/a&gt; no Telegram pediram. Inclusive fica aí a deixa pra você participar do grupo, caso ainda não conheça :)&lt;/p&gt;
