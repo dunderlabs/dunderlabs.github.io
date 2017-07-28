@@ -11,6 +11,10 @@ image: /images/posts/django-startproject.png
 
 ![Créditos da imagem]({filename}/images/posts/django-startproject.png)
 
+Posts anteriores da série:
+
+- [Django Boilerplate: A estrutura de projeto Django que tenho usado]({filename}/posts/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.md)
+
 Fala pessoal, tudo beleza? Como prometido, vamos dar prosseguimento nesta série de posts. Agora que já temos o nosso boilerplate, vamos poder iniciar nosso projeto. Antes de tudo, você precisa ter configurado o seu ambiente de desenvolvimento. Se você não tiver feito isso ainda e/ou não souber muito sobre esse tema, aqui na casa temos [outro post]({filename}/posts/criando-ambiente-django.md) onde você vai poder tirar suas dúvidas sobre o assunto :)
 
 Sem mais delongas, vou criar o meu ambiente virtual para o projeto usando o virtualenvwrapper. O output vai ser algo muito parecido com:
