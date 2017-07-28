@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/django.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-07-27T19:21:00-03:00</updated><entry><title>Django startproject: Iniciando o seu projeto</title><link href="https://dunderlabs.github.io/django-iniciando-seu-projeto.html" rel="alternate"></link><updated>2017-07-27T19:21:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-07-27:django-iniciando-seu-projeto.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-startproject.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Posts anteriores da série:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html"&gt;Django Boilerplate: A estrutura de projeto Django que tenho usado&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;Fala pessoal, tudo beleza? Como prometido, vamos dar prosseguimento nesta série de posts. Agora que já temos o nosso boilerplate, vamos poder iniciar nosso projeto. Antes de tudo, você precisa ter configurado o seu ambiente de desenvolvimento. Se você não tiver feito isso ainda e/ou não souber muito sobre esse tema, aqui na casa temos &lt;a href="https://dunderlabs.github.io/criando-seu-ambiente-para-desenvolvimento-web-com-django.html"&gt;outro post&lt;/a&gt; onde você vai poder tirar suas dúvidas sobre o assunto :)&lt;/p&gt;
 &lt;p&gt;Sem mais delongas, vou criar o meu ambiente virtual para o projeto usando o virtualenvwrapper. O output vai ser algo muito parecido com:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkvirtualenv turbo_send_mail
