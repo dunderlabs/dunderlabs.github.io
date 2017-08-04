@@ -1,5 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-07-27T19:21:00-03:00</updated><entry><title>Django startproject: Iniciando o seu projeto</title><link href="https://dunderlabs.github.io/django-iniciando-seu-projeto.html" rel="alternate"></link><updated>2017-07-27T19:21:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-07-27:django-iniciando-seu-projeto.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-startproject.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>__labs__</title><link href="https://dunderlabs.github.io/" rel="alternate"></link><link href="https://dunderlabs.github.io/feeds/all.atom.xml" rel="self"></link><id>https://dunderlabs.github.io/</id><updated>2017-08-04T04:54:00-03:00</updated><entry><title>Configurando seu projeto Django</title><link href="https://dunderlabs.github.io/django-configurando-seu-projeto.html" rel="alternate"></link><updated>2017-08-04T04:54:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-08-04:django-configurando-seu-projeto.html</id><summary type="html">&lt;p&gt;&lt;img alt="Criando repositório no GitHub" src="https://dunderlabs.github.io/images/posts/criar-repositorio-github.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Posts anteriores da série:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html"&gt;Django Boilerplate: A estrutura de projeto Django que tenho usado&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://dunderlabs.github.io/django-iniciando-seu-projeto.html"&gt;Django startproject: Iniciando o seu projeto&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Fala pessoa, tudo beleza? Vamos dar continuidade a nossa série de posts sobre Django. Nós já conhecemos a estrutura do template de projeto que usaremos, demos o &lt;code&gt;startproject&lt;/code&gt; usando ele, então agora vamos começar a brincar com Django. Claro, nessa série nós não vamos ver só e somente Python/Django, mas pretendo abordar um pouquinho de cada coisa que envolve o desenvolvimento de software. Não vou me aprofundar muito, mas pretendo mostrar o pouquinho que já sei :)&lt;/p&gt;
+&lt;p&gt;Bom, antes de qualquer coisa, o que nós faremos será renomear algumas coisas no nosso projeto. Vocês vão ver que em alguns arquivos, como no &lt;code&gt;app.json&lt;/code&gt;, você verá referências para "DjangoBoilerplate". Sua missão será renomear essas referências com o nome do nosso projeto "TurboSendMail". Você vai fazer isso em:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app.json&lt;/code&gt; (atualizar "name")&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;README.md&lt;/code&gt; (mudar informações gerais, nesse você está livre para colocar o que quiser)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bower.json&lt;/code&gt; (atualizar "name" e "authors")&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;package.json&lt;/code&gt; (atualizar "name", "description" e "repository", esse último com o link do seu repositório no github)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Feito isso, quero fazer uma pergunta: você já sabe o que é &lt;a href="https://git-scm.com/book/pt-br/v1/Primeiros-passos-Sobre-Controle-de-Vers%C3%A3o"&gt;Controle de Versão&lt;/a&gt; dentro do contexto do mundo do software? Caso não, dá uma lida nesse post que linkei antes de nós podermos continuar. Pronto? Vamos continuar então.&lt;/p&gt;
+&lt;p&gt;Para essa série de posts, nós vamos utilizar o &lt;a href="https://git-scm.com/"&gt;Git&lt;/a&gt; para o nosso versionamento. Se você ainda não havia mexido com ele antes, no mesmo site você vai encontrar uma seção para o livro &lt;a href="https://git-scm.com/book/pt-br/v2"&gt;Pro Git v2&lt;/a&gt;, com o primeiro capítulo traduzido para pt_BR. A &lt;a href="https://git-scm.com/book/pt-br/v1"&gt;v1&lt;/a&gt; está &lt;s&gt;quase&lt;/s&gt; completamente traduzida. Tirando ele, você vai poder encontrar muito material bacana sobre na web.&lt;/p&gt;
+&lt;p&gt;Conforme formos usando os comandos, vou dando rápidas explicações sobre os comandos. Então, let's go! O primeiro que vamos usar, vai ser como poderíamos esperar, o comando para iniciar. No git, ele vai ser o &lt;code&gt;git init&lt;/code&gt;. Então uma vez dentro do diretório do seu projeto, você vai executar esse comando:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git init
+Initialized empty Git repository in /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/.git/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Como o comando vai mostrar pra você, o que ele vai fazer é criar um diretório &lt;code&gt;.git/&lt;/code&gt; dentro do diretório do seu projeto. Ele vai ser usado pelo Git para gerenciar esse diretório (ou repositório) localmente e remotamente. Só isso? Quase. Uma prática mais do que comum também é você deixar salvo o seu código na ~nuvem~. Existem alguns serviços web para isso, porém os 3 mais conhecidos são:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://bitbucket.org"&gt;BitBucket&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://gitlab.com"&gt;GitLab&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cada um vai ter sua vantagem e desvantagem, mas há a unanimidade em usar o GitHub (que já virou sinônimo de Open Source) para projetos. Além da sua facilidade no uso. Por esse e outros motivos, usaremos ele. Após você criar sua conta, poderá criar repositórios públicos, da maneira como mostra a imagem abaixo que seria a criação de um repositório para hospedar o nosso código.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Criando repositório no GitHub" src="https://dunderlabs.github.io/images/posts/criar-repositorio-github.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Você pode, claro, mudar o nome do repositório e a descrição. Só &lt;strong&gt;não marque&lt;/strong&gt; aquele checkbox com texto "Initialize this repository with a README". Após preencher nome e descrição (esse último opcional), basta clicar em "Criar repositório". Após isso, você verá uma dela semelhante a essa abaixo:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Criando repositório no GitHub" src="https://dunderlabs.github.io/images/posts/add_remote_github.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Você verá que tem duas opções: uma criando um repositório com o &lt;code&gt;git init&lt;/code&gt;, cria um arquivo e executa alguns outros comandos antes de enviar o código (que não é o nosso caso uma vez que já fizemos isso), e outra abordagem onde você adiciona o endereço para o seu repositório online. Vamos fazer um pouco de cada. Vamos lá.&lt;/p&gt;
+&lt;p&gt;Uma vez que já demos o &lt;em&gt;init&lt;/em&gt; com o Git, vamos adicionar o nosso repositório remoto ao nosso local. Faremos isso usando o &lt;code&gt;git remote&lt;/code&gt; usando a opção &lt;code&gt;add&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git remote add github git@github.com:dunderlabs/turbo_send_mail.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Você vê que eu estou passando para o comando &lt;code&gt;add&lt;/code&gt; um nome &lt;code&gt;github&lt;/code&gt; antes da URL, certo? Esse vai ser o "nome" do nosso repositório remoto. Porque isso? 2 motivos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Você não iria querer digitar aquela URL toda vez que quiser enviar seu código para o GitHub&lt;/li&gt;
+&lt;li&gt;Você pode ter mais de um endereço. Por exemplo, ter o seu código no GitHub e no GitLab. Seriam 2 URLs, com 2 nomes diferentes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para você saber quais &lt;em&gt;remote&lt;/em&gt;'s você está usando, basta executar o seguinte comando:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git remote -v
+github  git@github.com:dunderlabs/turbo_send_mail.git &lt;span class="o"&gt;(&lt;/span&gt;fetch&lt;span class="o"&gt;)&lt;/span&gt;
+github  git@github.com:dunderlabs/turbo_send_mail.git &lt;span class="o"&gt;(&lt;/span&gt;push&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Certo, agora vamos dar uma olhada em como nosso repositório local está, e pra isso usaremos o comando &lt;code&gt;git status&lt;/code&gt;. Você verá uma saída parecida com essa, mostrando os arquivos que não estão sendo rastreados ou que foram alterados.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  &lt;span class="o"&gt;(&lt;/span&gt;use &lt;span class="s2"&gt;&amp;quot;git add &amp;lt;file&amp;gt;...&amp;quot;&lt;/span&gt; to include in what will be committed&lt;span class="o"&gt;)&lt;/span&gt;
+
+    .bowerrc
+    .gitignore
+    Makefile
+    Procfile
+    README.md
+    app.json
+    backend/
+    bin/
+    bower.json
+    example.env
+    frontend/
+    manage.py
+    package.json
+    requirements.txt
+    requirements/
+    runtime.txt
+    settings/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Beleza, agora vamos adicionar todos esses arquivos e diretórios para serem rastreados. Uma vez feito isso, o Git vai ter um registro de cada alteração feita dentro desse nosso repositório.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git add .
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Após adicionar, e você executar mais uma vez o &lt;code&gt;git status&lt;/code&gt;, vai notar que a mensagem está diferente. Ele está reconhecendo todos, e aguardando para que possamos escrever nossa mensagem de commit, registrando assim essa alteração.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  &lt;span class="o"&gt;(&lt;/span&gt;use &lt;span class="s2"&gt;&amp;quot;git rm --cached &amp;lt;file&amp;gt;...&amp;quot;&lt;/span&gt; to unstage&lt;span class="o"&gt;)&lt;/span&gt;
+
+    new file:   .bowerrc
+    new file:   .gitignore
+    new file:   Makefile
+    new file:   Procfile
+    new file:   README.md
+    new file:   app.json
+    new file:   backend/core/__init__.py
+    new file:   backend/core/admin.py
+    new file:   backend/core/apps.py
+    new file:   backend/core/forms.py
+    new file:   backend/core/migrations/__init__.py
+&lt;span class="o"&gt;[&lt;/span&gt;mais...&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ao você executar &lt;code&gt;git commit&lt;/code&gt;, você provavelmente vai ser jogado no editor de texto &lt;a href="https://en.wikipedia.org/wiki/GNU_nano"&gt;Nano&lt;/a&gt;, ou no &lt;a href="https://www.vim.org/"&gt;Vim&lt;/a&gt;. Estando em algum desses, você vai poder escrever sua mensagem de commit. A minha vai ser: "Start project".&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Start project
+&lt;span class="c"&gt;# Please enter the commit message for your changes. Lines starting&lt;/span&gt;
+&lt;span class="c"&gt;# with &amp;#39;#&amp;#39; will be ignored, and an empty message aborts the commit.&lt;/span&gt;
+&lt;span class="c"&gt;# On branch master&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# Initial commit&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# Changes to be committed:&lt;/span&gt;
+&lt;span class="c"&gt;#       new file:   .bowerrc&lt;/span&gt;
+&lt;span class="c"&gt;#       new file:   .gitignore&lt;/span&gt;
+&lt;span class="c"&gt;#       new file:   Makefile&lt;/span&gt;
+&lt;span class="c"&gt;#       new file:   Procfile&lt;/span&gt;
+&lt;span class="c"&gt;#       new file:   README.md&lt;/span&gt;
+&lt;span class="c"&gt;#       new file:   app.json&lt;/span&gt;
+&lt;span class="c"&gt;#       new file:   backend/core/__init__.py&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;mais...&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora só resta uma coisa: enviar o nosso código para o nosso repositório remoto, lá no GitHub. Para isso, vamos usar o &lt;code&gt;git push&lt;/code&gt;. Seguido desse comando, você vai informar para qual repositório remoto você quer enviar, e qual branch local.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git push github master
+Counting objects: 47, &lt;span class="k"&gt;done&lt;/span&gt;.
+Delta compression using up to &lt;span class="m"&gt;4&lt;/span&gt; threads.
+Compressing objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;37/37&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
+Writing objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;47/47&lt;span class="o"&gt;)&lt;/span&gt;, 7.98 KiB &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; bytes/s, &lt;span class="k"&gt;done&lt;/span&gt;.
+Total &lt;span class="m"&gt;47&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 3&lt;span class="o"&gt;)&lt;/span&gt;, reused &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 0&lt;span class="o"&gt;)&lt;/span&gt;
+remote: Resolving deltas: 100% &lt;span class="o"&gt;(&lt;/span&gt;3/3&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
+To github.com:dunderlabs/turbo_send_mail.git
+ * &lt;span class="o"&gt;[&lt;/span&gt;new branch&lt;span class="o"&gt;]&lt;/span&gt;      master -&amp;gt; master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Tudo maravilha. Agora vamos configurar o nosso &lt;code&gt;.env&lt;/code&gt;. Lembra que temos um arquivo &lt;code&gt;example.env&lt;/code&gt; no nosso boilerplate? Vamos usar ele agora. O conteúdo dele vai ser esse debaixo:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Rename to .env&lt;/span&gt;
+&lt;span class="nv"&gt;DATABASE_URL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;postgres://user:password@localhost:5432/database_name&amp;#39;&lt;/span&gt;
+&lt;span class="nv"&gt;DEBUG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True
+
+&lt;span class="nv"&gt;SECRET_KEY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;put-an-awesome-secret-key-here
+
+&lt;span class="nv"&gt;STATIC_URL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;MEDIA_URL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+
+&lt;span class="c"&gt;# Email settings&lt;/span&gt;
+&lt;span class="nv"&gt;DEFAULT_FROM_EMAIL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;EMAIL_BACKEND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;django.core.mail.backends.console.EmailBackend
+&lt;span class="nv"&gt;EMAIL_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;SENDGRID_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;SENDGRID_USERNAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;EMAIL_PORT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;587
+&lt;span class="nv"&gt;EMAIL_USE_TLS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Eu sugiro usar o banco de dados postgres também para o desenvolvimento, mas caso você não o tenha instalado e por algum motivo não possa instalar agora, não precisa. Se você não usar, o &lt;a href="https://pypi.python.org/pypi/python-decouple"&gt;python-decouple&lt;/a&gt; vai usar outros valores. No caso do banco de dados, ao invés de usar um Postgres, usará o SQLite. Mas, vou seguir como se fôssemos utilizar a primeira opção. Para isso, vou primeiro criar o banco na minha máquina:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;createdb turbo_send_mail
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Após criar, basta mudar as credenciais em &lt;code&gt;DATABASE_URL&lt;/code&gt; do nosso arquivo. Mas antes disso, vamos fazer uma cópia dele e renomear para .env&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;cp example.env .env
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora abrindo o esse novo arquivo, vamos substituir alguns valores. Ao final, ele deverá ficar parecido com isso:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Rename to .env&lt;/span&gt;
+&lt;span class="nv"&gt;DATABASE_URL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;postgres://mazulo@localhost:5432/turbo_send_mail
+&lt;span class="nv"&gt;DEBUG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True
+
+&lt;span class="nv"&gt;SECRET_KEY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;cb%k3i&lt;span class="nv"&gt;$$&lt;/span&gt;r2ku69te*2+ikhuwr7ve07kb&lt;span class="o"&gt;(&lt;/span&gt;nasfvbnkag3&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;8k%4
+&lt;span class="nv"&gt;ALLOWED_HOSTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;127.0.0.1
+
+&lt;span class="nv"&gt;STATIC_URL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/static/
+&lt;span class="nv"&gt;MEDIA_URL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/media/
+
+&lt;span class="c"&gt;# Email settings&lt;/span&gt;
+&lt;span class="nv"&gt;DEFAULT_FROM_EMAIL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;EMAIL_BACKEND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;django.core.mail.backends.console.EmailBackend
+&lt;span class="nv"&gt;EMAIL_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;SENDGRID_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;SENDGRID_USERNAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="nv"&gt;EMAIL_PORT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;587
+&lt;span class="nv"&gt;EMAIL_USE_TLS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Veja que substituí o anterior &lt;code&gt;postgres://user:password@localhost:5432/database_name&lt;/code&gt; por &lt;code&gt;postgres://mazulo@localhost:5432/turbo_send_mail&lt;/code&gt;. No meu caso, eu não coloquei a senha, porque configurei o meu postgres para localmente não precisar de autenticação. Aquela SECRET_KEY eu gerei usando um trecho de código desse &lt;a href="https://gist.github.com/ndarville/3452907"&gt;gist&lt;/a&gt;. Você não precisa se preocupar com os dados de email, por enquanto. Veremos isso depois.&lt;/p&gt;
+&lt;p&gt;Pronto, temos nosso banco criado e as credenciais salvas no nosso &lt;code&gt;.env&lt;/code&gt;. Agora lembra daquela mensagem que vimos no post anterior ao rodar o &lt;code&gt;runserver&lt;/code&gt; sobre migrações não aplicadas? Então, agora que temos nosso banco, vamos aplicá-las. Sobre elas, vamos falar mais para frente :)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, sites
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+  Applying sites.0001_initial... OK
+  Applying sites.0002_alter_domain_unique... OK
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Para termos certeza que está tudo OK, você pode acessar o seu banco localmente, e ver as tabelas que foram criadas. A seguir, você vai ver respectivamente os comandos utilizados para: acessar o shell do postgres, listar os bancos, conectar em um deles e mostrar as tabelas desse banco.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;psql postgres
+psql &lt;span class="o"&gt;(&lt;/span&gt;9.6.3&lt;span class="o"&gt;)&lt;/span&gt;
+Type &lt;span class="s2"&gt;&amp;quot;help&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; help.
+
+&lt;span class="nv"&gt;postgres&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="c"&gt;# \l&lt;/span&gt;
+                                     List of databases
+      Name       &lt;span class="p"&gt;|&lt;/span&gt;  Owner   &lt;span class="p"&gt;|&lt;/span&gt; Encoding &lt;span class="p"&gt;|&lt;/span&gt;   Collate   &lt;span class="p"&gt;|&lt;/span&gt;    Ctype    &lt;span class="p"&gt;|&lt;/span&gt;   Access privileges   
+-----------------+----------+----------+-------------+-------------+-----------------------
+ turbo_send_mail &lt;span class="p"&gt;|&lt;/span&gt; mazulo   &lt;span class="p"&gt;|&lt;/span&gt; UTF8     &lt;span class="p"&gt;|&lt;/span&gt; en_US.UTF-8 &lt;span class="p"&gt;|&lt;/span&gt; en_US.UTF-8 &lt;span class="p"&gt;|&lt;/span&gt;
+
+&lt;span class="nv"&gt;postgres&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="c"&gt;# \c turbo_send_mail&lt;/span&gt;
+You are now connected to database &lt;span class="s2"&gt;&amp;quot;turbo_send_mail&amp;quot;&lt;/span&gt; as user &lt;span class="s2"&gt;&amp;quot;mazulo&amp;quot;&lt;/span&gt;.
+
+&lt;span class="nv"&gt;turbo_send_mail&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="c"&gt;# \dt&lt;/span&gt;
+ public &lt;span class="p"&gt;|&lt;/span&gt; auth_group                 &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; auth_group_permissions     &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; auth_permission            &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; auth_user                  &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; auth_user_groups           &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; auth_user_user_permissions &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; django_admin_log           &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; django_content_type        &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; django_migrations          &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; django_session             &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+ public &lt;span class="p"&gt;|&lt;/span&gt; django_site                &lt;span class="p"&gt;|&lt;/span&gt; table &lt;span class="p"&gt;|&lt;/span&gt; mazulo
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finalizada toda essa parte, se rodarmos novamente o &lt;code&gt;runserver&lt;/code&gt;, não veremos novamente aquela mensagem. Ficará assim:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python manage.py runserver
+Performing system checks...
+
+System check identified no issues &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; silenced&lt;span class="o"&gt;)&lt;/span&gt;.
+August 04, &lt;span class="m"&gt;2017&lt;/span&gt; - 07:15:05
+Django version 1.11.3, using settings &lt;span class="s1"&gt;&amp;#39;settings&amp;#39;&lt;/span&gt;
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Tá começando a ficar muito bacana. Eu falei que nesse post já teríamos programação, mas o post acabou ficando um pouco extenso demais, então vou pausar aqui. No próximo vou falar um pouco sobre tests, e a partir dele vamos ter bastante Python/Django. Vou tentar lançar ele amanhã, então fica ligado aqui :D&lt;/p&gt;
+&lt;p&gt;Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!&lt;/p&gt;</summary><category term="django"></category><category term="django-serie"></category></entry><entry><title>Django startproject: Iniciando o seu projeto</title><link href="https://dunderlabs.github.io/django-iniciando-seu-projeto.html" rel="alternate"></link><updated>2017-07-27T19:21:00-03:00</updated><author><name>Patrick Mazulo</name></author><id>tag:dunderlabs.github.io,2017-07-27:django-iniciando-seu-projeto.html</id><summary type="html">&lt;p&gt;&lt;img alt="Créditos da imagem" src="https://dunderlabs.github.io/images/posts/django-startproject.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Posts anteriores da série:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html"&gt;Django Boilerplate: A estrutura de projeto Django que tenho usado&lt;/a&gt;&lt;/li&gt;

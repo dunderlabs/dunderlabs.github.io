@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Configurando seu projeto Django"/>
+    <meta property="og:url" content="https://dunderlabs.github.io/django-configurando-seu-projeto.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Já temos nosso projeto, então agora vamos dar os tapas finais e começar a programar o nosso sistema de envio de e-mails!"/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/posts/django-startproject.png"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@ericleribertson"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Configurando seu projeto Django"/>
+    <meta name="twitter:description" content="Já temos nosso projeto, então agora vamos dar os tapas finais e começar a programar o nosso sistema de envio de e-mails!"/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/posts/django-startproject.png"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Patrick Mazulo"/>
+    <meta property="article:section" content="django"/>
+    <meta property="article:tag" content="django, django-serie"/>
+    <meta property="article:published_time" content="2017-08-04T04:54:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Configurando seu projeto Django"/>
+    <meta itemprop="description" content="Já temos nosso projeto, então agora vamos dar os tapas finais e começar a programar o nosso sistema de envio de e-mails!"/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/posts/django-startproject.png"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Já temos nosso projeto, então agora vamos dar os tapas finais e começar a programar o nosso sistema de envio de e-mails!"/>
+    <meta name="keywords" content="django, django-serie"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Configurando seu projeto Django // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Publicado</h5>
+                <p>04/08/2017</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Configurando seu projeto Django</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/django.html">django</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/django-serie.html">django-serie</a>
+                        </p>
+                </header>
+            </section>
+            <p><img alt="Criando repositório no GitHub" src="https://dunderlabs.github.io/images/posts/criar-repositorio-github.png" /></p>
+<p>Posts anteriores da série:</p>
+<ul>
+<li><a href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html">Django Boilerplate: A estrutura de projeto Django que tenho usado</a></li>
+<li><a href="https://dunderlabs.github.io/django-iniciando-seu-projeto.html">Django startproject: Iniciando o seu projeto</a></li>
+</ul>
+<p>Fala pessoa, tudo beleza? Vamos dar continuidade a nossa série de posts sobre Django. Nós já conhecemos a estrutura do template de projeto que usaremos, demos o <code>startproject</code> usando ele, então agora vamos começar a brincar com Django. Claro, nessa série nós não vamos ver só e somente Python/Django, mas pretendo abordar um pouquinho de cada coisa que envolve o desenvolvimento de software. Não vou me aprofundar muito, mas pretendo mostrar o pouquinho que já sei :)</p>
+<p>Bom, antes de qualquer coisa, o que nós faremos será renomear algumas coisas no nosso projeto. Vocês vão ver que em alguns arquivos, como no <code>app.json</code>, você verá referências para "DjangoBoilerplate". Sua missão será renomear essas referências com o nome do nosso projeto "TurboSendMail". Você vai fazer isso em:</p>
+<ul>
+<li><code>app.json</code> (atualizar "name")</li>
+<li><code>README.md</code> (mudar informações gerais, nesse você está livre para colocar o que quiser)</li>
+<li><code>bower.json</code> (atualizar "name" e "authors")</li>
+<li><code>package.json</code> (atualizar "name", "description" e "repository", esse último com o link do seu repositório no github)</li>
+</ul>
+<p>Feito isso, quero fazer uma pergunta: você já sabe o que é <a href="https://git-scm.com/book/pt-br/v1/Primeiros-passos-Sobre-Controle-de-Vers%C3%A3o">Controle de Versão</a> dentro do contexto do mundo do software? Caso não, dá uma lida nesse post que linkei antes de nós podermos continuar. Pronto? Vamos continuar então.</p>
+<p>Para essa série de posts, nós vamos utilizar o <a href="https://git-scm.com/">Git</a> para o nosso versionamento. Se você ainda não havia mexido com ele antes, no mesmo site você vai encontrar uma seção para o livro <a href="https://git-scm.com/book/pt-br/v2">Pro Git v2</a>, com o primeiro capítulo traduzido para pt_BR. A <a href="https://git-scm.com/book/pt-br/v1">v1</a> está <s>quase</s> completamente traduzida. Tirando ele, você vai poder encontrar muito material bacana sobre na web.</p>
+<p>Conforme formos usando os comandos, vou dando rápidas explicações sobre os comandos. Então, let's go! O primeiro que vamos usar, vai ser como poderíamos esperar, o comando para iniciar. No git, ele vai ser o <code>git init</code>. Então uma vez dentro do diretório do seu projeto, você vai executar esse comando:</p>
+<div class="highlight"><pre><span class="nv">$ </span>git init
+Initialized empty Git repository in /home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/.git/
+</pre></div>
+
+
+<p>Como o comando vai mostrar pra você, o que ele vai fazer é criar um diretório <code>.git/</code> dentro do diretório do seu projeto. Ele vai ser usado pelo Git para gerenciar esse diretório (ou repositório) localmente e remotamente. Só isso? Quase. Uma prática mais do que comum também é você deixar salvo o seu código na ~nuvem~. Existem alguns serviços web para isso, porém os 3 mais conhecidos são:</p>
+<ul>
+<li><a href="https://github.com">GitHub</a></li>
+<li><a href="https://bitbucket.org">BitBucket</a></li>
+<li><a href="https://gitlab.com">GitLab</a></li>
+</ul>
+<p>Cada um vai ter sua vantagem e desvantagem, mas há a unanimidade em usar o GitHub (que já virou sinônimo de Open Source) para projetos. Além da sua facilidade no uso. Por esse e outros motivos, usaremos ele. Após você criar sua conta, poderá criar repositórios públicos, da maneira como mostra a imagem abaixo que seria a criação de um repositório para hospedar o nosso código.</p>
+<p><img alt="Criando repositório no GitHub" src="https://dunderlabs.github.io/images/posts/criar-repositorio-github.png" /></p>
+<p>Você pode, claro, mudar o nome do repositório e a descrição. Só <strong>não marque</strong> aquele checkbox com texto "Initialize this repository with a README". Após preencher nome e descrição (esse último opcional), basta clicar em "Criar repositório". Após isso, você verá uma dela semelhante a essa abaixo:</p>
+<p><img alt="Criando repositório no GitHub" src="https://dunderlabs.github.io/images/posts/add_remote_github.png" /></p>
+<p>Você verá que tem duas opções: uma criando um repositório com o <code>git init</code>, cria um arquivo e executa alguns outros comandos antes de enviar o código (que não é o nosso caso uma vez que já fizemos isso), e outra abordagem onde você adiciona o endereço para o seu repositório online. Vamos fazer um pouco de cada. Vamos lá.</p>
+<p>Uma vez que já demos o <em>init</em> com o Git, vamos adicionar o nosso repositório remoto ao nosso local. Faremos isso usando o <code>git remote</code> usando a opção <code>add</code>.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git remote add github git@github.com:dunderlabs/turbo_send_mail.git
+</pre></div>
+
+
+<p>Você vê que eu estou passando para o comando <code>add</code> um nome <code>github</code> antes da URL, certo? Esse vai ser o "nome" do nosso repositório remoto. Porque isso? 2 motivos:</p>
+<ul>
+<li>Você não iria querer digitar aquela URL toda vez que quiser enviar seu código para o GitHub</li>
+<li>Você pode ter mais de um endereço. Por exemplo, ter o seu código no GitHub e no GitLab. Seriam 2 URLs, com 2 nomes diferentes</li>
+</ul>
+<p>Para você saber quais <em>remote</em>'s você está usando, basta executar o seguinte comando:</p>
+<div class="highlight"><pre><span class="nv">$ </span>git remote -v
+github  git@github.com:dunderlabs/turbo_send_mail.git <span class="o">(</span>fetch<span class="o">)</span>
+github  git@github.com:dunderlabs/turbo_send_mail.git <span class="o">(</span>push<span class="o">)</span>
+</pre></div>
+
+
+<p>Certo, agora vamos dar uma olhada em como nosso repositório local está, e pra isso usaremos o comando <code>git status</code>. Você verá uma saída parecida com essa, mostrando os arquivos que não estão sendo rastreados ou que foram alterados.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to include in what will be committed<span class="o">)</span>
+
+    .bowerrc
+    .gitignore
+    Makefile
+    Procfile
+    README.md
+    app.json
+    backend/
+    bin/
+    bower.json
+    example.env
+    frontend/
+    manage.py
+    package.json
+    requirements.txt
+    requirements/
+    runtime.txt
+    settings/
+</pre></div>
+
+
+<p>Beleza, agora vamos adicionar todos esses arquivos e diretórios para serem rastreados. Uma vez feito isso, o Git vai ter um registro de cada alteração feita dentro desse nosso repositório.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git add .
+</pre></div>
+
+
+<p>Após adicionar, e você executar mais uma vez o <code>git status</code>, vai notar que a mensagem está diferente. Ele está reconhecendo todos, e aguardando para que possamos escrever nossa mensagem de commit, registrando assim essa alteração.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">&quot;git rm --cached &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+
+    new file:   .bowerrc
+    new file:   .gitignore
+    new file:   Makefile
+    new file:   Procfile
+    new file:   README.md
+    new file:   app.json
+    new file:   backend/core/__init__.py
+    new file:   backend/core/admin.py
+    new file:   backend/core/apps.py
+    new file:   backend/core/forms.py
+    new file:   backend/core/migrations/__init__.py
+<span class="o">[</span>mais...<span class="o">]</span>
+</pre></div>
+
+
+<p>Ao você executar <code>git commit</code>, você provavelmente vai ser jogado no editor de texto <a href="https://en.wikipedia.org/wiki/GNU_nano">Nano</a>, ou no <a href="https://www.vim.org/">Vim</a>. Estando em algum desses, você vai poder escrever sua mensagem de commit. A minha vai ser: "Start project".</p>
+<div class="highlight"><pre>Start project
+<span class="c"># Please enter the commit message for your changes. Lines starting</span>
+<span class="c"># with &#39;#&#39; will be ignored, and an empty message aborts the commit.</span>
+<span class="c"># On branch master</span>
+<span class="c">#</span>
+<span class="c"># Initial commit</span>
+<span class="c">#</span>
+<span class="c"># Changes to be committed:</span>
+<span class="c">#       new file:   .bowerrc</span>
+<span class="c">#       new file:   .gitignore</span>
+<span class="c">#       new file:   Makefile</span>
+<span class="c">#       new file:   Procfile</span>
+<span class="c">#       new file:   README.md</span>
+<span class="c">#       new file:   app.json</span>
+<span class="c">#       new file:   backend/core/__init__.py</span>
+<span class="o">[</span>mais...<span class="o">]</span>
+</pre></div>
+
+
+<p>Agora só resta uma coisa: enviar o nosso código para o nosso repositório remoto, lá no GitHub. Para isso, vamos usar o <code>git push</code>. Seguido desse comando, você vai informar para qual repositório remoto você quer enviar, e qual branch local.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git push github master
+Counting objects: 47, <span class="k">done</span>.
+Delta compression using up to <span class="m">4</span> threads.
+Compressing objects: 100% <span class="o">(</span>37/37<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: 100% <span class="o">(</span>47/47<span class="o">)</span>, 7.98 KiB <span class="p">|</span> <span class="m">0</span> bytes/s, <span class="k">done</span>.
+Total <span class="m">47</span> <span class="o">(</span>delta 3<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>
+remote: Resolving deltas: 100% <span class="o">(</span>3/3<span class="o">)</span>, <span class="k">done</span>.
+To github.com:dunderlabs/turbo_send_mail.git
+ * <span class="o">[</span>new branch<span class="o">]</span>      master -&gt; master
+</pre></div>
+
+
+<p>Tudo maravilha. Agora vamos configurar o nosso <code>.env</code>. Lembra que temos um arquivo <code>example.env</code> no nosso boilerplate? Vamos usar ele agora. O conteúdo dele vai ser esse debaixo:</p>
+<div class="highlight"><pre><span class="c"># Rename to .env</span>
+<span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s1">&#39;postgres://user:password@localhost:5432/database_name&#39;</span>
+<span class="nv">DEBUG</span><span class="o">=</span>True
+
+<span class="nv">SECRET_KEY</span><span class="o">=</span>put-an-awesome-secret-key-here
+
+<span class="nv">STATIC_URL</span><span class="o">=</span>
+<span class="nv">MEDIA_URL</span><span class="o">=</span>
+
+<span class="c"># Email settings</span>
+<span class="nv">DEFAULT_FROM_EMAIL</span><span class="o">=</span>
+<span class="nv">EMAIL_BACKEND</span><span class="o">=</span>django.core.mail.backends.console.EmailBackend
+<span class="nv">EMAIL_HOST</span><span class="o">=</span>
+<span class="nv">SENDGRID_PASSWORD</span><span class="o">=</span>
+<span class="nv">SENDGRID_USERNAME</span><span class="o">=</span>
+<span class="nv">EMAIL_PORT</span><span class="o">=</span>587
+<span class="nv">EMAIL_USE_TLS</span><span class="o">=</span>True
+</pre></div>
+
+
+<p>Eu sugiro usar o banco de dados postgres também para o desenvolvimento, mas caso você não o tenha instalado e por algum motivo não possa instalar agora, não precisa. Se você não usar, o <a href="https://pypi.python.org/pypi/python-decouple">python-decouple</a> vai usar outros valores. No caso do banco de dados, ao invés de usar um Postgres, usará o SQLite. Mas, vou seguir como se fôssemos utilizar a primeira opção. Para isso, vou primeiro criar o banco na minha máquina:</p>
+<div class="highlight"><pre>createdb turbo_send_mail
+</pre></div>
+
+
+<p>Após criar, basta mudar as credenciais em <code>DATABASE_URL</code> do nosso arquivo. Mas antes disso, vamos fazer uma cópia dele e renomear para .env</p>
+<div class="highlight"><pre>cp example.env .env
+</pre></div>
+
+
+<p>Agora abrindo o esse novo arquivo, vamos substituir alguns valores. Ao final, ele deverá ficar parecido com isso:</p>
+<div class="highlight"><pre><span class="c"># Rename to .env</span>
+<span class="nv">DATABASE_URL</span><span class="o">=</span>postgres://mazulo@localhost:5432/turbo_send_mail
+<span class="nv">DEBUG</span><span class="o">=</span>True
+
+<span class="nv">SECRET_KEY</span><span class="o">=</span><span class="p">&amp;</span>cb%k3i<span class="nv">$$</span>r2ku69te*2+ikhuwr7ve07kb<span class="o">(</span>nasfvbnkag3<span class="p">&amp;</span>8k%4
+<span class="nv">ALLOWED_HOSTS</span><span class="o">=</span>127.0.0.1
+
+<span class="nv">STATIC_URL</span><span class="o">=</span>/static/
+<span class="nv">MEDIA_URL</span><span class="o">=</span>/media/
+
+<span class="c"># Email settings</span>
+<span class="nv">DEFAULT_FROM_EMAIL</span><span class="o">=</span>
+<span class="nv">EMAIL_BACKEND</span><span class="o">=</span>django.core.mail.backends.console.EmailBackend
+<span class="nv">EMAIL_HOST</span><span class="o">=</span>
+<span class="nv">SENDGRID_PASSWORD</span><span class="o">=</span>
+<span class="nv">SENDGRID_USERNAME</span><span class="o">=</span>
+<span class="nv">EMAIL_PORT</span><span class="o">=</span>587
+<span class="nv">EMAIL_USE_TLS</span><span class="o">=</span>True
+</pre></div>
+
+
+<p>Veja que substituí o anterior <code>postgres://user:password@localhost:5432/database_name</code> por <code>postgres://mazulo@localhost:5432/turbo_send_mail</code>. No meu caso, eu não coloquei a senha, porque configurei o meu postgres para localmente não precisar de autenticação. Aquela SECRET_KEY eu gerei usando um trecho de código desse <a href="https://gist.github.com/ndarville/3452907">gist</a>. Você não precisa se preocupar com os dados de email, por enquanto. Veremos isso depois.</p>
+<p>Pronto, temos nosso banco criado e as credenciais salvas no nosso <code>.env</code>. Agora lembra daquela mensagem que vimos no post anterior ao rodar o <code>runserver</code> sobre migrações não aplicadas? Então, agora que temos nosso banco, vamos aplicá-las. Sobre elas, vamos falar mais para frente :)</p>
+<div class="highlight"><pre><span class="nv">$ </span>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, sites
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+  Applying sites.0001_initial... OK
+  Applying sites.0002_alter_domain_unique... OK
+</pre></div>
+
+
+<p>Para termos certeza que está tudo OK, você pode acessar o seu banco localmente, e ver as tabelas que foram criadas. A seguir, você vai ver respectivamente os comandos utilizados para: acessar o shell do postgres, listar os bancos, conectar em um deles e mostrar as tabelas desse banco.</p>
+<div class="highlight"><pre><span class="nv">$ </span>psql postgres
+psql <span class="o">(</span>9.6.3<span class="o">)</span>
+Type <span class="s2">&quot;help&quot;</span> <span class="k">for</span> help.
+
+<span class="nv">postgres</span><span class="o">=</span><span class="c"># \l</span>
+                                     List of databases
+      Name       <span class="p">|</span>  Owner   <span class="p">|</span> Encoding <span class="p">|</span>   Collate   <span class="p">|</span>    Ctype    <span class="p">|</span>   Access privileges   
+-----------------+----------+----------+-------------+-------------+-----------------------
+ turbo_send_mail <span class="p">|</span> mazulo   <span class="p">|</span> UTF8     <span class="p">|</span> en_US.UTF-8 <span class="p">|</span> en_US.UTF-8 <span class="p">|</span>
+
+<span class="nv">postgres</span><span class="o">=</span><span class="c"># \c turbo_send_mail</span>
+You are now connected to database <span class="s2">&quot;turbo_send_mail&quot;</span> as user <span class="s2">&quot;mazulo&quot;</span>.
+
+<span class="nv">turbo_send_mail</span><span class="o">=</span><span class="c"># \dt</span>
+ public <span class="p">|</span> auth_group                 <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> auth_group_permissions     <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> auth_permission            <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> auth_user                  <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> auth_user_groups           <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> auth_user_user_permissions <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> django_admin_log           <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> django_content_type        <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> django_migrations          <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> django_session             <span class="p">|</span> table <span class="p">|</span> mazulo
+ public <span class="p">|</span> django_site                <span class="p">|</span> table <span class="p">|</span> mazulo
+</pre></div>
+
+
+<p>Finalizada toda essa parte, se rodarmos novamente o <code>runserver</code>, não veremos novamente aquela mensagem. Ficará assim:</p>
+<div class="highlight"><pre><span class="nv">$ </span>python manage.py runserver
+Performing system checks...
+
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+August 04, <span class="m">2017</span> - 07:15:05
+Django version 1.11.3, using settings <span class="s1">&#39;settings&#39;</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+</pre></div>
+
+
+<p>Tá começando a ficar muito bacana. Eu falei que nesse post já teríamos programação, mas o post acabou ficando um pouco extenso demais, então vou pausar aqui. No próximo vou falar um pouco sobre tests, e a partir dele vamos ter bastante Python/Django. Vou tentar lançar ele amanhã, então fica ligado aqui :D</p>
+<p>Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>
