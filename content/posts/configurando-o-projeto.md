@@ -7,7 +7,7 @@ category: django
 tags: django, django-serie
 summary: Já temos nosso projeto, então agora vamos dar os tapas finais e começar a programar o nosso sistema de envio de e-mails!
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
-image: /images/posts/django-startproject.png
+image: /images/posts/criar-repositorio-github.png
 
 ![Criando repositório no GitHub]({filename}/images/posts/criar-repositorio-github.png)
 
