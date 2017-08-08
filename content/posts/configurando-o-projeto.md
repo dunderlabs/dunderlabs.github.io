@@ -16,7 +16,7 @@ Posts anteriores da série:
 - [Django Boilerplate: A estrutura de projeto Django que tenho usado]({filename}/posts/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.md)
 - [Django startproject: Iniciando o seu projeto]({filename}/posts/django-iniciando-seu-projeto.md)
 
-Fala pessoa, tudo beleza? Vamos dar continuidade a nossa série de posts sobre Django. Nós já conhecemos a estrutura do template de projeto que usaremos, demos o `startproject` usando ele, então agora vamos começar a brincar com Django. Claro, nessa série nós não vamos ver só e somente Python/Django, mas pretendo abordar um pouquinho de cada coisa que envolve o desenvolvimento de software. Não vou me aprofundar muito, mas pretendo mostrar o pouquinho que já sei :)
+Fala pessoal, tudo beleza? Vamos dar continuidade a nossa série de posts sobre Django. Nós já conhecemos a estrutura do template de projeto que usaremos, demos o `startproject` usando ele, então agora vamos começar a brincar com Django. Claro, nessa série nós não vamos ver só e somente Python/Django, mas pretendo abordar um pouquinho de cada coisa que envolve o desenvolvimento de software. Não vou me aprofundar muito, mas pretendo mostrar o pouquinho que já sei :)
 
 Bom, antes de qualquer coisa, o que nós faremos será renomear algumas coisas no nosso projeto. Vocês vão ver que em alguns arquivos, como no `app.json`, você verá referências para "DjangoBoilerplate". Sua missão será renomear essas referências com o nome do nosso projeto "TurboSendMail". Você vai fazer isso em:
 
