@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="description" content="
+    4 amigos com gostos igualmente parecidos e diferentes, reunindo
+    conhecimento, experiências e muitas dúvidas sobre: Front-End,
+    Python/Django, Linux, JS e etc. Devolvemos à comunidade o que em muitos
+    momentos ela nos ofereceu.
+">
+    <meta name="keywords" content="pug-pi, python, parnaiba, desenvolvimento, web, django"/>
+    <meta name="generator" content="Feito com Pure, Pelican, Python e Sublime. ">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Seu primeiro teste automatizado com Django"/>
+    <meta property="og:url" content="https://dunderlabs.github.io/seu-primeiro-teste-automatizado-com-django.html"/>
+    <meta property="og:site_name" content="__labs__"/>
+    <meta property="og:description" content="Agora que nosso projeto já está configurado e funcionando, vamos começar a programar! E que maneira melhor do que já começar programando ao ..."/>
+    <meta property="og:image" content="https://dunderlabs.github.io/images/posts/django_test.svg"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dunderlabs"/>
+    <meta name="twitter:creator" content="@ericleribertson"/>
+    <meta name="twitter:domain" content="dunderlabs.github.io"/>
+    <meta name="twitter:title" content="Seu primeiro teste automatizado com Django"/>
+    <meta name="twitter:description" content="Agora que nosso projeto já está configurado e funcionando, vamos começar a programar! E que maneira melhor do que já começar programando ao ..."/>
+    <meta name="twitter:image:src" content="https://dunderlabs.github.io/images/posts/django_test.svg"/>
+
+    <!-- Article meta -->
+    <meta property="article:author" content="Patrick Mazulo"/>
+    <meta property="article:section" content="django"/>
+    <meta property="article:tag" content="django, django-serie"/>
+    <meta property="article:published_time" content="2017-08-08T11:32:00-03:00"/>
+
+    <!-- Google+ -->
+    <meta itemprop="name" content="Seu primeiro teste automatizado com Django"/>
+    <meta itemprop="description" content="Agora que nosso projeto já está configurado e funcionando, vamos começar a programar! E que maneira melhor do que já começar programando ao ..."/>
+    <meta itemprop="image" content="https://dunderlabs.github.io/images/posts/django_test.svg"/>
+
+    <!-- General purpose meta -->
+    <meta name="description" content="Agora que nosso projeto já está configurado e funcionando, vamos começar a programar! E que maneira melhor do que já começar programando ao ..."/>
+    <meta name="keywords" content="django, django-serie"/>
+
+    <!-- FEED STUFFS  -->
+        <link rel="alternate"  href="https://dunderlabs.github.io/feeds/all.atom.xml" type="application/atom+xml" title="__labs__ Full Atom Feed"/>
+    <!-- END FEED STUFFS  -->
+
+        <title>Seu primeiro teste automatizado com Django // __labs__</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pure.css">
+    <link rel="stylesheet" href="https://dunderlabs.github.io/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <a href="https://dunderlabs.github.io/author/patrick-mazulo.html" title="See posts by Patrick Mazulo">
+                        <img class="avatar" alt="Patrick Mazulo" src="https://www.gravatar.com/avatar/47e5c8ea3ee6a7d796129b4f7e00afb9">
+                </a>
+                <h2 class="article-info">Patrick Mazulo</h2>
+                <small class="about-author">My name is Patrick and I'm a web developer who fell in love with Python</small>
+                <h5>Publicado</h5>
+                <p>08/08/2017</p>
+                <a href="/">&larr; Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Seu primeiro teste automatizado com Django</h1>
+                        <p class="post-meta">
+                            // tags                                 <a class="post-category" href="https://dunderlabs.github.io/tag/django.html">django</a>
+                                <a class="post-category" href="https://dunderlabs.github.io/tag/django-serie.html">django-serie</a>
+                        </p>
+                </header>
+            </section>
+            <p><img alt="Django test" src="https://dunderlabs.github.io/images/posts/django_test.svg" /></p>
+<p>Créditos da imagem: <a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools">https://docs.djangoproject.com/en/1.11/topics/testing/tools</a></p>
+<p>Posts anteriores da série:</p>
+<ul>
+<li><a href="https://dunderlabs.github.io/django-boilerplate-a-estrutura-de-projeto-django-que-tenho-usado.html">Django Boilerplate: A estrutura de projeto Django que tenho usado</a></li>
+<li><a href="https://dunderlabs.github.io/django-iniciando-seu-projeto.html">Django startproject: Iniciando o seu projeto</a></li>
+<li><a href="https://dunderlabs.github.io/django-configurando-seu-projeto.html">Configurando seu projeto Django</a></li>
+</ul>
+<p>Fala pessoal, tudo beleza? Agora que nosso projeto já está configurado e funcionando, vamos começar a programar! E que maneira melhor do que já começar programando ao escrever seu primeiro teste automatizado com Django? Se você for novo em programação web, ou só ainda não tinha se preocupado com isso, pode se perguntar: qual a vantagem de escrever testes?</p>
+<p>Essa resposta pode ser tão longa que mereceria só um post pra ela, mas podemos resumir de maneira sucinta com uma única frase: vai te poupar <strong>muito</strong> tempo em testar manualmente as funcionalidades do teu sistema, além de salvar sua vida.</p>
+<p>Escrever testes além de uma boa prática de programação (que inclusive está sendo cada vez mais requerida nas vagas para dev Python que tenho visto), é uma questão de segurança. Ao você ter testes que garantem a confiabilidade de uma feature do seu software, você tem mais <strong>flexibilidade</strong> e principalmente <strong>segurança</strong> em evoluir. Adicionar/remover features se tornam tarefas menos dolorosas, porque os seus testes vão garantir que essa alteração vai (ou não) impactar em outras áreas do sistema.</p>
+<p>Seguindo essa boa prática, o Django vai nos fornecer uma <a href="https://docs.djangoproject.com/en/1.11/topics/testing/overview/">suíte de teste</a> simplesmente sensacional! Essa suíte de teste usa a <a href="https://docs.python.org/3/library/unittest.html#module-unittest">unittest</a>, lib default do Python. Mas como ela funciona? Vamos ver como exemplo um trecho retirado da documentação oficial do Django. Digamos que nós temos um model <code>Animal</code>, que poderia ser mais ou menos assim:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">sound</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;The {} says &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sound</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Agora como eu poderia testar esse model. Bom, o teste consistiria em poder garantir que um <code>Animal</code> criado com um dado som, ao ser chamado seu método <code>.speak()</code>, ele fale com o seu devido som. Vamos testar:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span>
+
+<span class="k">class</span> <span class="nc">AnimalTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;lion&quot;</span><span class="p">,</span> <span class="n">sound</span><span class="o">=</span><span class="s">&quot;roar&quot;</span><span class="p">)</span>
+        <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;cat&quot;</span><span class="p">,</span> <span class="n">sound</span><span class="o">=</span><span class="s">&quot;meow&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_animals_can_speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Animals that can speak are correctly identified&quot;&quot;&quot;</span>
+        <span class="n">lion</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;lion&quot;</span><span class="p">)</span>
+        <span class="n">cat</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;cat&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">lion</span><span class="o">.</span><span class="n">speak</span><span class="p">(),</span> <span class="s">&#39;The lion says &quot;roar&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">speak</span><span class="p">(),</span> <span class="s">&#39;The cat says &quot;meow&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>O que está acontecendo? Vamos por partes. Eu tenho uma classe <code>AnimalTestCase</code>, que vai herdar de <a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.TestCase"><code>TestCase</code></a>, que por sua vez é responsável por realizar testes que façam uso do banco de dados. O primeiro método que temos é o <code>setUp</code>, onde serão criados no banco 2 animais: um leão e um gato. Esse será o primeiro método que vai ser rodado antes de cada teste. Após termos nosso <code>setUp</code>, vamos ter o primeiro teste.</p>
+<p>O método <code>test_animals_can_speak</code> vai verificar se os animais que foram criados antes, estão "falando" corretamente. De que maneira é feito isso? Vamos recuperar os 2 que foram criados anteriormente. Tendo-os salvos em variáveis, vamos usar o método <a href="https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertEqual"><code>.assertEqual</code></a>, que vai verificar se o primeiro argumento passado é igual ao segundo. Vamos olhar essa parte mais de perto:</p>
+<div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">lion</span><span class="o">.</span><span class="n">speak</span><span class="p">(),</span> <span class="s">&#39;The lion says &quot;roar&quot;&#39;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">speak</span><span class="p">(),</span> <span class="s">&#39;The cat says &quot;meow&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Lembram que o nosso model <code>Animal</code> tem um método <code>.speak()</code> que vai retornar um texto usando o <code>name</code> e <code>sound</code> para formatar o texto. Sabendo disso, eu faço a chamada desse método como primeiro argumento, e no segundo usarei o que eu estou esperando que seja a saída correta. Farei isso tanto para o <em>lion</em> quando para o <em>cat</em>.</p>
+<p>Uma vez que você tem o teste escrito, tá na hora de... <strong>testar!</strong> Para isso, o Django vai nos disponibilizar um comando chamado <code>test</code>. Simples assim: <code>python manage.py test</code>. Ao executar esse comando, o Django vai procurar por qualquer arquivo nomeado <code>test*.py</code> dentro do diretório do projeto. Supondo que tivéssemos realmente um projeto Django para esse model <code>Animal</code>, e se fôssemos rodar os testes dele, teríamos como execução e output do terminal algo mais ou menos como isso:</p>
+<div class="highlight"><pre><span class="nv">$ </span>python manage.py <span class="nb">test</span>
+Creating <span class="nb">test </span>database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+
+----------------------------------------------------------------------
+Ran <span class="m">1</span> tests in 0.017s
+
+OK
+Destroying <span class="nb">test </span>database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+</pre></div>
+
+
+<p>Como mencionado anteriormente, estaremos fazendo uso do banco de dados para criar instâncias dos nossos models e salvá-los. Mas para isso, não faria o menor sentido usar o banco que você vai estar usando para desenvolvimento. Para isso, o Django vai criar um banco de teste. Depois de criar, agora sim os testes serão executados em ordem. Ao finalizar, o mesmo banco criado será destruído.</p>
+<p>Temos já uma noção básica do que são testes, para quê servem, como criar e executá-los. Agora vamos fazer o primeiro teste para a nossa aplicação. Se você acessar <code>backend/core/</code> do nosso projeto, vai ver que já existe um arquivo chamado <code>tests.py</code> vazio, e será nele que criaremos os nossos testes. Neste momento você deve estar se perguntando:</p>
+<blockquote>
+<p><em>"Beleza, mas o que nós vamos testar? Não temos sequer 1 model!"</em></p>
+</blockquote>
+<p>O que é verdade, mas temos algo que já usamos inclusive nos capítulos anteriores dessa série: uma view. Se você acessar o arquivo <code>backend/core/views.py</code> vai encontrar o seguinte código:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">generic</span>
+
+
+<span class="k">class</span> <span class="nc">IndexView</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">TemplateView</span><span class="p">):</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;core/index.html&#39;</span>
+</pre></div>
+
+
+<p>Estamos usando <a href="https://docs.djangoproject.com/en/1.11/topics/class-based-views/intro/">class-based views</a>, o que inicialmente pode não fazer muito sentido. Mas calma, ainda vamos abordar com mais carinho essa parte. Por agora, o que a CBV (class-based view) <a href="https://docs.djangoproject.com/en/1.11/ref/class-based-views/base/#templateview">generic.TemplateView</a> que nada mais faz do que basicamente renderizar um template fornecido. No caso, estamos fornecendo o path de um no atributo <code>template_name</code>. Uma coisa importante para sabermos e que veremos na prática, é que os testes consistem também em cobrir todas as camadas básicas da nossa aplicação: models, forms e views. No caso desse teste que faremos agora, vamos para a view.</p>
+<p>Sem mais delongas, vamos codar. Dentro daquele arquivo <code>tests.py</code> você vai codar o seguinte conteúdo:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+
+
+<span class="k">class</span> <span class="nc">IndexViewTest</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;core:index&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_response_200</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Como fizemos antes, estaremos usando a classe <code>TestCase</code> e criaremos uma <code>IndexViewTest</code> que herdará da primeira. Essa suite de testes será responsável por cobrir as funcionalidades da nossa view index. No método <code>setUp</code> salvarei a URL que estaremos acessando sempre nos testes, e para isso usaremos a função <a href="https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#reverse"><code>reverse</code></a> que tratará de transformar esse namespace <code>'core:index'</code> em uma URL válida. </p>
+<p>Feito isso, criaremos o teste <code>test_response_200</code> que irá nos garantir que ao acessar a nossa página inicial, teremos um <a href="https://httpstatusdogs.com/200-ok">status_code 200</a>. Para tal, usaremos o <a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client"><code>self.client</code></a>, que nada mais é do que uma instância da classe <a href="https://docs.djangoproject.com/en/1.11/_modules/django/test/client/#Client"><code>Client</code></a> do Django que vai agir como se fosse um navegador, para que você possa interagir com as suas views, seja com <code>GET</code>, <code>POST</code> ou qualquer outra ação HTTP. Entendida essa parte, vamos seguir adiante. Iremos salvar o resultado desse GET na variável <code>response</code>, e a seguir usaremos novamente o <code>self.assertEqual</code> para confirmar que o <code>response.status_code</code> é igual a 200.</p>
+<p>Pronto, criado nosso teste, vamos... <strong>testar!</strong></p>
+<blockquote>
+<p>Obs.: Como estamos usando uma estrutura diferente de projeto, para rodar nossos testes usaremos um comando um pouco diferente do normal.
+Ao invés de usar <code>python manage.py test</code>, vamos usar <code>python manage.py test backend</code>. Uma vez que o diretório <code>backend</code> será o local onde estará nossas apps, nossos testes consequentemente estarão lá também. Ao passar dessa maneira, informamos que o Django tem que procurar os testes ali dentro, e o resto pode deixar que ele se vira. Adicionalmente, passaremos a flag <code>v</code> para termos um output um pouco mais verboso, e assim entendermos o que está acontecendo.</p>
+</blockquote>
+<div class="highlight"><pre><span class="nv">$ </span>python manage.py <span class="nb">test </span>backend -v 2
+Creating <span class="nb">test </span>database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span> <span class="o">(</span><span class="s1">&#39;test_turbo_send_mail&#39;</span><span class="o">)</span>...
+Operations to perform:
+  Synchronize unmigrated apps: compressor, messages, sitemaps, staticfiles
+  Apply all migrations: admin, auth, contenttypes, sessions, sites
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+  Applying sites.0001_initial... OK
+  Applying sites.0002_alter_domain_unique... OK
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+test_response_200 <span class="o">(</span>core.tests.IndexViewTest<span class="o">)</span> ... ok
+
+----------------------------------------------------------------------
+Ran <span class="m">1</span> <span class="nb">test </span>in 0.245s
+
+OK
+Destroying <span class="nb">test </span>database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span> <span class="o">(</span><span class="s1">&#39;test_turbo_send_mail&#39;</span><span class="o">)</span>...
+</pre></div>
+
+
+<p>Com essa saída podemos ver o que está acontecendo: O Django está criando o banco de dados para o teste, roda as migrações (como não temos models e, portanto, não geramos migrações, só teremos as do Django) e por fim executa o teste. Estando correto, teremos um <code>ok</code> como o que está lá. Agora eu vou fazer uma pequena alteração no código para que ele falhe, apenas para podermos ver qual seria a saída. Então vou mudar o segundo argumento do <code>self.assertEqual</code> de 200 para 300, e rodar novamente os testes.</p>
+<div class="highlight"><pre><span class="nv">$ </span>python manage.py <span class="nb">test </span>backend -v 2
+<span class="o">[</span>mais...<span class="o">]</span>
+test_response_200 <span class="o">(</span>core.tests.IndexViewTest<span class="o">)</span> ... <span class="nv">FAIL</span>
+
+<span class="o">======================================================================</span>
+FAIL: test_response_200 <span class="o">(</span>core.tests.IndexViewTest<span class="o">)</span>
+----------------------------------------------------------------------
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;/home/mazulo/dev/github/dunderlabs/turbo_send_mail_project/backend/core/tests.py&quot;</span>, line 14, in test_response_200
+    self.assertEqual<span class="o">(</span>response.status_code, 300<span class="o">)</span>
+AssertionError: <span class="m">200</span> !<span class="o">=</span> 300
+
+----------------------------------------------------------------------
+Ran <span class="m">1</span> <span class="nb">test </span>in 0.141s
+
+FAILED <span class="o">(</span><span class="nv">failures</span><span class="o">=</span>1<span class="o">)</span>
+Destroying <span class="nb">test </span>database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span> <span class="o">(</span><span class="s1">&#39;test_turbo_send_mail&#39;</span><span class="o">)</span>...
+</pre></div>
+
+
+<p>Cada teste que falhar, vai nos trazer um traceback com as informações necessárias para que saibamos qual arquivo, linha, teste e qual a linha em que falou. Ao lermos, sabemos que no <code>AssertionError: 200 != 300</code>. Ou seja, o nosso <code>response.status_code</code> é 200, mas estamos comparando com 300. Pronto, feito isso, voltamos o nosso código para 200 e assim funcione bem.</p>
+<p>Agora pare um pouco, e vislumbre: você escreveu seu primeiro teste! :D Mas não vamos parar aí, antes de finalizarmos esse post, vamos escrever mais um, e vai ser o seguinte:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">test_template_used</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertTemplateUsed</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s">&#39;core/index.html&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Adicione mais esse teste no arquivo <code>tests.py</code>. O nome do método é bem intuitivo: <code>test_template_used</code> será onde iremos verificar se naquele response está sendo renderizado o nosso template fornecido na nossa view. Feito isso, vamos rodar mais uma vez e ver o resultado:</p>
+<div class="highlight"><pre><span class="nv">$ </span>python manage.py <span class="nb">test </span>backend     
+Creating <span class="nb">test </span>database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+..
+----------------------------------------------------------------------
+Ran <span class="m">2</span> tests in 0.260s
+
+OK
+Destroying <span class="nb">test </span>database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+</pre></div>
+
+
+<p>Dessa vez retirei a flag de verbosidade, porque uma vez que sabemos aqueles detalhes, podemos nos atentar para um output mais limpo. E como podemos ver, nossos 2 testes passaram com sucesso!</p>
+<p><img alt="" src="https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif" /></p>
+<p>Agora uma rápida otimizada: para não termos que digitar sempre isso tudo <code>python manage.py test backend</code>, podemo colocar isso dentro do nosso arquivo <code>Makefile</code> e usar uma chamada menor. Ao final do arquivo, você adicionaria:</p>
+<div class="highlight"><pre><span class="nf">test</span><span class="o">:</span>
+    python manage.py <span class="nb">test </span>backend
+</pre></div>
+
+
+<p>Após isso, você poderá chamar somente <code>make test</code> e terá os testes sendo executados. Pronto? Quase. Lembram que estamos utilizando o git? Fizemos algumas alterações no nosso projeto, então está na hora de commitar! Ao verificar o status do seu repositório local, verá que temos alterações em 2 arquivos:</p>
+<div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+Changes not staged <span class="k">for</span> commit:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed<span class="o">)</span>
+  <span class="o">(</span>use <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory<span class="o">)</span>
+
+    modified:   Makefile
+    modified:   backend/core/tests.py
+
+no changes added to commit <span class="o">(</span>use <span class="s2">&quot;git add&quot;</span> and/or <span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+</pre></div>
+
+
+<p>Exatamente os dois que modificamos no decorrer do post. Se você quiser saber o que está de diferente, basta executar <code>git diff</code>. Com ele, você vai ter um output muito parecido com esse:</p>
+<div class="highlight"><pre>diff --git a/Makefile b/Makefile
+index 8e8bcd0..0255049 100644
+--- a/Makefile
++++ b/Makefile
+@@ -26,3 +26,6 @@ install-dev-requirements:
+
+ setup-frontend:
+        bower install --allow-root
++
++test:
++       python manage.py <span class="nb">test </span>backend
+diff --git a/backend/core/tests.py b/backend/core/tests.py
+index e69de29..5ae4aae 100644
+--- a/backend/core/tests.py
++++ b/backend/core/tests.py
+@@ -0,0 +1,19 @@
++from django.test import TestCase
++from django.core.urlresolvers import reverse
++
++
++class IndexViewTest<span class="o">(</span>TestCase<span class="o">)</span>:
++
++    def setUp<span class="o">(</span>self<span class="o">)</span>:
++
++        self.url <span class="o">=</span> reverse<span class="o">(</span><span class="s1">&#39;core:index&#39;</span><span class="o">)</span>
++
++    def test_response_200<span class="o">(</span>self<span class="o">)</span>:
++        <span class="nv">response</span> <span class="o">=</span> self.client.get<span class="o">(</span>self.url<span class="o">)</span>
++
++        self.assertEqual<span class="o">(</span>response.status_code, 200<span class="o">)</span>
++
++    def test_template_used<span class="o">(</span>self<span class="o">)</span>:
++        <span class="nv">response</span> <span class="o">=</span> self.client.get<span class="o">(</span>self.url<span class="o">)</span>
++
++        self.assertTemplateUsed<span class="o">(</span>response, <span class="s1">&#39;core/index.html&#39;</span><span class="o">)</span>
+</pre></div>
+
+
+<p>Nele você vai saber quais arquivos foram alterados, e quais as alterações. O <code>+</code> indica que houveram adições de conteúdo no arquivo, e o <code>-</code> a remoção. No nosso caso, só vamos ter adição. Feito isso, vamos adicionar essa mudança e commitar. Mas, faremos por partes. Uma coisa muito importante quando se trata de versionamento de código e commits, é ter tudo muito bem organizado. Um commit é como se fosse um <em>checkpoint</em> do seu código. Você vai estar incorporando de fato uma alteração no seu repositório, e dando a ela um significado (mensagem do commit). Vimos um pouco disso no post passado.</p>
+<p>Beleza, vamos começar adicionando o nosso <code>tests.py</code>:</p>
+<div class="highlight"><pre><span class="nv">$ </span>git add backend/core/tests.py 
+</pre></div>
+
+
+<p>Depois disso, <code>git commit</code> que vai nos levar para aquela tela para que possamos escrever a mensagem do commit:</p>
+<div class="highlight"><pre>Add IndexViewTest
+<span class="c"># Please enter the commit message for your changes. Lines starting</span>
+<span class="c"># with &#39;#&#39; will be ignored, and an empty message aborts the commit.</span>
+<span class="c"># On branch master</span>
+<span class="c"># Changes to be committed:</span>
+<span class="c">#       modified:   backend/core/tests.py</span>
+<span class="c">#</span>
+<span class="c"># Changes not staged for commit:</span>
+<span class="c">#       modified:   Makefile</span>
+<span class="c">#</span>
+</pre></div>
+
+
+<p>O mesmo para o <code>Makefile</code>.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git add Makefile 
+</pre></div>
+
+
+<p>e por fim <code>git commit</code> novamente:</p>
+<div class="highlight"><pre>Add <span class="nb">test command </span>to makefile
+<span class="c"># Please enter the commit message for your changes. Lines starting</span>
+<span class="c"># with &#39;#&#39; will be ignored, and an empty message aborts the commit.</span>
+<span class="c"># On branch master</span>
+<span class="c"># Changes to be committed:</span>
+<span class="c">#       modified:   Makefile</span>
+<span class="c">#</span>
+</pre></div>
+
+
+<p>E pra fechar com chave de ouro, vamos enviar nossas alterações para o GitHub:</p>
+<div class="highlight"><pre><span class="nv">$ </span>git push github master
+Counting objects: 8, <span class="k">done</span>.
+Delta compression using up to <span class="m">4</span> threads.
+Compressing objects: 100% <span class="o">(</span>8/8<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: 100% <span class="o">(</span>8/8<span class="o">)</span>, <span class="m">972</span> bytes <span class="p">|</span> <span class="m">0</span> bytes/s, <span class="k">done</span>.
+Total <span class="m">8</span> <span class="o">(</span>delta 4<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>
+remote: Resolving deltas: 100% <span class="o">(</span>4/4<span class="o">)</span>, completed with <span class="m">3</span> <span class="nb">local </span>objects.
+To github.com:dunderlabs/turbo_send_mail.git
+   de47897..7ebcfa5  master -&gt; master
+</pre></div>
+
+
+<p>Agora sim, podemos dormir em paz :) Ainda há <strong>muita coisa</strong> dentro desse tema chamado testes, mas vamos vendo aos poucos e com calma. Dessa maneira, conforme nossa aplicação for crescendo, vamos nos acostumando cada vez mais. Por hoje, vamos ficar por aqui. No próximo post vamos começar a dar uma olhada no models do Django. Então fica ligado :D</p>
+<p>Dúvidas e/ou críticas, só visitar os comentários mais abaixo. Valeu pessoal, e até a próxima!</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Ir para o topo</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "dunderlabs"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><footer class="footer">
+    <p>&copy; __labs__ &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-72641866-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+    </script>
+</body>
+</html>
