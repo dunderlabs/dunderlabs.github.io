@@ -187,7 +187,7 @@ Destroying <span class="nb">test </span>database <span class="k">for</span> <spa
 
 
 <p>Como fizemos antes, estaremos usando a classe <code>TestCase</code> e criaremos uma <code>IndexViewTest</code> que herdará da primeira. Essa suite de testes será responsável por cobrir as funcionalidades da nossa view index. No método <code>setUp</code> salvarei a URL que estaremos acessando sempre nos testes, e para isso usaremos a função <a href="https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#reverse"><code>reverse</code></a> que tratará de transformar esse namespace <code>'core:index'</code> em uma URL válida. </p>
-<p>Feito isso, criaremos o teste <code>test_response_200</code> que irá nos garantir que ao acessar a nossa página inicial, teremos um <a href="https://httpstatusdogs.com/200-ok">status_code 200</a>. Para tal, usaremos o <a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client"><code>self.client</code></a>, que nada mais é do que uma instância da classe <a href="https://docs.djangoproject.com/en/1.11/_modules/django/test/client/#Client"><code>Client</code></a> do Django que vai agir como se fosse um navegador, para que você possa interagir com as suas views, seja com <code>GET</code>, <code>POST</code> ou qualquer outra ação HTTP. Entendida essa parte, vamos seguir adiante. Iremos salvar o resultado desse GET na variável <code>response</code>, e a seguir usaremos novamente o <code>self.assertEqual</code> para confirmar que o <code>response.status_code</code> é igual a 200.</p>
+<p>Feito isso, criaremos o teste <code>test_response_200</code> que irá nos garantir que ao acessar a nossa página inicial, teremos um <a href="https://httpstatusdogs.com/200-ok">status_code 200</a>. Para tal, usaremos o <a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client"><code>self.client</code></a>, que nada mais é do que uma instância da classe <a href="https://docs.djangoproject.com/en/1.11/_modules/django/test/client/#Client"><code>Client</code></a> do Django que atua como um cliente http que pode ser usado para testar desde API até uma página qualquer. Em outras palavras: ele vai agir como o navegador para que você possa interagir com as suas views, seja com <code>GET</code>, <code>POST</code> ou qualquer outra ação HTTP. Entendida essa parte, vamos seguir adiante. Iremos salvar o resultado desse GET na variável <code>response</code>, e a seguir usaremos novamente o <code>self.assertEqual</code> para confirmar que o <code>response.status_code</code> é igual a 200.</p>
 <p>Pronto, criado nosso teste, vamos... <strong>testar!</strong></p>
 <blockquote>
 <p>Obs.: Como estamos usando uma estrutura diferente de projeto, para rodar nossos testes usaremos um comando um pouco diferente do normal.
@@ -294,41 +294,41 @@ no changes added to commit <span class="o">(</span>use <span class="s2">&quot;gi
 
 
 <p>Exatamente os dois que modificamos no decorrer do post. Se você quiser saber o que está de diferente, basta executar <code>git diff</code>. Com ele, você vai ter um output muito parecido com esse:</p>
-<div class="highlight"><pre>diff --git a/Makefile b/Makefile
-index 8e8bcd0..0255049 100644
---- a/Makefile
-+++ b/Makefile
-@@ -26,3 +26,6 @@ install-dev-requirements:
+<div class="highlight"><pre><span class="gh">diff --git a/Makefile b/Makefile</span>
+<span class="gh">index 8e8bcd0..0255049 100644</span>
+<span class="gd">--- a/Makefile</span>
+<span class="gi">+++ b/Makefile</span>
+<span class="gu">@@ -26,3 +26,6 @@ install-dev-requirements:</span>
 
  setup-frontend:
         bower install --allow-root
-+
-+test:
-+       python manage.py <span class="nb">test </span>backend
-diff --git a/backend/core/tests.py b/backend/core/tests.py
-index e69de29..5ae4aae 100644
---- a/backend/core/tests.py
-+++ b/backend/core/tests.py
-@@ -0,0 +1,19 @@
-+from django.test import TestCase
-+from django.core.urlresolvers import reverse
-+
-+
-+class IndexViewTest<span class="o">(</span>TestCase<span class="o">)</span>:
-+
-+    def setUp<span class="o">(</span>self<span class="o">)</span>:
-+
-+        self.url <span class="o">=</span> reverse<span class="o">(</span><span class="s1">&#39;core:index&#39;</span><span class="o">)</span>
-+
-+    def test_response_200<span class="o">(</span>self<span class="o">)</span>:
-+        <span class="nv">response</span> <span class="o">=</span> self.client.get<span class="o">(</span>self.url<span class="o">)</span>
-+
-+        self.assertEqual<span class="o">(</span>response.status_code, 200<span class="o">)</span>
-+
-+    def test_template_used<span class="o">(</span>self<span class="o">)</span>:
-+        <span class="nv">response</span> <span class="o">=</span> self.client.get<span class="o">(</span>self.url<span class="o">)</span>
-+
-+        self.assertTemplateUsed<span class="o">(</span>response, <span class="s1">&#39;core/index.html&#39;</span><span class="o">)</span>
+<span class="gi">+</span>
+<span class="gi">+test:</span>
+<span class="gi">+       python manage.py test backend</span>
+<span class="gh">diff --git a/backend/core/tests.py b/backend/core/tests.py</span>
+<span class="gh">index e69de29..5ae4aae 100644</span>
+<span class="gd">--- a/backend/core/tests.py</span>
+<span class="gi">+++ b/backend/core/tests.py</span>
+<span class="gu">@@ -0,0 +1,19 @@</span>
+<span class="gi">+from django.test import TestCase</span>
+<span class="gi">+from django.core.urlresolvers import reverse</span>
+<span class="gi">+</span>
+<span class="gi">+</span>
+<span class="gi">+class IndexViewTest(TestCase):</span>
+<span class="gi">+</span>
+<span class="gi">+    def setUp(self):</span>
+<span class="gi">+</span>
+<span class="gi">+        self.url = reverse(&#39;core:index&#39;)</span>
+<span class="gi">+</span>
+<span class="gi">+    def test_response_200(self):</span>
+<span class="gi">+        response = self.client.get(self.url)</span>
+<span class="gi">+</span>
+<span class="gi">+        self.assertEqual(response.status_code, 200)</span>
+<span class="gi">+</span>
+<span class="gi">+    def test_template_used(self):</span>
+<span class="gi">+        response = self.client.get(self.url)</span>
+<span class="gi">+</span>
+<span class="gi">+        self.assertTemplateUsed(response, &#39;core/index.html&#39;)</span>
 </pre></div>
 
 

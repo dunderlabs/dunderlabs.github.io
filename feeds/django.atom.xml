@@ -94,7 +94,7 @@ Destroying &lt;span class="nb"&gt;test &lt;/span&gt;database &lt;span class="k"&
 
 
 &lt;p&gt;Como fizemos antes, estaremos usando a classe &lt;code&gt;TestCase&lt;/code&gt; e criaremos uma &lt;code&gt;IndexViewTest&lt;/code&gt; que herdará da primeira. Essa suite de testes será responsável por cobrir as funcionalidades da nossa view index. No método &lt;code&gt;setUp&lt;/code&gt; salvarei a URL que estaremos acessando sempre nos testes, e para isso usaremos a função &lt;a href="https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#reverse"&gt;&lt;code&gt;reverse&lt;/code&gt;&lt;/a&gt; que tratará de transformar esse namespace &lt;code&gt;'core:index'&lt;/code&gt; em uma URL válida. &lt;/p&gt;
-&lt;p&gt;Feito isso, criaremos o teste &lt;code&gt;test_response_200&lt;/code&gt; que irá nos garantir que ao acessar a nossa página inicial, teremos um &lt;a href="https://httpstatusdogs.com/200-ok"&gt;status_code 200&lt;/a&gt;. Para tal, usaremos o &lt;a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client"&gt;&lt;code&gt;self.client&lt;/code&gt;&lt;/a&gt;, que nada mais é do que uma instância da classe &lt;a href="https://docs.djangoproject.com/en/1.11/_modules/django/test/client/#Client"&gt;&lt;code&gt;Client&lt;/code&gt;&lt;/a&gt; do Django que vai agir como se fosse um navegador, para que você possa interagir com as suas views, seja com &lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;POST&lt;/code&gt; ou qualquer outra ação HTTP. Entendida essa parte, vamos seguir adiante. Iremos salvar o resultado desse GET na variável &lt;code&gt;response&lt;/code&gt;, e a seguir usaremos novamente o &lt;code&gt;self.assertEqual&lt;/code&gt; para confirmar que o &lt;code&gt;response.status_code&lt;/code&gt; é igual a 200.&lt;/p&gt;
+&lt;p&gt;Feito isso, criaremos o teste &lt;code&gt;test_response_200&lt;/code&gt; que irá nos garantir que ao acessar a nossa página inicial, teremos um &lt;a href="https://httpstatusdogs.com/200-ok"&gt;status_code 200&lt;/a&gt;. Para tal, usaremos o &lt;a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client"&gt;&lt;code&gt;self.client&lt;/code&gt;&lt;/a&gt;, que nada mais é do que uma instância da classe &lt;a href="https://docs.djangoproject.com/en/1.11/_modules/django/test/client/#Client"&gt;&lt;code&gt;Client&lt;/code&gt;&lt;/a&gt; do Django que atua como um cliente http que pode ser usado para testar desde API até uma página qualquer. Em outras palavras: ele vai agir como o navegador para que você possa interagir com as suas views, seja com &lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;POST&lt;/code&gt; ou qualquer outra ação HTTP. Entendida essa parte, vamos seguir adiante. Iremos salvar o resultado desse GET na variável &lt;code&gt;response&lt;/code&gt;, e a seguir usaremos novamente o &lt;code&gt;self.assertEqual&lt;/code&gt; para confirmar que o &lt;code&gt;response.status_code&lt;/code&gt; é igual a 200.&lt;/p&gt;
 &lt;p&gt;Pronto, criado nosso teste, vamos... &lt;strong&gt;testar!&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Obs.: Como estamos usando uma estrutura diferente de projeto, para rodar nossos testes usaremos um comando um pouco diferente do normal.
@@ -201,41 +201,41 @@ no changes added to commit &lt;span class="o"&gt;(&lt;/span&gt;use &lt;span clas
 
 
 &lt;p&gt;Exatamente os dois que modificamos no decorrer do post. Se você quiser saber o que está de diferente, basta executar &lt;code&gt;git diff&lt;/code&gt;. Com ele, você vai ter um output muito parecido com esse:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;diff --git a/Makefile b/Makefile
-index 8e8bcd0..0255049 100644
---- a/Makefile
-+++ b/Makefile
-@@ -26,3 +26,6 @@ install-dev-requirements:
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gh"&gt;diff --git a/Makefile b/Makefile&lt;/span&gt;
+&lt;span class="gh"&gt;index 8e8bcd0..0255049 100644&lt;/span&gt;
+&lt;span class="gd"&gt;--- a/Makefile&lt;/span&gt;
+&lt;span class="gi"&gt;+++ b/Makefile&lt;/span&gt;
+&lt;span class="gu"&gt;@@ -26,3 +26,6 @@ install-dev-requirements:&lt;/span&gt;
 
  setup-frontend:
         bower install --allow-root
-+
-+test:
-+       python manage.py &lt;span class="nb"&gt;test &lt;/span&gt;backend
-diff --git a/backend/core/tests.py b/backend/core/tests.py
-index e69de29..5ae4aae 100644
---- a/backend/core/tests.py
-+++ b/backend/core/tests.py
-@@ -0,0 +1,19 @@
-+from django.test import TestCase
-+from django.core.urlresolvers import reverse
-+
-+
-+class IndexViewTest&lt;span class="o"&gt;(&lt;/span&gt;TestCase&lt;span class="o"&gt;)&lt;/span&gt;:
-+
-+    def setUp&lt;span class="o"&gt;(&lt;/span&gt;self&lt;span class="o"&gt;)&lt;/span&gt;:
-+
-+        self.url &lt;span class="o"&gt;=&lt;/span&gt; reverse&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;core:index&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-+
-+    def test_response_200&lt;span class="o"&gt;(&lt;/span&gt;self&lt;span class="o"&gt;)&lt;/span&gt;:
-+        &lt;span class="nv"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; self.client.get&lt;span class="o"&gt;(&lt;/span&gt;self.url&lt;span class="o"&gt;)&lt;/span&gt;
-+
-+        self.assertEqual&lt;span class="o"&gt;(&lt;/span&gt;response.status_code, 200&lt;span class="o"&gt;)&lt;/span&gt;
-+
-+    def test_template_used&lt;span class="o"&gt;(&lt;/span&gt;self&lt;span class="o"&gt;)&lt;/span&gt;:
-+        &lt;span class="nv"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; self.client.get&lt;span class="o"&gt;(&lt;/span&gt;self.url&lt;span class="o"&gt;)&lt;/span&gt;
-+
-+        self.assertTemplateUsed&lt;span class="o"&gt;(&lt;/span&gt;response, &lt;span class="s1"&gt;&amp;#39;core/index.html&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+test:&lt;/span&gt;
+&lt;span class="gi"&gt;+       python manage.py test backend&lt;/span&gt;
+&lt;span class="gh"&gt;diff --git a/backend/core/tests.py b/backend/core/tests.py&lt;/span&gt;
+&lt;span class="gh"&gt;index e69de29..5ae4aae 100644&lt;/span&gt;
+&lt;span class="gd"&gt;--- a/backend/core/tests.py&lt;/span&gt;
+&lt;span class="gi"&gt;+++ b/backend/core/tests.py&lt;/span&gt;
+&lt;span class="gu"&gt;@@ -0,0 +1,19 @@&lt;/span&gt;
+&lt;span class="gi"&gt;+from django.test import TestCase&lt;/span&gt;
+&lt;span class="gi"&gt;+from django.core.urlresolvers import reverse&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+class IndexViewTest(TestCase):&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+    def setUp(self):&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+        self.url = reverse(&amp;#39;core:index&amp;#39;)&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+    def test_response_200(self):&lt;/span&gt;
+&lt;span class="gi"&gt;+        response = self.client.get(self.url)&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+        self.assertEqual(response.status_code, 200)&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+    def test_template_used(self):&lt;/span&gt;
+&lt;span class="gi"&gt;+        response = self.client.get(self.url)&lt;/span&gt;
+&lt;span class="gi"&gt;+&lt;/span&gt;
+&lt;span class="gi"&gt;+        self.assertTemplateUsed(response, &amp;#39;core/index.html&amp;#39;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
