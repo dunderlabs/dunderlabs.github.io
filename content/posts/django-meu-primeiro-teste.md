@@ -121,7 +121,7 @@ class IndexViewTest(TestCase):
 
 Como fizemos antes, estaremos usando a classe `TestCase` e criaremos uma `IndexViewTest` que herdará da primeira. Essa suite de testes será responsável por cobrir as funcionalidades da nossa view index. No método `setUp` salvarei a URL que estaremos acessando sempre nos testes, e para isso usaremos a função [`reverse`](https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#reverse) que tratará de transformar esse namespace `'core:index'` em uma URL válida. 
 
-Feito isso, criaremos o teste `test_response_200` que irá nos garantir que ao acessar a nossa página inicial, teremos um [status_code 200](https://httpstatusdogs.com/200-ok). Para tal, usaremos o [`self.client`](https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client), que nada mais é do que uma instância da classe [`Client`](https://docs.djangoproject.com/en/1.11/_modules/django/test/client/#Client) do Django que vai agir como se fosse um navegador, para que você possa interagir com as suas views, seja com `GET`, `POST` ou qualquer outra ação HTTP. Entendida essa parte, vamos seguir adiante. Iremos salvar o resultado desse GET na variável `response`, e a seguir usaremos novamente o `self.assertEqual` para confirmar que o `response.status_code` é igual a 200.
+Feito isso, criaremos o teste `test_response_200` que irá nos garantir que ao acessar a nossa página inicial, teremos um [status_code 200](https://httpstatusdogs.com/200-ok). Para tal, usaremos o [`self.client`](https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client), que nada mais é do que uma instância da classe [`Client`](https://docs.djangoproject.com/en/1.11/_modules/django/test/client/#Client) do Django que atua como um cliente http que pode ser usado para testar desde API até uma página qualquer. Em outras palavras: ele vai agir como o navegador para que você possa interagir com as suas views, seja com `GET`, `POST` ou qualquer outra ação HTTP. Entendida essa parte, vamos seguir adiante. Iremos salvar o resultado desse GET na variável `response`, e a seguir usaremos novamente o `self.assertEqual` para confirmar que o `response.status_code` é igual a 200.
 
 Pronto, criado nosso teste, vamos... **testar!**
 
@@ -239,7 +239,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 Exatamente os dois que modificamos no decorrer do post. Se você quiser saber o que está de diferente, basta executar `git diff`. Com ele, você vai ter um output muito parecido com esse:
 
-```shell
+```diff
 diff --git a/Makefile b/Makefile
 index 8e8bcd0..0255049 100644
 --- a/Makefile
