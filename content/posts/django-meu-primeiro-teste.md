@@ -7,9 +7,9 @@ category: django
 tags: django, django-serie
 summary: Agora que nosso projeto já está configurado e funcionando, vamos começar a programar! E que maneira melhor do que já começar programando ao escrever seu primeiro teste automatizado com Django?
 about_author: My name is Patrick and I'm a web developer who fell in love with Python
-image: /images/posts/django_test.svg
+image: /images/posts/django_test.png
 
-![Django test]({filename}/images/posts/django_test.svg)
+![Django test]({filename}/images/posts/django_test.png)
 
 Créditos da imagem: <https://docs.djangoproject.com/en/1.11/topics/testing/tools>
 
