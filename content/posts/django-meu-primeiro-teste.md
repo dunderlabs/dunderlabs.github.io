@@ -186,7 +186,7 @@ FAILED (failures=1)
 Destroying test database for alias 'default' ('test_turbo_send_mail')...
 ```
 
-Cada teste que falhar, vai nos trazer um traceback com as informações necessárias para que saibamos qual arquivo, linha, teste e qual a linha em que falou. Ao lermos, sabemos que no `AssertionError: 200 != 300`. Ou seja, o nosso `response.status_code` é 200, mas estamos comparando com 300. Pronto, feito isso, voltamos o nosso código para 200 e assim funcione bem.
+Cada teste que falhar, vai nos trazer um traceback com as informações necessárias para que saibamos qual arquivo, teste e em qual linha ele falhou. Ao lermos, sabemos que no `AssertionError: 200 != 300`. Ou seja, o nosso `response.status_code` é 200, mas estamos comparando com 300. Pronto, feito isso, voltamos o nosso código para 200 e assim funcione bem.
 
 Agora pare um pouco, e vislumbre: você escreveu seu primeiro teste! :D Mas não vamos parar aí, antes de finalizarmos esse post, vamos escrever mais um, e vai ser o seguinte:
 
