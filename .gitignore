@@ -9,3 +9,6 @@ output/
 # Cache files
 cache/*
 
+# Config files
+.project
+
