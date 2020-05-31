@@ -248,6 +248,13 @@ pre {
     margin: -1px 0 0 0;
 }
 
+.pure-g-r img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 .footer {
     text-align: center;
     padding: 2em 0;
