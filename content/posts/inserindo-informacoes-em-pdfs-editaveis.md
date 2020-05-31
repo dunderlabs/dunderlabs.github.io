@@ -17,6 +17,8 @@ Fala pessoal, tudo beleza? Quase 3 anos depois, estou de volta ao blog. E dessa 
 
 ![I am back](https://media.giphy.com/media/yj5UdA4elp8Wc/giphy.gif)
 
+# Como começou
+
 Há algum tempo que eu estava pensando em algum assunto interessante para voltar a escrever aqui. Algo pequeno porém conciso. Daí, em um dia normal do trabalho, passei muita dor de cabeça pra resolver um problema. Era um projeto que um colega me propôs onde iríamos melhorar um processo para os nossos usários internos. Atualmente, pra finalizar esse processo, nossos usuários faziam o seguinte:
 - Baixavam um template de PDF
 - Buscavam no sistema as informações necessárias para preenchê-lo
@@ -28,16 +30,29 @@ Acho que já deu pra visualizar onde o gargalo e consumo de tempo estão, né? P
 
 ![Como???](https://media.giphy.com/media/QjIz1AqkGTszK/giphy.gif)
 
-É bem comum manipulações com certos tipos de arquivo, como `.csv` ou mesmo arquivos `.xlsx`. Apesar de eu saber que não é impossível fazer o mesmo com PDF, pelo pouco que eu sabia do arquivo, seria bem trabalhoso (spoiler: nem foi tanto assim). Certo, se é isso que precisamos fazer, vamos nessa. Comecei a pesquisar sobre maneiras de manipular arquivos PDF. Uma amiga do trabalho também me enviou dois links ([PDF for Python](https://medium.com/@umerfarooq_26378/python-for-pdf-ef0fac2808b0) e [PDF processing with Python](https://towardsdatascience.com/pdf-preprocessing-with-python-19829752af9f)) que ajudaram bastante. Neles temos listados algumas libs Python já existentes para lidar com esse tipo de arquivo. Tem algumas que parece ser bem famosas nesse quesito. Uma entre elas me chamou atenção. E essa foi a [`pdfrw`](https://github.com/pmaupin/pdfrw), por ter o seguinte na descrição: _The **fastest** pure Python PDF parser available_. A [PyPDF2](https://github.com/mstamy2/PyPDF2) também carrega essa alcunha no título, com exceção do *fastest*. Não fiz nenhum teste de benchmarch (ainda), então preferi acreditar na audácia do autor em colocar isso :P
+# A busca pela lib (quase) perfeita
 
-Biblioteca escolhida, vem a segunda parte: como fazer para preencher um template de PDF com as informações que nós queremos? Bom, de volta a sala de pesquisa. Adentrando um pouco mais o Google, consegui encontrar um post de alguém que ensinava como fazer **exatamente** o que eu precisava: [_How to Populate Fillable PDF's with Python_](https://bostata.com/how-to-populate-fillable-pdfs-with-python/). Achei uma abordagem muito simples, além de ter me lembrado de algo que eu já não fazia há algum tempo: salvar e compartilhar um aprendizado (o autor do post antes de chegar nessa solução, também pesquisou bastante e se baseou em outros posts). Beleza, vamos colocar os dedos no código!
+É bem comum manipulações com certos tipos de arquivo, como `.csv` ou mesmo arquivos `.xlsx`. Apesar de eu saber que não é impossível fazer o mesmo com PDF, pelo pouco que eu sabia do arquivo, seria bem trabalhoso (spoiler: nem foi tanto assim). Certo, se é isso que precisamos fazer, vamos nessa. Comecei a pesquisar sobre maneiras de manipular arquivos PDF. Uma amiga do trabalho também me enviou dois links ([PDF for Python](https://medium.com/@umerfarooq_26378/python-for-pdf-ef0fac2808b0) e [PDF processing with Python](https://towardsdatascience.com/pdf-preprocessing-with-python-19829752af9f)) que ajudaram bastante.
+
+Neles temos listados algumas libs Python já existentes para lidar com esse tipo de arquivo. Tem algumas que parece ser bem famosas nesse quesito. Uma entre elas me chamou atenção. E essa foi a [`pdfrw`](https://github.com/pmaupin/pdfrw), por ter o seguinte na descrição: _The **fastest** pure Python PDF parser available_. A [PyPDF2](https://github.com/mstamy2/PyPDF2) também carrega essa alcunha no título, com exceção do *fastest*. Não fiz nenhum teste de benchmarch (ainda), então preferi acreditar na audácia do autor em colocar isso :P
+
+Biblioteca escolhida, vem a segunda parte: como fazer para preencher um template de PDF com as informações que nós queremos? Bom, de volta a sala de pesquisa. Adentrando um pouco mais o Google, consegui encontrar um post de alguém que ensinava como fazer **exatamente** o que eu precisava: [_How to Populate Fillable PDF's with Python_](https://bostata.com/how-to-populate-fillable-pdfs-with-python/).
+
+Achei uma abordagem muito simples, além de ter me lembrado de algo que eu já não fazia há algum tempo: salvar e compartilhar um aprendizado (o autor do post antes de chegar nessa solução, também pesquisou bastante e se baseou em outros posts). Beleza, vamos colocar os dedos no código!
+
+# Preparando as ferramentas
 
 Mas antes de qualquer código, precisamos preparar nosso template de PDF. Assim como no post mencionado anteriormente, vamos pegar um do [Square](https://squareup.com/us/en/invoices/invoice-templates), onde podemos baixar um PDf de [cobrança gratuitamente](https://d1g145x70srn7h.cloudfront.net/invoices/templates/red/invoice-template-en-us.pdf?color=red&format=pdf). Primeiro, vamos abrir esse arquivo para ver o que temos. Estou usando KDE, então estou utilizando o Okular para arquivos PDF. Ao abrir o arquivo, essa é a imagem que tenho: ![PDF aberto usando Okular](https://i.imgur.com/d2icDUe.png).
 
-Você vai notar que tem um botão _Show Forms_ e ao clicar nele caixas escuras vão aparecer no PDF onde existem campos preenchíveis (você pode checar [aqui](https://i.imgur.com/1vdbroU.png)). Cada campo desse pode ter um valor inserido. É realmente como se fosse um formulário. Certo, agora o próximo passo é editar o _nome_ de cada um desses campos pra algo mais próximo do nome de uma variável, afinal seria um pouco estranho ficar referenciando `Business Name` ao invés de `business_name` (vamos ver como isso vai ajudar mais na frente). Para isso, vamos precisar de algum programa para editar esse form, e infelizmente o Okular não tem essa funcionalidade. Pesquisando um pouco encontrei algumas opções e para fins de praticidade acabei ficando com o [Master PDF Editor Free](https://aur.archlinux.org/packages/masterpdfeditor-free/). É a versão free de um software pago. Também encontrei uma ferramenta web que nos traz a mesma funcionalidade, [PDF Escape](https://www.pdfescape.com/). Só fica um pouco escondida (você tem que dar [_unlock_](https://i.imgur.com/mTcFDRy.png) no field, depois [_Object Properties_](https://i.imgur.com/8LAUe1o.png) que vai abrir um [_modal_](https://i.imgur.com/NsxzsfE.png) onde você vai poder mudar o `Name` do field). Finalizando toda a troca dos nomes por um snake-case, teremos o seguinte:
+Você vai notar que tem um botão _Show Forms_ e ao clicar nele caixas escuras vão aparecer no PDF onde existem campos preenchíveis (você pode checar [aqui](https://i.imgur.com/1vdbroU.png)). Cada campo desse pode ter um valor inserido. É realmente como se fosse um formulário. Certo, agora o próximo passo é editar o _nome_ de cada um desses campos pra algo mais próximo do nome de uma variável, afinal seria um pouco estranho ficar referenciando `Business Name` ao invés de `business_name` (vamos ver como isso vai ajudar mais na frente). Para isso, vamos precisar de algum programa para editar esse form, e infelizmente o Okular não tem essa funcionalidade.
+
+Pesquisando um pouco encontrei algumas opções e para fins de praticidade acabei ficando com o [Master PDF Editor Free](https://aur.archlinux.org/packages/masterpdfeditor-free/). É a versão free de um software pago. Também encontrei uma ferramenta web que nos traz a mesma funcionalidade, [PDF Escape](https://www.pdfescape.com/).
+
+Só fica um pouco escondida (você tem que dar [_unlock_](https://i.imgur.com/mTcFDRy.png) no field, depois [_Object Properties_](https://i.imgur.com/8LAUe1o.png) que vai abrir um [_modal_](https://i.imgur.com/NsxzsfE.png) onde você vai poder mudar o `Name` do field). Finalizando toda a troca dos nomes por um snake-case, teremos o seguinte:
 
 ![PDF com nomes em snake-case](https://i.imgur.com/dnzC6hm.png)
 
+# Agora sim, código!
 
 Agora vamos pegar cada um desses nomes e salvar em um dicionário sendo as chaves e criar alguns valores fictícios. Aqui vou deixar ele assim:
 
@@ -91,7 +106,9 @@ In [8]: len(pdf.pages)
 Out[8]: 1
 ```
 
-Como podemos ver, o `PdfReader` lê o arquivo PDF e entrega pra gente um objeto de fácil interação. Pelo que pudemos ver, essa instância também tem métodos que você normalmente encontra em um dicionário, como `.keys()`. Se você der um `dir(pdf)` vai conseguir ver todos os métodos que esse objeto nos dá, entre eles `.values()`, `.update()` (métodos de `dict`) além de métodos da específicos da classe `PdfReader`. Se você der um print em `pdf.Root` ele irá mostrar todo o conteúdo do PDF parseado na estrutura `key:value` que a lib cria. O código que vamos usar para escrever as nossas informações no template, vai percorrer a estrutura da página do template (no nosso caso, só temos 1 página) usando essas "notações" para chegar nos campos editáveis. Para concluir nosso objetivo, vamos ter o seguinte código:
+Como podemos ver, o `PdfReader` lê o arquivo PDF e entrega pra gente um objeto de fácil interação. Pelo que pudemos ver, essa instância também tem métodos que você normalmente encontra em um dicionário, como `.keys()`. Se você der um `dir(pdf)` vai conseguir ver todos os métodos que esse objeto nos dá, entre eles `.values()`, `.update()` (métodos de `dict`) além de métodos da específicos da classe `PdfReader`.
+
+Se você der um print em `pdf.Root` ele irá mostrar todo o conteúdo do PDF parseado na estrutura `key:value` que a lib cria. O código que vamos usar para escrever as nossas informações no template, vai percorrer a estrutura da página do template (no nosso caso, só temos 1 página) usando essas "notações" para chegar nos campos editáveis. Para concluir nosso objetivo, vamos ter o seguinte código:
 
 ```python
 import os
@@ -144,6 +161,8 @@ Agora vamos comentar as partes mais importantes:
 - `[9]` ao final de cada loop, essa linha vai servir para fazer com que esse campo do form não seja mais editável quando você abri-lo. Agradecimentos a resposta nessa [issue](https://github.com/pmaupin/pdfrw/issues/186#issuecomment-585020314)
 - `[10]` isso vai fazer com que quando salvarmos o arquivo, o PDF abra e não apareça mais como sendo um template sem valores nos seus campos. Sem isso, ao abrir o PDF depois de salvo, ainda mostrava os fields e só mostrava os valores ao clicar. Nessa [issue](https://github.com/pmaupin/pdfrw/issues/84#issuecomment-463493521) encontrei isso como solução.
 - `[11]` ao final de tudo, uso o `PdfWriter` para escrever o template modificado em um novo PDF.
+
+# Depois de uma longa jornada, concluímos nosso objetivo
 
 Agora temos por completo o código que vai preencher o formulário em um PDF. As aplicações disso são várias, como por exemplo: uma view Django que gera um PDF preenchido com as informações que estejam no banco de dados. Isso vai diminuir a possibilidade de erro humano, além de acelerar um processo que pode ser facilmente feito pelo sistema. Agora nossos usuários podem focar em somente checar as informações (o que é muito mais rápido) e seguir com o processo.
 
